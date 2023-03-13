@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/core/utils/theme_app.dart';
 
 import 'core/navigator/app_navigator.dart';
 import 'core/routes/router.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: AppNavigator.navigatorKey,
       onGenerateRoute: AppRoute.generateRoute,
       initialRoute: RoutePath.initRoute,
+      theme: buildTheme(),
     );
   }
 }

@@ -13,12 +13,14 @@ class AppPage extends StatelessWidget {
     return BlocListener<AppCubit, AppState>(
       listener: (context, state) {
         if (state.isAuth) {
-          // AppNavigator.pushAndRemoveUntil(RoutePath.initRoute);
+          AppNavigator.pushAndRemoveUntil(RoutePath.initRoute);
         } else {
-
+          AppNavigator.pushAndRemoveUntil(RoutePath.loginRoute);
         }
       },
-      child: Container(),
+      child: Container(
+        color: Colors.white,
+      ),
     );
   }
 }

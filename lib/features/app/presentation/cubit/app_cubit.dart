@@ -14,7 +14,7 @@ class AppCubit extends Cubit<AppState> {
     emit(state.copyWith(status: DataStatus.loading));
 
     Future.delayed(const Duration(seconds: 2), () async {
-      emit(state.copyWith(status: DataStatus.success, isAuth: true));
+      emit(state.copyWith(status: DataStatus.success, isAuth: false));
     });
   }
 }
