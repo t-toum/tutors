@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_colors.dart';
 import 'package:tutors/core/widgets/custom_button.dart';
 import 'package:tutors/core/widgets/custom_icon_with_image_button.dart';
+import 'package:tutors/features/app/presentation/cubit/app_cubit.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -50,8 +52,8 @@ class SignInPage extends StatelessWidget {
                 CustomIconWithImageButton(
                   imageUri: 'assets/images/google_logo.png',
                   text: "Google",
-                  onTap: () {
-                    print('google');
+                  onTap: () async {
+                    await context.read<AppCubit>().signInWithGoogle();
                   },
                 )
               ],

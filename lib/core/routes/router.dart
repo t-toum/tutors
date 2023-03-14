@@ -22,6 +22,11 @@ class AppRoute {
         );
       case RoutePath.loginRoute:
         return _materialRoute(
+          providers: [
+            BlocProvider<AppCubit>(
+              create: (context) => getIt<AppCubit>(),
+            ),
+          ],
           child: const SignInPage(),
         );
       default:

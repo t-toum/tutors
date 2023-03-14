@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 // import 'package:get_it/get_it.dart';
@@ -12,7 +13,7 @@ final getIt = GetIt.instance;
 Future<void> configureDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await EasyLocalization.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   AppNavigator();
 
   await getIt.init();
