@@ -9,6 +9,7 @@ abstract class AppRemoteDatasource {
     required String email,
     required String password,
   });
+  Future<void> singOut();
 }
 
 @LazySingleton(as: AppRemoteDatasource)
@@ -33,6 +34,15 @@ class AppRemoteDatasourceImpl extends AppRemoteDatasource {
   }) async {
     try {
       await authService.createUserWithEmail(email, password);
+    } catch (e) {
+      throw const ServerException("Something went wrong");
+    }
+  }
+
+  @override
+  Future<void> singOut() async {
+    try {
+      await authService.signOut();
     } catch (e) {
       throw const ServerException("Something went wrong");
     }

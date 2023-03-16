@@ -36,4 +36,14 @@ class AppRepositoryImpl implements AppRepository {
       return Left(ServerFailure(e.msg.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      await appRemoteDatasource.singOut();
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg.toString()));
+    }
+  }
 }

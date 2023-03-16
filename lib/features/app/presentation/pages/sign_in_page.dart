@@ -14,53 +14,60 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/images/app_logo.png'),
-                Text(
-                  "Welcome to Tutors",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontWeight: FontWeight.normal),
-                ),
-                const SizedBox(height: 10),
-                const Text("Find the right way to learn"),
-                const SizedBox(height: 40),
-                CustomButton(
-                  textButton: "Sign In",
-                  onPressed: () {
-                    AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
-                        params: true);
-                  },
-                ),
-                const SizedBox(height: 20),
-                CustomButton(
-                  onPressed: () {
-                    AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
-                        params: false);
-                  },
-                  textButton: 'Sign Up',
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "or",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 20),
-                CustomIconWithImageButton(
-                  imageUri: 'assets/images/google_logo.png',
-                  text: "Google",
-                  onTap: () async {
-                    await context.read<AppCubit>().signInWithGoogle();
-                  },
-                )
-              ],
+      body: BlocListener<AppCubit, AppState>(
+        listener: (context, state) {
+          if (state.isAuth) {
+            AppNavigator.navigateTo(RoutePath.homeRoute);
+          }
+        },
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_logo.png'),
+                  Text(
+                    "Welcome to Tutors",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text("Find the right way to learn"),
+                  const SizedBox(height: 40),
+                  CustomButton(
+                    textButton: "Sign In",
+                    onPressed: () {
+                      AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
+                          params: true);
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  CustomButton(
+                    onPressed: () {
+                      AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
+                          params: false);
+                    },
+                    textButton: 'Sign Up',
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "or",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
+                  CustomIconWithImageButton(
+                    imageUri: 'assets/images/google_logo.png',
+                    text: "Google",
+                    onTap: () async {
+                      await context.read<AppCubit>().signInWithGoogle();
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
