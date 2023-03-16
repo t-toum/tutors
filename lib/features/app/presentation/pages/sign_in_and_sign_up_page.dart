@@ -79,7 +79,7 @@ class SignInAndSignUpPage extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         isSignIn
-                            ? context.read<AppCubit>().createUserWithEmail()
+                            ? context.read<AppCubit>().signInWithEmail()
                             : context.read<AppCubit>().createUserWithEmail();
                       }
                     },

@@ -7,5 +7,9 @@ abstract class AppRepository {
     required String email,
     required String password,
   });
+  Future<Either<Failure, void>> signInWithEmail({
+    required String email,
+    required String password,
+  });
   Future<Either<Failure, void>> signOut();
 }

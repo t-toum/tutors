@@ -9,6 +9,10 @@ abstract class AppRemoteDatasource {
     required String email,
     required String password,
   });
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  });
   Future<void> singOut();
 }
 
@@ -43,6 +47,16 @@ class AppRemoteDatasourceImpl extends AppRemoteDatasource {
   Future<void> singOut() async {
     try {
       await authService.signOut();
+    } catch (e) {
+      throw const ServerException("Something went wrong");
+    }
+  }
+
+  @override
+  Future<void> signInWithEmail(
+      {required String email, required String password}) async {
+    try {
+      await authService.signInWithEmail(email, password);
     } catch (e) {
       throw const ServerException("Something went wrong");
     }
