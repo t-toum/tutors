@@ -22,4 +22,18 @@ class AppRepositoryImpl implements AppRepository {
       return Left(ServerFailure(e.msg.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> createUserWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await appRemoteDatasource.createUserWithEmail(
+          email: email, password: password);
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg.toString()));
+    }
+  }
 }

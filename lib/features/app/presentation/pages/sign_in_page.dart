@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_colors.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/custom_button.dart';
 import 'package:tutors/core/widgets/custom_icon_with_image_button.dart';
 import 'package:tutors/features/app/presentation/cubit/app_cubit.dart';
@@ -33,13 +35,15 @@ class SignInPage extends StatelessWidget {
                 CustomButton(
                   textButton: "Sign In",
                   onPressed: () {
-                    print("sign in");
+                    AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
+                        params: true);
                   },
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
                   onPressed: () {
-                    print('sign up');
+                    AppNavigator.navigateTo(RoutePath.signInAndSignUpRoute,
+                        params: false);
                   },
                   textButton: 'Sign Up',
                 ),
