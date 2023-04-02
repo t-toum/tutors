@@ -52,7 +52,9 @@ class AppPage extends StatelessWidget {
                     height: 60,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      AppNavigator.navigateTo(RoutePath.signInRoute);
+                    },
                     child: Text(
                       LocaleKeys.kSignIn.tr(),
                     ),

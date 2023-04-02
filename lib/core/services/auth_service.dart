@@ -6,12 +6,12 @@ import 'package:tutors/core/error/exceptions.dart';
 class AuthService {
   final FirebaseAuth _auth;
   AuthService(this._auth);
-  Future<dynamic> signUpWithEmail({
+  Future<UserCredential> signUpWithEmail({
     required String email,
     required String password,
   }) async {
     try {
-      final credential = _auth.createUserWithEmailAndPassword(
+      final credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       return credential;
     } on FirebaseAuthException catch (e) {
@@ -22,13 +22,15 @@ class AuthService {
         print('The account already exists for that email.');
         throw const ServerException(
             "The account already exists for that email.");
+      } else {
+        throw ServerException(e.message);
       }
     } catch (e) {
       throw ServerException(e.toString());
     }
   }
 
-  Future<dynamic> signIn({
+  Future<UserCredential> signIn({
     required String email,
     required String password,
   }) async {
@@ -43,6 +45,8 @@ class AuthService {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         throw const ServerException('Wrong password provided for that user.');
+      } else {
+        throw ServerException(e.message);
       }
     } catch (e) {
       throw ServerException(e.toString());

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/home/presentation/pages/home_page.dart';
+import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:tutors/features/sign_up/presentation/pages/select_role_page.dart';
 import 'package:tutors/features/sign_up/presentation/pages/sign_up_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
+import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
 import '../widgets/not_found_page.dart';
 
 class AppRoute {
@@ -37,6 +40,24 @@ class AppRoute {
             ),
           ],
           child: SelectRolePage(id: params),
+        );
+      case RoutePath.signInRoute:
+        return _materialRoute(
+          providers: [
+            BlocProvider<SignInCubit>(
+              create: (context) => getIt<SignInCubit>(),
+            ),
+          ],
+          child: const SignInPage(),
+        );
+      case RoutePath.homeRoute:
+        return _materialRoute(
+          providers: [
+            // BlocProvider<SignInCubit>(
+            //   create: (context) => getIt<SignInCubit>(),
+            // ),
+          ],
+          child: const HomePage(),
         );
       default:
         return MaterialPageRoute(

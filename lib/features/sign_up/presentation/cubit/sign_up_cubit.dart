@@ -5,6 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 
+import '../../../../core/navigator/app_navigator.dart';
+import '../../../../core/routes/route_path.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 
 part 'sign_up_cubit.freezed.dart';
@@ -31,10 +33,10 @@ class SignUpCubit extends Cubit<SignUpState> {
       result.fold((error) {
         emit(state.copyWith(status: DataStatus.failure, error: error.msg));
       }, (user) {
-        emit(state.copyWith(
-          status: DataStatus.success,
-          doc: user.user?.uid,
-        ));
+        AppNavigator.pushAndRemoveUntil(
+          RoutePath.roleRoute,
+          params: user.user?.uid,
+        );
       });
     }
   }

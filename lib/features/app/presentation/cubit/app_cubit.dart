@@ -4,14 +4,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 
-import '../../domain/usecases/sign_in_with_email_usecase.dart';
 
 part 'app_cubit.freezed.dart';
 part 'app_state.dart';
 
 @injectable
 class AppCubit extends Cubit<AppState> {
-  final SignInWithEmailUsecase _signInWithEmailUsecase;
 
 
 
@@ -20,7 +18,7 @@ class AppCubit extends Cubit<AppState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  AppCubit(this._signInWithEmailUsecase)
+  AppCubit()
       : super(const AppState()) {
     // formKey = GlobalKey<FormState>();
     // getIt<FirebaseAuth>().authStateChanges().listen((User? user) {
