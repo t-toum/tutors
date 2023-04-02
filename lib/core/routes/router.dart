@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
+import 'package:tutors/features/sign_up/presentation/pages/sign_up_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
@@ -19,15 +21,21 @@ class AppRoute {
           ],
           child: const AppPage(),
         );
-      case RoutePath.loginRoute:
-        return _materialRoute(
-          providers: [
-            BlocProvider<AppCubit>(
-              create: (context) => getIt<AppCubit>(),
-            ),
-          ],
-          child: Container(),
-        );
+      case RoutePath.signUpRoute:
+        return _materialRoute(providers: [
+          BlocProvider<SignUpCubit>(
+            create: (context) => getIt<SignUpCubit>(),
+          )
+        ], child: const SignUpPage());
+      // case RoutePath.loginRoute:
+      //   return _materialRoute(
+      //     providers: [
+      //       BlocProvider<AppCubit>(
+      //         create: (context) => getIt<AppCubit>(),
+      //       ),
+      //     ],
+      //     child: Container(),
+      //   );
       // case RoutePath.signInAndSignUpRoute:
       //   bool isSignIn = settings.arguments as bool;
       //   return _materialRoute(

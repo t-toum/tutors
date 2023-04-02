@@ -8,5 +8,6 @@ abstract class  LocaleKeys {
   static const kSignUp = 'kSignUp';
   static const kOr = 'kOr';
   static const kGoogle = 'kGoogle';
+  static const kSingUpWithEmail = 'kSingUpWithEmail';
 
 }

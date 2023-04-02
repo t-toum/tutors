@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_colors.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/constants/app_images.dart';
@@ -23,7 +25,7 @@ class AppPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.secondaryColor,
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(30),
           child: SafeArea(
             child: Center(
               child: Column(
@@ -59,7 +61,9 @@ class AppPage extends StatelessWidget {
                     height: 25,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      AppNavigator.navigateTo(RoutePath.signUpRoute);
+                    },
                     child: Text(
                       LocaleKeys.kSignUp.tr(),
                     ),

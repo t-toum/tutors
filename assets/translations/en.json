@@ -5,5 +5,6 @@
     "kSignIn":"Sign In",
     "kSignUp": "Sign Up",
     "kOr":"Or",
-    "kGoogle":"Google"
+    "kGoogle":"Google",
+    "kSingUpWithEmail":"Sign up with email"
 }
