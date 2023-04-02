@@ -28,6 +28,7 @@ class SignUpPage extends StatelessWidget {
         foregroundColor: Colors.black,
       ),
       body: BlocConsumer<SignUpCubit, SignUpState>(
+        // buildWhen: (previous, current) => current.status == DataStatus.initial,
         listener: (context, state) {
           if (state.status == DataStatus.failure) {
             Fluttertoast.showToast(msg: state.error ?? '');
