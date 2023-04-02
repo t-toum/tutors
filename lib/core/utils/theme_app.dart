@@ -19,6 +19,23 @@ ThemeData buildTheme() {
     listTileTheme: const ListTileThemeData().copyWith(
       textColor: Colors.black,
     ),
+    buttonTheme: const ButtonThemeData().copyWith(buttonColor: Colors.red),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryColor,
+        minimumSize: const Size.fromHeight(50),
+        foregroundColor: Colors.white,
+        textStyle: const TextStyle().copyWith(
+          fontFamily: "NotoSansLao",
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        padding: const EdgeInsets.all(8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    ),
     textTheme: const TextTheme().copyWith(
       displayLarge: const TextStyle(
         color: Colors.black,
@@ -40,7 +57,7 @@ ThemeData buildTheme() {
       ),
       titleLarge: const TextStyle(
         color: Colors.black,
-        fontSize: 12,
+        fontSize: 24,
         fontFamily: 'NotoSansLao',
         fontWeight: FontWeight.bold,
       ),
@@ -54,7 +71,17 @@ ThemeData buildTheme() {
         fontFamily: 'NotoSansLao',
         fontSize: 12,
       ),
-      titleMedium: const TextStyle(color: Colors.black),
+      bodySmall: const TextStyle(
+        color: Colors.black,
+        fontFamily: 'NotoSansLao',
+        fontSize: 10,
+      ),
+      titleMedium: const TextStyle(
+        color: Colors.black,
+        fontFamily: 'NotoSansLao',
+        fontSize: 14,
+        fontWeight: FontWeight.bold
+      ),
       titleSmall: const TextStyle(color: Colors.black),
     ),
   );

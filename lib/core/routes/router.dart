@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
-import 'package:tutors/core/constants/sign_in_page_params.dart';
 import 'package:tutors/core/routes/route_path.dart';
-import 'package:tutors/features/app/presentation/pages/home_page.dart';
-import 'package:tutors/features/app/presentation/pages/sign_in_and_sign_up_page.dart';
-import 'package:tutors/features/app/presentation/pages/sign_in_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
@@ -30,27 +26,27 @@ class AppRoute {
               create: (context) => getIt<AppCubit>(),
             ),
           ],
-          child: const SignInPage(),
+          child: Container(),
         );
-      case RoutePath.signInAndSignUpRoute:
-        bool isSignIn = settings.arguments as bool;
-        return _materialRoute(
-          providers: [
-            BlocProvider<AppCubit>(
-              create: (context) => getIt<AppCubit>(),
-            ),
-          ],
-          child: SignInAndSignUpPage(isSignIn: isSignIn),
-        );
-      case RoutePath.homeRoute:
-        return _materialRoute(
-          providers: [
-            BlocProvider<AppCubit>(
-              create: (context) => getIt<AppCubit>(),
-            ),
-          ],
-          child: const HomePage(),
-        );
+      // case RoutePath.signInAndSignUpRoute:
+      //   bool isSignIn = settings.arguments as bool;
+      //   return _materialRoute(
+      //       providers: [
+      //         BlocProvider<AppCubit>(
+      //           create: (context) => getIt<AppCubit>(),
+      //         ),
+      //       ],
+      //       // child: SignInAndSignUpPage(isSignIn: isSignIn),
+      //       child: Container());
+      // case RoutePath.homeRoute:
+      //   return _materialRoute(
+      //     providers: [
+      //       BlocProvider<AppCubit>(
+      //         create: (context) => getIt<AppCubit>(),
+      //       ),
+      //     ],
+      //     child: Container(),
+      //   );
       default:
         return MaterialPageRoute(
           builder: (context) => const PageNotFound(),
