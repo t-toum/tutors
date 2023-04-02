@@ -19,6 +19,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> signUp() async {
     if (signUpForm.currentState!.saveAndValidate()) {
+      emit(state.copyWith(status: DataStatus.loading));
       Map<String, dynamic> formValue = signUpForm.currentState?.value ?? {};
       final result = await signUpUsecase(
         SignUpParams(
@@ -30,7 +31,10 @@ class SignUpCubit extends Cubit<SignUpState> {
       result.fold((error) {
         emit(state.copyWith(status: DataStatus.failure, error: error.msg));
       }, (user) {
-        emit(state.copyWith(status: DataStatus.success));
+        emit(state.copyWith(
+          status: DataStatus.success,
+          doc: user.user?.uid,
+        ));
       });
     }
   }

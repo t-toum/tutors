@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignUpState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  String? get doc => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignUpStateCopyWith<SignUpState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $SignUpStateCopyWith<$Res> {
           SignUpState value, $Res Function(SignUpState) then) =
       _$SignUpStateCopyWithImpl<$Res, SignUpState>;
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, String? doc});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? doc = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +59,10 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      doc: freezed == doc
+          ? _value.doc
+          : doc // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -69,7 +75,7 @@ abstract class _$$_InitialCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, String? doc});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? doc = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -94,6 +101,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      doc: freezed == doc
+          ? _value.doc
+          : doc // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -101,17 +112,19 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.status = DataStatus.initial, this.error});
+  const _$_Initial({this.status = DataStatus.initial, this.error, this.doc});
 
   @override
   @JsonKey()
   final DataStatus status;
   @override
   final String? error;
+  @override
+  final String? doc;
 
   @override
   String toString() {
-    return 'SignUpState(status: $status, error: $error)';
+    return 'SignUpState(status: $status, error: $error, doc: $doc)';
   }
 
   @override
@@ -120,11 +133,12 @@ class _$_Initial implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.doc, doc) || other.doc == doc));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error);
+  int get hashCode => Object.hash(runtimeType, status, error, doc);
 
   @JsonKey(ignore: true)
   @override
@@ -134,13 +148,17 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements SignUpState {
-  const factory _Initial({final DataStatus status, final String? error}) =
-      _$_Initial;
+  const factory _Initial(
+      {final DataStatus status,
+      final String? error,
+      final String? doc}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
+  @override
+  String? get doc;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

@@ -6,5 +6,6 @@ class SignUpState with _$SignUpState {
     @Default(DataStatus.initial)
     final DataStatus status,
     final String? error,
+    final String? doc,
   }) = _Initial;
 }
