@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/home_page.dart';
 import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
@@ -53,9 +54,9 @@ class AppRoute {
       case RoutePath.homeRoute:
         return _materialRoute(
           providers: [
-            // BlocProvider<SignInCubit>(
-            //   create: (context) => getIt<SignInCubit>(),
-            // ),
+            BlocProvider<HomeCubit>(
+              create: (context) => getIt<HomeCubit>(),
+            ),
           ],
           child: const HomePage(),
         );

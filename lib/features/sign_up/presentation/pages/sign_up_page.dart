@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:tutors/core/constants/app_colors.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/constants/app_images.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
@@ -12,33 +11,33 @@ import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
 
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/custom_textfield.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
-      body: BlocConsumer<SignUpCubit, SignUpState>(
-        // buildWhen: (previous, current) => current.status == DataStatus.initial,
-        listener: (context, state) {
-          if (state.status == DataStatus.failure) {
-            Fluttertoast.showToast(msg: state.error ?? '');
-          }
-        },
-        builder: (context, state) {
-          if (state.status == DataStatus.loading) {
-            return const LoadingWidget();
-          }
-          return SingleChildScrollView(
+    return BlocConsumer<SignUpCubit, SignUpState>(
+      listener: (context, state) {
+        if (state.status == DataStatus.failure) {
+          Fluttertoast.showToast(msg: state.error ?? '');
+        }
+      },
+      builder: (context, state) {
+        if (state.status == DataStatus.loading) {
+          return const LoadingWidget();
+        }
+        return Scaffold(
+          backgroundColor: AppColors.secondaryColor,
+          appBar: AppBar(
+            backgroundColor: AppColors.secondaryColor,
+            elevation: 0,
+            foregroundColor: Colors.black,
+          ),
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: FormBuilder(
               key: context.read<SignUpCubit>().signUpForm,
@@ -54,10 +53,10 @@ class SignUpPage extends StatelessWidget {
                   CustomTextField(
                     name: "name",
                     icon: AppImages.accountName,
-                    hintText: 'Display name',
+                    hintText: LocaleKeys.kUsername.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
-                        errorText: "Required",
+                        errorText: LocaleKeys.kRequiredField.tr(),
                       )
                     ]),
                   ),
@@ -65,14 +64,14 @@ class SignUpPage extends StatelessWidget {
                   CustomTextField(
                     name: "email",
                     icon: AppImages.email,
-                    hintText: 'Input your email',
+                    hintText: LocaleKeys.kEmail.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
-                        errorText: "Required",
+                        errorText: LocaleKeys.kRequiredField.tr(),
                       ),
                       FormBuilderValidators.email(
-                          errorText:
-                              "Your email invalid ex: yourname@example.com")
+                        errorText: LocaleKeys.kEmailPattern.tr(),
+                      )
                     ]),
                   ),
                   const SizedBox(height: 20),
@@ -80,13 +79,13 @@ class SignUpPage extends StatelessWidget {
                     name: "password",
                     obscureText: true,
                     icon: AppImages.lock,
-                    hintText: 'Password',
+                    hintText: LocaleKeys.kPassword.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
-                        errorText: "Required",
+                        errorText: LocaleKeys.kRequiredField.tr(),
                       ),
                       FormBuilderValidators.minLength(6,
-                          errorText: 'Password must more then 5 charecter')
+                          errorText: LocaleKeys.kPasswordValidateText.tr())
                     ]),
                   ),
                   const SizedBox(height: 40),
@@ -102,23 +101,23 @@ class SignUpPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Already have an account",
+                      Text(LocaleKeys.kAlreadyHaveAnAccount.tr(),
                           style: Theme.of(context).textTheme.bodyMedium),
                       TextButton(
                         onPressed: () {
                           AppNavigator.goBack();
                           AppNavigator.navigateTo(RoutePath.signInRoute);
                         },
-                        child: Text("Sign In"),
+                        child: Text(LocaleKeys.kSignIn.tr()),
                       )
                     ],
                   )
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

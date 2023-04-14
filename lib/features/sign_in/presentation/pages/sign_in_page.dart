@@ -20,24 +20,24 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
-      body: BlocConsumer<SignInCubit, SignInState>(
-        listener: (context, state) {
-          if (state.status == DataStatus.failure) {
-            Fluttertoast.showToast(msg: state.error ?? '');
-          }
-        },
-        builder: (context, state) {
-          if (state.status == DataStatus.loading) {
-            return const LoadingWidget();
-          }
-          return SingleChildScrollView(
+    return BlocConsumer<SignInCubit, SignInState>(
+      listener: (context, state) {
+        if (state.status == DataStatus.failure) {
+          Fluttertoast.showToast(msg: state.error ?? '');
+        }
+      },
+      builder: (context, state) {
+        if (state.status == DataStatus.loading) {
+          return const LoadingWidget();
+        }
+        return Scaffold(
+          backgroundColor: AppColors.secondaryColor,
+          appBar: AppBar(
+            backgroundColor: AppColors.secondaryColor,
+            elevation: 0,
+            foregroundColor: Colors.black,
+          ),
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: FormBuilder(
               key: context.read<SignInCubit>().signInForm,
@@ -53,14 +53,13 @@ class SignInPage extends StatelessWidget {
                   CustomTextField(
                     name: "email",
                     icon: AppImages.email,
-                    hintText: 'Email',
+                    hintText:LocaleKeys.kEmail.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
-                        errorText: "Required",
+                        errorText: LocaleKeys.kRequiredField.tr(),
                       ),
                       FormBuilderValidators.email(
-                          errorText:
-                              "Your email invalid ex: yourname@example.com")
+                          errorText:LocaleKeys.kEmailPattern.tr())
                     ]),
                   ),
                   const SizedBox(height: 20),
@@ -68,13 +67,13 @@ class SignInPage extends StatelessWidget {
                     name: "password",
                     obscureText: true,
                     icon: AppImages.lock,
-                    hintText: 'Password',
+                    hintText: LocaleKeys.kPassword.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
-                        errorText: "Required",
+                        errorText: LocaleKeys.kRequiredField.tr(),
                       ),
                       FormBuilderValidators.minLength(6,
-                          errorText: 'Password must more then 5 charecter')
+                          errorText: LocaleKeys.kPasswordValidateText.tr())
                     ]),
                   ),
                   const SizedBox(height: 12),
@@ -84,8 +83,8 @@ class SignInPage extends StatelessWidget {
                       TextButton(
                         onPressed: () {},
                         child: Text(
-                          "Forgot password",
-                          style: TextStyle(
+                          LocaleKeys.kForgotPassword.tr(),
+                          style:const TextStyle(
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -105,23 +104,23 @@ class SignInPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Don't have an account?",
+                      Text(LocaleKeys.kDontHaveAnAccount.tr(),
                           style: Theme.of(context).textTheme.bodyMedium),
                       TextButton(
                         onPressed: () {
                           AppNavigator.goBack();
                           AppNavigator.navigateTo(RoutePath.signUpRoute);
                         },
-                        child: Text("Sign Up"),
+                        child: Text(LocaleKeys.kSignUp.tr()),
                       )
                     ],
                   )
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -21,7 +21,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String? get id => throw _privateConstructorUsedError;
-  String? get displayName => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
   String? get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String? id, String? displayName, String? role});
+  $Res call({String? id, String? username, String? role});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? displayName = freezed,
+    Object? username = freezed,
     Object? role = freezed,
   }) {
     return _then(_value.copyWith(
@@ -60,9 +60,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      displayName: freezed == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       role: freezed == role
           ? _value.role
@@ -79,7 +79,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       __$$_UserModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? displayName, String? role});
+  $Res call({String? id, String? username, String? role});
 }
 
 /// @nodoc
@@ -94,7 +94,7 @@ class __$$_UserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? displayName = freezed,
+    Object? username = freezed,
     Object? role = freezed,
   }) {
     return _then(_$_UserModel(
@@ -102,9 +102,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      displayName: freezed == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       role: freezed == role
           ? _value.role
@@ -117,7 +117,7 @@ class __$$_UserModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserModel implements _UserModel {
-  const _$_UserModel({this.id, this.displayName, this.role});
+  const _$_UserModel({this.id, this.username, this.role});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -125,13 +125,13 @@ class _$_UserModel implements _UserModel {
   @override
   final String? id;
   @override
-  final String? displayName;
+  final String? username;
   @override
   final String? role;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, role: $role)';
+    return 'UserModel(id: $id, username: $username, role: $role)';
   }
 
   @override
@@ -140,14 +140,14 @@ class _$_UserModel implements _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.role, role) || other.role == role));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, displayName, role);
+  int get hashCode => Object.hash(runtimeType, id, username, role);
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +166,7 @@ class _$_UserModel implements _UserModel {
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
       {final String? id,
-      final String? displayName,
+      final String? username,
       final String? role}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -175,7 +175,7 @@ abstract class _UserModel implements UserModel {
   @override
   String? get id;
   @override
-  String? get displayName;
+  String? get username;
   @override
   String? get role;
   @override

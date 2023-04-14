@@ -53,12 +53,15 @@ class AuthService {
       throw ServerException(e.toString());
     }
   }
+
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: <String>["email"]).signIn();
+    final GoogleSignInAccount? googleUser =
+        await GoogleSignIn(scopes: <String>["email"]).signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -69,6 +72,16 @@ class AuthService {
     // Once signed in, return the UserCredential
     final user = await _auth.signInWithCredential(credential);
     return user;
+  }
+
+  Future<User?> getCurrentUser() async {
+    try {
+      return _auth.currentUser;
+    } on FirebaseAuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 
   Future<void> signOut() async {

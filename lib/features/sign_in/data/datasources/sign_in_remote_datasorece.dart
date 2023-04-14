@@ -13,7 +13,9 @@ abstract class SignInRemoteDatasource {
 class SignInRemoteDatasourceImpl implements SignInRemoteDatasource {
   final AuthService _authService;
 
-  SignInRemoteDatasourceImpl(this._authService);
+  SignInRemoteDatasourceImpl(
+    this._authService,
+  );
 
   @override
   Future<UserCredential> signIn(

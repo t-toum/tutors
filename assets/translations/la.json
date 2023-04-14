@@ -7,5 +7,18 @@
     "kOr":"Or",
     "kGoogle":"Google",
     "kSingUpWithEmail":"Sign up with email",
-    "kSingInWithEmail":"Sign in with email"
+    "kSingInWithEmail":"Sign in with email",
+    "kUsername":"Username",
+    "kRequiredField":"This field is required",
+    "kEmail":"Email",
+    "kPassword":"Password",
+    "kPasswordValidateText":"Password must more then 5 charecter",
+    "kAlreadyHaveAnAccount":"Already have an account",
+    "kEmailPattern":"Your email invalid ex: yourname@example.com",
+    "kForgotPassword":"Forgot password",
+    "kDontHaveAnAccount":"Don't have an account?",
+    "kSelectYourRole":"Select your role",
+    "kWhatIsYourRole":"What is your role?",
+    "kTeacher":"Teacher",
+    "kStudent":"Student"
 }
