@@ -13,19 +13,21 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i5;
 import 'package:logger/logger.dart' as _i6;
 import 'package:shared_preferences/shared_preferences.dart' as _i7;
-import 'package:tutors/core/DI/register_modules.dart' as _i31;
+import 'package:tutors/core/DI/register_modules.dart' as _i33;
 import 'package:tutors/core/services/auth_service.dart' as _i8;
 import 'package:tutors/core/services/cloud_firestore_service.dart' as _i9;
 import 'package:tutors/core/services/shared_preference_service.dart' as _i13;
 import 'package:tutors/features/app/data/datasources/app_remote_datasource.dart'
-    as _i23;
-import 'package:tutors/features/app/data/repositories/app_repository_impl.dart'
-    as _i25;
-import 'package:tutors/features/app/domain/repository/app_repository.dart'
     as _i24;
-import 'package:tutors/features/app/domain/usecases/get_current_user_auth_usecase.dart'
+import 'package:tutors/features/app/data/repositories/app_repository_impl.dart'
     as _i26;
-import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i30;
+import 'package:tutors/features/app/domain/repository/app_repository.dart'
+    as _i25;
+import 'package:tutors/features/app/domain/usecases/get_current_user_auth_usecase.dart'
+    as _i27;
+import 'package:tutors/features/app/domain/usecases/get_current_user_usecase.dart'
+    as _i28;
+import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i32;
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart'
     as _i10;
 import 'package:tutors/features/home/data/repositories/home_ropository_impl.dart'
@@ -35,7 +37,7 @@ import 'package:tutors/features/home/domain/repositories/home_repository.dart'
 import 'package:tutors/features/home/domain/usecases/sign_out_usecase.dart'
     as _i18;
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart'
-    as _i27;
+    as _i29;
 import 'package:tutors/features/sign_in/data/datasources/sign_in_remote_datasorece.dart'
     as _i14;
 import 'package:tutors/features/sign_in/data/repositories/sign_in_repository_impl.dart'
@@ -45,7 +47,7 @@ import 'package:tutors/features/sign_in/domain/repositories/sign_in_repository.d
 import 'package:tutors/features/sign_in/domain/usecases/sign_in_usecase.dart'
     as _i17;
 import 'package:tutors/features/sign_in/presentation/cubit/sign_in_cubit.dart'
-    as _i28;
+    as _i30;
 import 'package:tutors/features/sign_up/data/datasources/sign_up_remote_datasorece.dart'
     as _i19;
 import 'package:tutors/features/sign_up/data/repositories/sign_up_repository_impl.dart'
@@ -54,8 +56,10 @@ import 'package:tutors/features/sign_up/domain/repositories/sign_up_repository.d
     as _i20;
 import 'package:tutors/features/sign_up/domain/usecases/sign_up_usecase.dart'
     as _i22;
+import 'package:tutors/features/sign_up/domain/usecases/update_user_role_usecase.dart'
+    as _i23;
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart'
-    as _i29; // ignore_for_file: unnecessary_lambdas
+    as _i31; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
@@ -80,8 +84,8 @@ extension GetItInjectableX on _i1.GetIt {
       preResolve: true,
     );
     gh.singleton<_i8.AuthService>(_i8.AuthService(gh<_i3.FirebaseAuth>()));
-    gh.singleton<_i9.CouldFireStoreService>(
-        _i9.CouldFireStoreService(gh<_i4.FirebaseFirestore>()));
+    gh.lazySingleton<_i9.CouldFireStoreService>(
+        () => _i9.CouldFireStoreServiceImpl(gh<_i4.FirebaseFirestore>()));
     gh.lazySingleton<_i10.HomeRemoteDatasource>(
         () => _i10.HomeRemoteDatasourceImpl(gh<_i8.AuthService>()));
     gh.lazySingleton<_i11.HomeRepository>(
@@ -105,21 +109,32 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i21.SignUpRepositoryImpl(gh<_i19.SignUpRemoteDatasource>()));
     gh.lazySingleton<_i22.SignUpUsecase>(
         () => _i22.SignUpUsecase(gh<_i20.SignUpRepository>()));
-    gh.lazySingleton<_i23.AppRemoteDatasource>(
-        () => _i23.AppRemoteDatasourceImpl(gh<_i8.AuthService>()));
-    gh.lazySingleton<_i24.AppRepository>(
-        () => _i25.AppRepositoryImpl(gh<_i23.AppRemoteDatasource>()));
-    gh.lazySingleton<_i26.GetCurrentUserAuthUsecase>(
-        () => _i26.GetCurrentUserAuthUsecase(gh<_i24.AppRepository>()));
-    gh.factory<_i27.HomeCubit>(() => _i27.HomeCubit(gh<_i18.SignOutUsecase>()));
-    gh.factory<_i28.SignInCubit>(
-        () => _i28.SignInCubit(gh<_i17.SignInUsecase>()));
-    gh.factory<_i29.SignUpCubit>(
-        () => _i29.SignUpCubit(gh<_i22.SignUpUsecase>()));
-    gh.factory<_i30.AppCubit>(
-        () => _i30.AppCubit(gh<_i26.GetCurrentUserAuthUsecase>()));
+    gh.lazySingleton<_i23.UpdateUserRoleUsecase>(
+        () => _i23.UpdateUserRoleUsecase(gh<_i20.SignUpRepository>()));
+    gh.lazySingleton<_i24.AppRemoteDatasource>(
+        () => _i24.AppRemoteDatasourceImpl(
+              gh<_i8.AuthService>(),
+              gh<_i9.CouldFireStoreService>(),
+            ));
+    gh.lazySingleton<_i25.AppRepository>(
+        () => _i26.AppRepositoryImpl(gh<_i24.AppRemoteDatasource>()));
+    gh.lazySingleton<_i27.GetCurrentUserAuthUsecase>(
+        () => _i27.GetCurrentUserAuthUsecase(gh<_i25.AppRepository>()));
+    gh.lazySingleton<_i28.GetCurrentUserUsecase>(
+        () => _i28.GetCurrentUserUsecase(gh<_i25.AppRepository>()));
+    gh.factory<_i29.HomeCubit>(() => _i29.HomeCubit(gh<_i18.SignOutUsecase>()));
+    gh.factory<_i30.SignInCubit>(
+        () => _i30.SignInCubit(gh<_i17.SignInUsecase>()));
+    gh.factory<_i31.SignUpCubit>(() => _i31.SignUpCubit(
+          gh<_i22.SignUpUsecase>(),
+          gh<_i23.UpdateUserRoleUsecase>(),
+        ));
+    gh.factory<_i32.AppCubit>(() => _i32.AppCubit(
+          gh<_i27.GetCurrentUserAuthUsecase>(),
+          gh<_i28.GetCurrentUserUsecase>(),
+        ));
     return this;
   }
 }
 
-class _$InjectionModule extends _i31.InjectionModule {}
+class _$InjectionModule extends _i33.InjectionModule {}

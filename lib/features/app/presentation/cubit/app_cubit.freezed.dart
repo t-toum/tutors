@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
-  bool get isAuth => throw _privateConstructorUsedError;
+  bool? get isAuth => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  Users? get currentUsers => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppStateCopyWith<AppState> get copyWith =>
@@ -30,7 +32,14 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
   @useResult
-  $Res call({DataStatus status, String? error, bool isAuth});
+  $Res call(
+      {DataStatus status,
+      String? error,
+      bool? isAuth,
+      String? userId,
+      Users? currentUsers});
+
+  $UsersCopyWith<$Res>? get currentUsers;
 }
 
 /// @nodoc
@@ -48,7 +57,9 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
-    Object? isAuth = null,
+    Object? isAuth = freezed,
+    Object? userId = freezed,
+    Object? currentUsers = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -59,11 +70,31 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAuth: null == isAuth
+      isAuth: freezed == isAuth
           ? _value.isAuth
           : isAuth // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentUsers: freezed == currentUsers
+          ? _value.currentUsers
+          : currentUsers // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UsersCopyWith<$Res>? get currentUsers {
+    if (_value.currentUsers == null) {
+      return null;
+    }
+
+    return $UsersCopyWith<$Res>(_value.currentUsers!, (value) {
+      return _then(_value.copyWith(currentUsers: value) as $Val);
+    });
   }
 }
 
@@ -74,7 +105,15 @@ abstract class _$$_InitialCopyWith<$Res> implements $AppStateCopyWith<$Res> {
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DataStatus status, String? error, bool isAuth});
+  $Res call(
+      {DataStatus status,
+      String? error,
+      bool? isAuth,
+      String? userId,
+      Users? currentUsers});
+
+  @override
+  $UsersCopyWith<$Res>? get currentUsers;
 }
 
 /// @nodoc
@@ -89,7 +128,9 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
-    Object? isAuth = null,
+    Object? isAuth = freezed,
+    Object? userId = freezed,
+    Object? currentUsers = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -100,10 +141,18 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAuth: null == isAuth
+      isAuth: freezed == isAuth
           ? _value.isAuth
           : isAuth // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentUsers: freezed == currentUsers
+          ? _value.currentUsers
+          : currentUsers // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ));
   }
 }
@@ -112,7 +161,11 @@ class __$$_InitialCopyWithImpl<$Res>
 
 class _$_Initial implements _Initial {
   const _$_Initial(
-      {this.status = DataStatus.initial, this.error, this.isAuth = false});
+      {this.status = DataStatus.initial,
+      this.error,
+      this.isAuth,
+      this.userId,
+      this.currentUsers});
 
   @override
   @JsonKey()
@@ -120,12 +173,15 @@ class _$_Initial implements _Initial {
   @override
   final String? error;
   @override
-  @JsonKey()
-  final bool isAuth;
+  final bool? isAuth;
+  @override
+  final String? userId;
+  @override
+  final Users? currentUsers;
 
   @override
   String toString() {
-    return 'AppState(status: $status, error: $error, isAuth: $isAuth)';
+    return 'AppState(status: $status, error: $error, isAuth: $isAuth, userId: $userId, currentUsers: $currentUsers)';
   }
 
   @override
@@ -135,11 +191,15 @@ class _$_Initial implements _Initial {
             other is _$_Initial &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.isAuth, isAuth) || other.isAuth == isAuth));
+            (identical(other.isAuth, isAuth) || other.isAuth == isAuth) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.currentUsers, currentUsers) ||
+                other.currentUsers == currentUsers));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error, isAuth);
+  int get hashCode =>
+      Object.hash(runtimeType, status, error, isAuth, userId, currentUsers);
 
   @JsonKey(ignore: true)
   @override
@@ -152,14 +212,20 @@ abstract class _Initial implements AppState {
   const factory _Initial(
       {final DataStatus status,
       final String? error,
-      final bool isAuth}) = _$_Initial;
+      final bool? isAuth,
+      final String? userId,
+      final Users? currentUsers}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
   @override
-  bool get isAuth;
+  bool? get isAuth;
+  @override
+  String? get userId;
+  @override
+  Users? get currentUsers;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
