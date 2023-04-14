@@ -12,9 +12,14 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text("Home"),
-            actions: [TextButton(onPressed: ()async {
-              await context.read<HomeCubit>().signOut();
-            }, child: Text("Sign out"))],
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  await context.read<HomeCubit>().signOut();
+                },
+                child: Text("Sign out",style: TextStyle(color: Colors.white),),
+              ),
+            ],
           ),
         );
       },

@@ -7,6 +7,7 @@ class Users with _$Users {
     final String? id,
     final String? username,
     final String? role,
+    final String? email,
   })=_Users;
   factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
 }

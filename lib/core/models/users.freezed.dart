@@ -23,6 +23,7 @@ mixin _$Users {
   String? get id => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get role => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $UsersCopyWith<$Res> {
   factory $UsersCopyWith(Users value, $Res Function(Users) then) =
       _$UsersCopyWithImpl<$Res, Users>;
   @useResult
-  $Res call({String? id, String? username, String? role});
+  $Res call({String? id, String? username, String? role, String? email});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? id = freezed,
     Object? username = freezed,
     Object? role = freezed,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -67,6 +69,10 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       __$$_UsersCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? username, String? role});
+  $Res call({String? id, String? username, String? role, String? email});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
     Object? id = freezed,
     Object? username = freezed,
     Object? role = freezed,
+    Object? email = freezed,
   }) {
     return _then(_$_Users(
       id: freezed == id
@@ -106,6 +113,10 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -113,7 +124,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
 /// @nodoc
 @JsonSerializable()
 class _$_Users implements _Users {
-  const _$_Users({this.id, this.username, this.role});
+  const _$_Users({this.id, this.username, this.role, this.email});
 
   factory _$_Users.fromJson(Map<String, dynamic> json) =>
       _$$_UsersFromJson(json);
@@ -124,10 +135,12 @@ class _$_Users implements _Users {
   final String? username;
   @override
   final String? role;
+  @override
+  final String? email;
 
   @override
   String toString() {
-    return 'Users(id: $id, username: $username, role: $role)';
+    return 'Users(id: $id, username: $username, role: $role, email: $email)';
   }
 
   @override
@@ -138,12 +151,13 @@ class _$_Users implements _Users {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.role, role) || other.role == role));
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, role);
+  int get hashCode => Object.hash(runtimeType, id, username, role, email);
 
   @JsonKey(ignore: true)
   @override
@@ -163,7 +177,8 @@ abstract class _Users implements Users {
   const factory _Users(
       {final String? id,
       final String? username,
-      final String? role}) = _$_Users;
+      final String? role,
+      final String? email}) = _$_Users;
 
   factory _Users.fromJson(Map<String, dynamic> json) = _$_Users.fromJson;
 
@@ -173,6 +188,8 @@ abstract class _Users implements Users {
   String? get username;
   @override
   String? get role;
+  @override
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$$_UsersCopyWith<_$_Users> get copyWith =>

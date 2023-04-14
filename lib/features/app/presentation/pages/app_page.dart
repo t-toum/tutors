@@ -96,7 +96,9 @@ class AppPage extends StatelessWidget {
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
-                      onPressed: () {},
+                      onPressed: () async{
+                        await context.read<AppCubit>().sigInwithGoogle();
+                      },
                       child: Stack(
                         children: [
                           Align(

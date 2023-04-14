@@ -37,4 +37,30 @@ class AppRepositoryImpl implements AppRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, UserCredential>> signInWithGoogle() async {
+    try {
+      final userCredential = await _appRemoteDatasource.signInWithGoogle();
+      return Right(userCredential);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> saveUserData(
+      {required String doc, required Map<String, dynamic> data}) async {
+    try {
+      return Right(await _appRemoteDatasource.setUser(data: data, doc: doc));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

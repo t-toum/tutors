@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
@@ -55,23 +56,33 @@ class AuthService {
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>["email"]).signIn();
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: <String>["email"]).signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    // Once signed in, return the UserCredential
-    final user = await _auth.signInWithCredential(credential);
-    return user;
+      // Once signed in, return the UserCredential
+      final user = await _auth.signInWithCredential(credential);
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw ServerException(e.message);
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } on PlatformException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 
   Future<User?> getCurrentUser() async {
@@ -86,5 +97,6 @@ class AuthService {
 
   Future<void> signOut() async {
     await _auth.signOut();
+    await GoogleSignIn(scopes: <String>["email"]).signOut();
   }
 }

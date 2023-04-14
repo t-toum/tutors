@@ -22,6 +22,7 @@ class SignUpRepositoryImpl implements SignUpRepository {
       Users data = Users(
         id: credential.user?.uid,
         username: name,
+        email: credential.user?.email
       );
       await _signUpRemoteDatasource.saveUserData(
           data: data, doc: credential.user?.uid ?? '');

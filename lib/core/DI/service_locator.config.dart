@@ -13,7 +13,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i5;
 import 'package:logger/logger.dart' as _i6;
 import 'package:shared_preferences/shared_preferences.dart' as _i7;
-import 'package:tutors/core/DI/register_modules.dart' as _i33;
+import 'package:tutors/core/DI/register_modules.dart' as _i35;
 import 'package:tutors/core/services/auth_service.dart' as _i8;
 import 'package:tutors/core/services/cloud_firestore_service.dart' as _i9;
 import 'package:tutors/core/services/shared_preference_service.dart' as _i13;
@@ -27,7 +27,11 @@ import 'package:tutors/features/app/domain/usecases/get_current_user_auth_usecas
     as _i27;
 import 'package:tutors/features/app/domain/usecases/get_current_user_usecase.dart'
     as _i28;
-import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i32;
+import 'package:tutors/features/app/domain/usecases/save_user_data_usecase.dart'
+    as _i30;
+import 'package:tutors/features/app/domain/usecases/sign_in_google_usecase.dart'
+    as _i32;
+import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i34;
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart'
     as _i10;
 import 'package:tutors/features/home/data/repositories/home_ropository_impl.dart'
@@ -47,7 +51,7 @@ import 'package:tutors/features/sign_in/domain/repositories/sign_in_repository.d
 import 'package:tutors/features/sign_in/domain/usecases/sign_in_usecase.dart'
     as _i17;
 import 'package:tutors/features/sign_in/presentation/cubit/sign_in_cubit.dart'
-    as _i30;
+    as _i31;
 import 'package:tutors/features/sign_up/data/datasources/sign_up_remote_datasorece.dart'
     as _i19;
 import 'package:tutors/features/sign_up/data/repositories/sign_up_repository_impl.dart'
@@ -59,7 +63,7 @@ import 'package:tutors/features/sign_up/domain/usecases/sign_up_usecase.dart'
 import 'package:tutors/features/sign_up/domain/usecases/update_user_role_usecase.dart'
     as _i23;
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart'
-    as _i31; // ignore_for_file: unnecessary_lambdas
+    as _i33; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
@@ -123,20 +127,26 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i28.GetCurrentUserUsecase>(
         () => _i28.GetCurrentUserUsecase(gh<_i25.AppRepository>()));
     gh.factory<_i29.HomeCubit>(() => _i29.HomeCubit(gh<_i18.SignOutUsecase>()));
-    gh.factory<_i30.SignInCubit>(() => _i30.SignInCubit(
+    gh.lazySingleton<_i30.SaveUserDataUsecase>(
+        () => _i30.SaveUserDataUsecase(gh<_i25.AppRepository>()));
+    gh.factory<_i31.SignInCubit>(() => _i31.SignInCubit(
           gh<_i17.SignInUsecase>(),
           gh<_i28.GetCurrentUserUsecase>(),
         ));
-    gh.factory<_i31.SignUpCubit>(() => _i31.SignUpCubit(
+    gh.lazySingleton<_i32.SignInWithGoogleUsecase>(
+        () => _i32.SignInWithGoogleUsecase(gh<_i25.AppRepository>()));
+    gh.factory<_i33.SignUpCubit>(() => _i33.SignUpCubit(
           gh<_i22.SignUpUsecase>(),
           gh<_i23.UpdateUserRoleUsecase>(),
         ));
-    gh.factory<_i32.AppCubit>(() => _i32.AppCubit(
+    gh.factory<_i34.AppCubit>(() => _i34.AppCubit(
           gh<_i27.GetCurrentUserAuthUsecase>(),
           gh<_i28.GetCurrentUserUsecase>(),
+          gh<_i32.SignInWithGoogleUsecase>(),
+          gh<_i30.SaveUserDataUsecase>(),
         ));
     return this;
   }
 }
 
-class _$InjectionModule extends _i33.InjectionModule {}
+class _$InjectionModule extends _i35.InjectionModule {}
