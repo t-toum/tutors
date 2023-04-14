@@ -123,8 +123,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i28.GetCurrentUserUsecase>(
         () => _i28.GetCurrentUserUsecase(gh<_i25.AppRepository>()));
     gh.factory<_i29.HomeCubit>(() => _i29.HomeCubit(gh<_i18.SignOutUsecase>()));
-    gh.factory<_i30.SignInCubit>(
-        () => _i30.SignInCubit(gh<_i17.SignInUsecase>()));
+    gh.factory<_i30.SignInCubit>(() => _i30.SignInCubit(
+          gh<_i17.SignInUsecase>(),
+          gh<_i28.GetCurrentUserUsecase>(),
+        ));
     gh.factory<_i31.SignUpCubit>(() => _i31.SignUpCubit(
           gh<_i22.SignUpUsecase>(),
           gh<_i23.UpdateUserRoleUsecase>(),

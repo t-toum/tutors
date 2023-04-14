@@ -20,19 +20,13 @@ class AppPage extends StatelessWidget {
       appBar: null,
       backgroundColor: AppColors.secondaryColor,
       body: BlocConsumer<AppCubit, AppState>(
-        buildWhen: (previous, current) =>
-            previous.isAuth != current.isAuth &&
-            previous.currentUsers != current.currentUsers,
+        buildWhen: (previous, current) => previous.isAuth != current.isAuth,
         listener: (context, state) {
           if (state.isAuth == true &&
               state.currentUsers != null &&
               state.currentUsers?.role != null &&
               state.currentUsers?.role != '') {
             AppNavigator.pushAndRemoveUntil(RoutePath.homeRoute);
-          } else if (state.isAuth != null && state.currentUsers?.role == null ||
-              state.currentUsers?.role == '') {
-            AppNavigator.pushAndRemoveUntil(RoutePath.roleRoute,
-                params: state.userId);
           }
         },
         builder: (context, state) {
