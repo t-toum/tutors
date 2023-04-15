@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  int get currentTab => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, int currentTab});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? currentTab = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +59,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentTab: null == currentTab
+          ? _value.currentTab
+          : currentTab // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$_InitialCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, int currentTab});
 }
 
 /// @nodoc
@@ -83,6 +89,7 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? currentTab = null,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -93,6 +100,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentTab: null == currentTab
+          ? _value.currentTab
+          : currentTab // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -100,17 +111,21 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.status = DataStatus.initial, this.error});
+  const _$_Initial(
+      {this.status = DataStatus.initial, this.error, this.currentTab = 0});
 
   @override
   @JsonKey()
   final DataStatus status;
   @override
   final String? error;
+  @override
+  @JsonKey()
+  final int currentTab;
 
   @override
   String toString() {
-    return 'HomeState(status: $status, error: $error)';
+    return 'HomeState(status: $status, error: $error, currentTab: $currentTab)';
   }
 
   @override
@@ -119,11 +134,13 @@ class _$_Initial implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.currentTab, currentTab) ||
+                other.currentTab == currentTab));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error);
+  int get hashCode => Object.hash(runtimeType, status, error, currentTab);
 
   @JsonKey(ignore: true)
   @override
@@ -133,13 +150,17 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements HomeState {
-  const factory _Initial({final DataStatus status, final String? error}) =
-      _$_Initial;
+  const factory _Initial(
+      {final DataStatus status,
+      final String? error,
+      final int currentTab}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
+  @override
+  int get currentTab;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

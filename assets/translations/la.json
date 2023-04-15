@@ -20,5 +20,11 @@
     "kSelectYourRole":"Select your role",
     "kWhatIsYourRole":"What is your role?",
     "kTeacher":"Teacher",
-    "kStudent":"Student"
+    "kStudent":"Student",
+    "kCourses":"Courses",
+    "kChat":"Chat",
+    "kMyCourse":"My Courses",
+    "kAccount":"Account",
+    "kFavorites":"Favorites",
+    "kSearch":"Search"
 }

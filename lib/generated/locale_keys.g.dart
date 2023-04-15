@@ -23,5 +23,11 @@ abstract class  LocaleKeys {
   static const kWhatIsYourRole = 'kWhatIsYourRole';
   static const kTeacher = 'kTeacher';
   static const kStudent = 'kStudent';
+  static const kCourses = 'kCourses';
+  static const kChat = 'kChat';
+  static const kMyCourse = 'kMyCourse';
+  static const kAccount = 'kAccount';
+  static const kFavorites = 'kFavorites';
+  static const kSearch = 'kSearch';
 
 }

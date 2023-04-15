@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
 import 'package:tutors/core/error/failures.dart';
+import 'package:tutors/core/models/users.dart';
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart';
 
 import '../../domain/repositories/home_repository.dart';
@@ -19,6 +20,19 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(ServerFailure(e.msg));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Users>> getCurrentUser() async {
+    try {
+      return Right(await _remoteDatasource.getCurrentUser());
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
     }
   }
 }
