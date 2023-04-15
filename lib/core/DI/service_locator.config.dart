@@ -13,7 +13,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i5;
 import 'package:logger/logger.dart' as _i6;
 import 'package:shared_preferences/shared_preferences.dart' as _i7;
-import 'package:tutors/core/DI/register_modules.dart' as _i36;
+import 'package:tutors/core/DI/register_modules.dart' as _i37;
 import 'package:tutors/core/services/auth_service.dart' as _i8;
 import 'package:tutors/core/services/cloud_firestore_service.dart' as _i9;
 import 'package:tutors/core/services/shared_preference_service.dart' as _i13;
@@ -32,6 +32,8 @@ import 'package:tutors/features/app/domain/usecases/save_user_data_usecase.dart'
 import 'package:tutors/features/app/domain/usecases/sign_in_google_usecase.dart'
     as _i33;
 import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i35;
+import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart'
+    as _i36;
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart'
     as _i10;
 import 'package:tutors/features/home/data/repositories/home_ropository_impl.dart'
@@ -155,8 +157,10 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i33.SignInWithGoogleUsecase>(),
           gh<_i31.SaveUserDataUsecase>(),
         ));
+    gh.factory<_i36.CourseCubit>(
+        () => _i36.CourseCubit(gh<_i28.GetCurrentUserDataUsecase>()));
     return this;
   }
 }
 
-class _$InjectionModule extends _i36.InjectionModule {}
+class _$InjectionModule extends _i37.InjectionModule {}

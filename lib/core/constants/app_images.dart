@@ -17,4 +17,5 @@ class AppImages {
   static const String favoriteActive = "$_path/favorite_active.png";
   static const String account = "$_path/account.png";
   static const String accountActive = "$_path/account_active.png";
+  static const String filter = "$_path/filter.png";
 }

@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
+import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
+import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
-import 'package:tutors/features/home/presentation/pages/home_page.dart';
 
 import '../../../../core/constants/app_images.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -20,11 +22,18 @@ class TabsPage extends StatelessWidget {
           child: Scaffold(
             body: Builder(
               builder: (context) {
-                switch (state.currentTab){
+                switch (state.currentTab) {
                   case 0:
-                    return const HomePage();
+                    return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<CourseCubit>(
+                          create: (context) => getIt<CourseCubit>(),
+                        ),
+                      ],
+                      child:const CoursePage(),
+                    );
                   default:
-                   return const PageNotFound();
+                    return const PageNotFound();
                 }
               },
             ),
@@ -39,74 +48,72 @@ class TabsPage extends StatelessWidget {
               },
               items: [
                 BottomNavigationBarItem(
-                  
                   activeIcon: Image.asset(
                     AppImages.bookActive,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   label: LocaleKeys.kCourses.tr(),
-                  
                   icon: Image.asset(
                     AppImages.book,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   tooltip: LocaleKeys.kCourses.tr(),
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     AppImages.bubbleActive,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   label: LocaleKeys.kChat.tr(),
                   icon: Image.asset(
                     AppImages.bubble,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   tooltip: LocaleKeys.kChat.tr(),
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     AppImages.myCourseActive,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   label: LocaleKeys.kMyCourse.tr(),
                   icon: Image.asset(
                     AppImages.myCourse,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   tooltip: LocaleKeys.kMyCourse.tr(),
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     AppImages.favoriteActive,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   label: LocaleKeys.kFavorites.tr(),
                   icon: Image.asset(
                     AppImages.favorite,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   tooltip: LocaleKeys.kFavorites.tr(),
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     AppImages.accountActive,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   label: LocaleKeys.kAccount.tr(),
                   icon: Image.asset(
                     AppImages.account,
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                   ),
                   tooltip: LocaleKeys.kAccount.tr(),
                 ),

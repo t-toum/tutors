@@ -8,6 +8,7 @@ class HomeState with _$HomeState {
     final String? error,
     @Default(0)
     final int currentTab,
+    final Users? currentUser,
 
   }) = _Initial;
 }

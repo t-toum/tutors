@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/usecases/no_params.dart';
@@ -15,8 +17,9 @@ part 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final SignOutUsecase _signOutUsecase;
-  final GetCurrentUserDataUsecase getCurrentUserDataUsecase;
-  HomeCubit(this._signOutUsecase, this.getCurrentUserDataUsecase)
+  final GetCurrentUserDataUsecase _getCurrentUserDataUsecase;
+
+  HomeCubit(this._signOutUsecase, this._getCurrentUserDataUsecase)
       : super(const HomeState());
   Future<void> signOut() async {
     final result = await _signOutUsecase(NoParams());
