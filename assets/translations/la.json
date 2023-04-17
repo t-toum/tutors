@@ -26,5 +26,10 @@
     "kMyCourse":"My Courses",
     "kAccount":"Account",
     "kFavorites":"Favorites",
-    "kSearch":"Search"
+    "kSearch":"Search",
+    "kEdit":"Edit",
+    "kShowAll":"Show All",
+    "kEducation":"Education",
+    "kExperence":"Experence",
+    "kSkills":"Skills"
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
+import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
+import 'package:tutors/features/account/presentation/pages/account_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
@@ -31,6 +33,15 @@ class TabsPage extends StatelessWidget {
                         ),
                       ],
                       child:const CoursePage(),
+                    );
+                  case 4:
+                  return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<AccountCubit>(
+                          create: (context) => getIt<AccountCubit>(),
+                        ),
+                      ],
+                      child:const AccountPage(),
                     );
                   default:
                     return const PageNotFound();

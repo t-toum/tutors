@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/firebase_collection.dart';
-import 'package:tutors/core/error/exceptions.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/services/auth_service.dart';
 

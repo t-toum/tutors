@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/constants/app_images.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
-import 'package:tutors/features/sign_in/presentation/cubit/sign_in_cubit.dart';
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 

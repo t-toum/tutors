@@ -18,4 +18,9 @@ class AppImages {
   static const String account = "$_path/account.png";
   static const String accountActive = "$_path/account_active.png";
   static const String filter = "$_path/filter.png";
+  static const String profileCover = "$_path/cover.png";
+  static const String camera = "$_path/camera.png";
+  static const String profile = "$_path/profile.jpg";
+  static const String plusWhite = "$_path/plus_white.png";
+  static const String plusGrey = "$_path/plus_grey.png";
 }
