@@ -34,5 +34,9 @@
     "kSkills":"Skills",
     "kFromCamera":"From Camera",
     "kFromGallery":"From Gallery",
-    "kEditInfo":"Edit info"
+    "kEditInfo":"Edit info",
+    "kSettings":"Settings",
+    "kLanguage":"Language",
+    "kSignOut":"Sign out",
+    "kSecurity":"Security"
 }

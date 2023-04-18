@@ -37,5 +37,9 @@ abstract class  LocaleKeys {
   static const kFromCamera = 'kFromCamera';
   static const kFromGallery = 'kFromGallery';
   static const kEditInfo = 'kEditInfo';
+  static const kSettings = 'kSettings';
+  static const kLanguage = 'kLanguage';
+  static const kSignOut = 'kSignOut';
+  static const kSecurity = 'kSecurity';
 
 }

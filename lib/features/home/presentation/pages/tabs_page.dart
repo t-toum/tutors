@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
-import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
-import 'package:tutors/features/account/presentation/pages/account_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
+import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
+import 'package:tutors/features/settings/presentation/pages/setting_page.dart';
 
 import '../../../../core/constants/app_images.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -32,16 +32,16 @@ class TabsPage extends StatelessWidget {
                           create: (context) => getIt<CourseCubit>(),
                         ),
                       ],
-                      child:const CoursePage(),
+                      child: const CoursePage(),
                     );
                   case 4:
-                  return MultiBlocProvider(
+                    return MultiBlocProvider(
                       providers: [
-                        BlocProvider<AccountCubit>(
-                          create: (context) => getIt<AccountCubit>()..getCurrentUser(),
+                        BlocProvider<SettingCubit>(
+                          create: (context) => getIt<SettingCubit>(),
                         ),
                       ],
-                      child:const AccountPage(),
+                      child: const SettingPage(),
                     );
                   default:
                     return const PageNotFound();
@@ -116,17 +116,17 @@ class TabsPage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
-                    AppImages.accountActive,
+                    AppImages.settingsActive,
                     width: 20,
                     height: 20,
                   ),
-                  label: LocaleKeys.kAccount.tr(),
+                  label: LocaleKeys.kSettings.tr(),
                   icon: Image.asset(
-                    AppImages.account,
+                    AppImages.settings,
                     width: 20,
                     height: 20,
                   ),
-                  tooltip: LocaleKeys.kAccount.tr(),
+                  tooltip: LocaleKeys.kSettings.tr(),
                 ),
               ],
             ),

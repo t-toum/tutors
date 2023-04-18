@@ -24,4 +24,8 @@ class AppImages {
   static const String plusWhite = "$_path/plus_white.png";
   static const String plusGrey = "$_path/plus_grey.png";
   static const String heart = "$_path/heart.png";
+  static const String settings = "$_path/settings.png";
+  static const String settingsActive = "$_path/settings_active.png";
+  static const String globe = "$_path/globe.png";
+  static const String power = "$_path/power.png";
 }

@@ -4,4 +4,5 @@ class RoutePath {
   static const String signInRoute = "/signIn";
   static const String roleRoute = "/role";
   static const String homeRoute = "/home";
+  static const String accountRoute = "/account";
 }

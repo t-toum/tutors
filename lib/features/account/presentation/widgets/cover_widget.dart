@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_images.dart';
@@ -52,20 +53,36 @@ class CoverWidget extends StatelessWidget {
               );
             },
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: onTap,
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.greyColor,
-                  child: Image.asset(AppImages.camera, width: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: (){
+                    AppNavigator.goBack();
+                  },
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: AppColors.greyColor.withOpacity(0.5),
+                    child:const Icon(Icons.arrow_back,color: Colors.black,),
+                  ),
                 ),
               ),
-            ),
-          ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: onTap,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: AppColors.greyColor,
+                    child: Image.asset(AppImages.camera, width: 20),
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
