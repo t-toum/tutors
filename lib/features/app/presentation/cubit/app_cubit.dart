@@ -9,9 +9,10 @@ import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/usecases/no_params.dart';
 
 import '../../domain/usecases/get_current_user_auth_usecase.dart';
-import '../../domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/save_user_data_usecase.dart';
 import '../../domain/usecases/sign_in_google_usecase.dart';
+import '../../domain/usecases/get_user_usecase.dart';
+
 
 part 'app_cubit.freezed.dart';
 part 'app_state.dart';
@@ -19,12 +20,12 @@ part 'app_state.dart';
 @injectable
 class AppCubit extends Cubit<AppState> {
   final GetCurrentUserAuthUsecase _getCurrentUserAuthUsecase;
-  final GetCurrentUserUsecase _getCurrentUserUsecase;
+  final GetUserUsecase _getUserUsecase;
   final SignInWithGoogleUsecase _signInWithGoogleUsecase;
   final SaveUserDataUsecase _saveUserDataUsecase;
   AppCubit(
     this._getCurrentUserAuthUsecase,
-    this._getCurrentUserUsecase,
+    this._getUserUsecase,
     this._signInWithGoogleUsecase,
     this._saveUserDataUsecase,
   ) : super(const AppState());
@@ -46,7 +47,7 @@ class AppCubit extends Cubit<AppState> {
   Future<void> getCurrentUserData(
       {required String doc, bool isGoogle = false , Map<String,dynamic>? data}) async {
     emit(state.copyWith(status: DataStatus.loading));
-    final currentUser = await _getCurrentUserUsecase(doc);
+    final currentUser = await _getUserUsecase(doc);
     if (currentUser.isLeft()) {
       emit(state.copyWith(
           status: DataStatus.failure, error: currentUser.getLeft()?.msg));

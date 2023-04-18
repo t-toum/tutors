@@ -7,7 +7,7 @@ import 'package:tutors/core/models/users.dart';
 
 abstract class AppRepository {
   Future<Either<Failure,User?>>getCurrentUserFirebase();
-  Future<Either<Failure,Users>>getCurrentUser({required String doc});
+  Future<Either<Failure,Users>>getUser({required String doc});
   Future<Either<Failure,UserCredential>>signInWithGoogle();
   Future<Either<Failure,void>>saveUserData({required String doc, required Map<String,dynamic>data});
 }

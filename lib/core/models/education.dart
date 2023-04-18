@@ -15,7 +15,6 @@ class Education with _$Education {
     final String? acctivities,
     final String? description,
   }) = _Education;
-
   factory Education.fromJson(Map<String, dynamic> json) =>
       _$EducationFromJson(json);
 }

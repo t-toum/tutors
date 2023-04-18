@@ -6,5 +6,6 @@ class AccountState with _$AccountState {
     @Default(DataStatus.initial)
     final DataStatus status,
     final String? error,
+    final Users? currentUser,
   }) = _Initial;
 }

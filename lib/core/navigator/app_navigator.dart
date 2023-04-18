@@ -1,4 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../generated/locale_keys.g.dart';
+import '../constants/app_colors.dart';
 
 class AppNavigator {
   static GlobalKey<NavigatorState>? navigatorKey;
@@ -37,5 +42,65 @@ class AppNavigator {
 
   static void goBackWithData({dynamic data}) {
     navigatorKey!.currentState!.pop(data);
+  }
+
+  static dynamic openModalImagePicker(
+      {Function()? onCamera, Function()? onGallery}) async {
+    showMaterialModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      bounce: true,
+      context: navigatorKey!.currentContext!,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 3,
+                  width: 20,
+                  decoration: BoxDecoration(
+                      color: AppColors.greyColor,
+                      borderRadius: BorderRadius.circular(8)),
+                ),
+              ],
+            ),
+            ListTile(
+              onTap: onCamera,
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: AppColors.greyColor,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.camera_alt,size: 15,),
+              ),
+              title: Text(LocaleKeys.kFromCamera.tr()),
+            ),
+            const Divider(),
+            ListTile(
+              onTap: onGallery,
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: AppColors.greyColor,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.photo_camera_back_rounded,size: 15,),
+              ),
+              title: Text(LocaleKeys.kFromGallery.tr()),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

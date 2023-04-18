@@ -7,13 +7,13 @@ import 'package:tutors/core/usecases/usecase.dart';
 import '../repository/app_repository.dart';
 
 @lazySingleton
-class GetCurrentUserUsecase implements UseCase<Users, String> {
+class GetUserUsecase implements UseCase<Users, String> {
   final AppRepository _appRepository;
 
-  GetCurrentUserUsecase(this._appRepository);
+  GetUserUsecase(this._appRepository);
 
   @override
   Future<Either<Failure, Users>> call(String params) async {
-    return await _appRepository.getCurrentUser(doc: params);
+    return await _appRepository.getUser(doc: params);
   }
 }

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AccountState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  Users? get currentUser => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountStateCopyWith<AccountState> get copyWith =>
@@ -30,7 +31,9 @@ abstract class $AccountStateCopyWith<$Res> {
           AccountState value, $Res Function(AccountState) then) =
       _$AccountStateCopyWithImpl<$Res, AccountState>;
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, Users? currentUser});
+
+  $UsersCopyWith<$Res>? get currentUser;
 }
 
 /// @nodoc
@@ -48,6 +51,7 @@ class _$AccountStateCopyWithImpl<$Res, $Val extends AccountState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? currentUser = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -58,7 +62,23 @@ class _$AccountStateCopyWithImpl<$Res, $Val extends AccountState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentUser: freezed == currentUser
+          ? _value.currentUser
+          : currentUser // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UsersCopyWith<$Res>? get currentUser {
+    if (_value.currentUser == null) {
+      return null;
+    }
+
+    return $UsersCopyWith<$Res>(_value.currentUser!, (value) {
+      return _then(_value.copyWith(currentUser: value) as $Val);
+    });
   }
 }
 
@@ -70,7 +90,10 @@ abstract class _$$_InitialCopyWith<$Res>
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call({DataStatus status, String? error, Users? currentUser});
+
+  @override
+  $UsersCopyWith<$Res>? get currentUser;
 }
 
 /// @nodoc
@@ -85,6 +108,7 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? currentUser = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -95,6 +119,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentUser: freezed == currentUser
+          ? _value.currentUser
+          : currentUser // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ));
   }
 }
@@ -102,17 +130,20 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.status = DataStatus.initial, this.error});
+  const _$_Initial(
+      {this.status = DataStatus.initial, this.error, this.currentUser});
 
   @override
   @JsonKey()
   final DataStatus status;
   @override
   final String? error;
+  @override
+  final Users? currentUser;
 
   @override
   String toString() {
-    return 'AccountState(status: $status, error: $error)';
+    return 'AccountState(status: $status, error: $error, currentUser: $currentUser)';
   }
 
   @override
@@ -121,11 +152,13 @@ class _$_Initial implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.currentUser, currentUser) ||
+                other.currentUser == currentUser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error);
+  int get hashCode => Object.hash(runtimeType, status, error, currentUser);
 
   @JsonKey(ignore: true)
   @override
@@ -135,13 +168,17 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements AccountState {
-  const factory _Initial({final DataStatus status, final String? error}) =
-      _$_Initial;
+  const factory _Initial(
+      {final DataStatus status,
+      final String? error,
+      final Users? currentUser}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
+  @override
+  Users? get currentUser;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

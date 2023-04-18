@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tutors/core/constants/app_colors.dart';
+import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
@@ -17,8 +21,12 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<AccountCubit>();
     return BlocBuilder<AccountCubit, AccountState>(
       builder: (context, state) {
+        if (state.status == DataStatus.loading) {
+          return const LoadingWidget();
+        }
         return Scaffold(
           backgroundColor: AppColors.secondaryColor,
           body: SafeArea(
@@ -40,13 +48,27 @@ class AccountPage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: CoverWidget(
-                                      url:
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrHAFlZ65LYXXw3I1lMuCvpANXgwOxitbWfA&usqp=CAU',
-                                      onTap: () {},
+                                      url: state.currentUser?.coverUrl ?? '',
+                                      onTap: () {
+                                        AppNavigator.openModalImagePicker(
+                                            onCamera: () async {
+                                          AppNavigator.goBack();
+                                          await cubit.getImage(
+                                              imageSource: ImageSource.camera,
+                                              type: ImageType.cover);
+                                        }, onGallery: () async {
+                                          AppNavigator.goBack();
+                                          await cubit.getImage(
+                                              imageSource: ImageSource.gallery,
+                                              type: ImageType.cover);
+                                        });
+                                      },
                                     ),
                                   ),
                                   Expanded(
-                                    child: PersonalInfoWidget(),
+                                    child: PersonalInfoWidget(
+                                      users: state.currentUser,
+                                    ),
                                   )
                                 ],
                               ),
@@ -54,9 +76,21 @@ class AccountPage extends StatelessWidget {
                                   top: 140,
                                   left: 20,
                                   child: ProfileAvatarWidget(
-                                    url:
-                                        'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg',
-                                    onTap: () {},
+                                    url: state.currentUser?.profileUrl ?? '',
+                                    onTap: () {
+                                      AppNavigator.openModalImagePicker(
+                                            onCamera: () async {
+                                          AppNavigator.goBack();
+                                          await cubit.getImage(
+                                              imageSource: ImageSource.camera,
+                                              type: ImageType.profile);
+                                        }, onGallery: () async {
+                                          AppNavigator.goBack();
+                                          await cubit.getImage(
+                                              imageSource: ImageSource.gallery,
+                                              type: ImageType.profile);
+                                        });
+                                    },
                                   ))
                             ],
                           ),
@@ -76,11 +110,17 @@ class AccountPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   EducationWidget(),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   ExperenceWidget(),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   SkillsWidget(),
                 ],
               ),

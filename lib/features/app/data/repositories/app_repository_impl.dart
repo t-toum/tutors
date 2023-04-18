@@ -25,9 +25,9 @@ class AppRepositoryImpl implements AppRepository {
   }
 
   @override
-  Future<Either<Failure, Users>> getCurrentUser({required String doc}) async {
+  Future<Either<Failure, Users>> getUser({required String doc}) async {
     try {
-      final user = await _appRemoteDatasource.getCurrentUsers(doc: doc);
+      final user = await _appRemoteDatasource.getUsers(doc: doc);
       return Right(user);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));

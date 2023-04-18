@@ -7,8 +7,8 @@ import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/app/domain/usecases/get_user_usecase.dart';
 
-import '../../../app/domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
 
 part 'sign_in_cubit.freezed.dart';
@@ -17,8 +17,8 @@ part 'sign_in_state.dart';
 @injectable
 class SignInCubit extends Cubit<SignInState> {
   final SignInUsecase _signInUsecase;
-  final GetCurrentUserUsecase _getCurrentUserUsecase;
-  SignInCubit(this._signInUsecase, this._getCurrentUserUsecase)
+  final GetUserUsecase _getUserUsecase;
+  SignInCubit(this._signInUsecase, this._getUserUsecase)
       : super(const SignInState());
   GlobalKey<FormBuilderState> signInForm = GlobalKey<FormBuilderState>();
 
@@ -44,7 +44,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   Future<void> getCurrentUserData({required String doc}) async {
     emit(state.copyWith(status: DataStatus.loading));
-    final currentUser = await _getCurrentUserUsecase(doc);
+    final currentUser = await _getUserUsecase(doc);
     if (currentUser.isLeft()) {
       emit(state.copyWith(
           status: DataStatus.failure, error: currentUser.getLeft()?.msg));

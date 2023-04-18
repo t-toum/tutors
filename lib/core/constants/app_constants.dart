@@ -4,3 +4,10 @@ enum DataStatus {
   success,
   failure,
 }
+
+
+enum ImageType {
+  none,
+  cover,
+  profile,
+}

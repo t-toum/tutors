@@ -31,5 +31,7 @@
     "kShowAll":"Show All",
     "kEducation":"Education",
     "kExperence":"Experence",
-    "kSkills":"Skills"
+    "kSkills":"Skills",
+    "kFromCamera":"From Camera",
+    "kFromGallery":"From Gallery"
 }

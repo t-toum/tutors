@@ -9,7 +9,7 @@ import '../../../../core/services/cloud_firestore_service.dart';
 
 abstract class AppRemoteDatasource {
   Future<User?> getCurrentuserAuth();
-  Future<Users> getCurrentUsers({required String doc});
+  Future<Users> getUsers({required String doc});
   Future<UserCredential> signInWithGoogle();
   Future<void> setUser(
       {required Map<String, dynamic> data, required String doc});
@@ -27,7 +27,7 @@ class AppRemoteDatasourceImpl implements AppRemoteDatasource {
   }
 
   @override
-  Future<Users> getCurrentUsers({required String doc}) async {
+  Future<Users> getUsers({required String doc}) async {
     try {
       final document = await _couldFireStoreService.getDataByDocs(
           collection: FireCollection.users, doc: doc);

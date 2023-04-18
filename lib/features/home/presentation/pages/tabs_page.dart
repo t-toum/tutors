@@ -38,7 +38,7 @@ class TabsPage extends StatelessWidget {
                   return MultiBlocProvider(
                       providers: [
                         BlocProvider<AccountCubit>(
-                          create: (context) => getIt<AccountCubit>(),
+                          create: (context) => getIt<AccountCubit>()..getCurrentUser(),
                         ),
                       ],
                       child:const AccountPage(),
