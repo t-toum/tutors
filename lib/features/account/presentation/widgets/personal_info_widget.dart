@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tutors/core/models/users.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
 
 import '../../../../generated/locale_keys.g.dart';
+import '../pages/account_edit_info_page.dart';
 
 class PersonalInfoWidget extends StatelessWidget {
   final Users? users;
@@ -18,7 +20,12 @@ class PersonalInfoWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  AppNavigator.openModalBottomSheet(
+                    title: LocaleKeys.kEditInfo.tr(),
+                    body: AccountEditInfoPage(),
+                  );
+                },
                 child: Text(LocaleKeys.kEdit.tr()),
               )
             ],
@@ -37,8 +44,10 @@ class PersonalInfoWidget extends StatelessWidget {
               ? Text("${users?.position ?? ''}. ${users?.industry ?? ''}",
                   style: Theme.of(context).textTheme.bodySmall)
               : const SizedBox(),
-          (users?.city!=null || users?.country !=null)? Text("${users?.city ?? ''}, ${users?.country ?? ''}",
-              style: Theme.of(context).textTheme.bodySmall): const SizedBox(),
+          (users?.city != null || users?.country != null)
+              ? Text("${users?.city ?? ''}, ${users?.country ?? ''}",
+                  style: Theme.of(context).textTheme.bodySmall)
+              : const SizedBox(),
           Text(users?.email ?? '',
               style: Theme.of(context).textTheme.bodySmall),
           Text(users?.tel ?? '', style: Theme.of(context).textTheme.bodySmall),

@@ -81,7 +81,10 @@ class AppNavigator {
                   color: AppColors.greyColor,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.camera_alt,size: 15,),
+                child: const Icon(
+                  Icons.camera_alt,
+                  size: 15,
+                ),
               ),
               title: Text(LocaleKeys.kFromCamera.tr()),
             ),
@@ -94,13 +97,43 @@ class AppNavigator {
                   color: AppColors.greyColor,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.photo_camera_back_rounded,size: 15,),
+                child: const Icon(
+                  Icons.photo_camera_back_rounded,
+                  size: 15,
+                ),
               ),
               title: Text(LocaleKeys.kFromGallery.tr()),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  static dynamic openModalBottomSheet({required Widget body,required String title}) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      useSafeArea: true,
+      enableDrag: false,
+      context: navigatorKey!.currentContext!,
+      builder: (context) {
+        return Scaffold(
+          backgroundColor: AppColors.secondaryColor,
+          appBar: AppBar(
+            elevation: 0,
+            title: Text(title,style: Theme.of(context).textTheme.titleSmall,),
+            foregroundColor: Colors.black,
+            backgroundColor: AppColors.secondaryColor,
+            leading: IconButton(
+              onPressed: () {
+                AppNavigator.goBack();
+              },
+              icon: const Icon(Icons.close, color: Colors.black),
+            ),
+          ),
+          body:body,
+        );
+      },
     );
   }
 }

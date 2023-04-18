@@ -23,4 +23,5 @@ class AppImages {
   static const String profile = "$_path/profile.jpg";
   static const String plusWhite = "$_path/plus_white.png";
   static const String plusGrey = "$_path/plus_grey.png";
+  static const String heart = "$_path/heart.png";
 }

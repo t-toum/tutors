@@ -33,5 +33,6 @@
     "kExperence":"Experence",
     "kSkills":"Skills",
     "kFromCamera":"From Camera",
-    "kFromGallery":"From Gallery"
+    "kFromGallery":"From Gallery",
+    "kEditInfo":"Edit info"
 }

@@ -5,6 +5,7 @@ import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/widgets/search_text_field.dart';
 
 import '../../../../core/constants/app_images.dart';
+import '../widgets/course_item.dart';
 
 class CoursePage extends StatelessWidget {
   const CoursePage({super.key});
@@ -45,13 +46,15 @@ class CoursePage extends StatelessWidget {
             ],
           ),
           body: GestureDetector(
-            onTap: ()=>FocusManager.instance.primaryFocus?.unfocus(),
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              padding:const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  Text("Body")
+                  ...List.generate(10, (index) {
+                    return CourseItem();
+                  }),
                 ],
               ),
             ),

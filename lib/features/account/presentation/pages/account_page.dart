@@ -101,7 +101,9 @@ class AccountPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              AppNavigator.openModalBottomSheet(body: Container(), title: "User info");
+                            },
                             child: Text(
                               LocaleKeys.kShowAll.tr(),
                             ),
