@@ -38,7 +38,7 @@ mixin _$Users {
   DateTime? get birthDay => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
-  List<String>? get education => throw _privateConstructorUsedError;
+  List<Education>? get education => throw _privateConstructorUsedError;
   List<String>? get experience => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
 
@@ -70,7 +70,7 @@ abstract class $UsersCopyWith<$Res> {
       @TimestampConverter() DateTime? birthDay,
       String? address,
       String? phone,
-      List<String>? education,
+      List<Education>? education,
       List<String>? experience,
       List<String>? skills});
 }
@@ -181,7 +181,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
       education: freezed == education
           ? _value.education
           : education // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Education>?,
       experience: freezed == experience
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
@@ -218,7 +218,7 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       @TimestampConverter() DateTime? birthDay,
       String? address,
       String? phone,
-      List<String>? education,
+      List<Education>? education,
       List<String>? experience,
       List<String>? skills});
 }
@@ -325,7 +325,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
       education: freezed == education
           ? _value._education
           : education // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Education>?,
       experience: freezed == experience
           ? _value._experience
           : experience // ignore: cast_nullable_to_non_nullable
@@ -359,7 +359,7 @@ class _$_Users implements _Users {
       @TimestampConverter() this.birthDay,
       this.address,
       this.phone,
-      final List<String>? education,
+      final List<Education>? education,
       final List<String>? experience,
       final List<String>? skills})
       : _education = education,
@@ -404,9 +404,9 @@ class _$_Users implements _Users {
   final String? address;
   @override
   final String? phone;
-  final List<String>? _education;
+  final List<Education>? _education;
   @override
-  List<String>? get education {
+  List<Education>? get education {
     final value = _education;
     if (value == null) return null;
     if (_education is EqualUnmodifiableListView) return _education;
@@ -535,7 +535,7 @@ abstract class _Users implements Users {
       @TimestampConverter() final DateTime? birthDay,
       final String? address,
       final String? phone,
-      final List<String>? education,
+      final List<Education>? education,
       final List<String>? experience,
       final List<String>? skills}) = _$_Users;
 
@@ -577,7 +577,7 @@ abstract class _Users implements Users {
   @override
   String? get phone;
   @override
-  List<String>? get education;
+  List<Education>? get education;
   @override
   List<String>? get experience;
   @override

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tutors/core/models/education.dart';
 
 part 'users.freezed.dart';
 part 'users.g.dart';
@@ -24,7 +25,7 @@ class Users with _$Users {
     @TimestampConverter() final DateTime? birthDay,
     final String? address,
     final String? phone,
-    final List<String>? education,
+    final List<Education>? education,
     final List<String>? experience,
     final List<String>? skills,
   }) = _Users;
