@@ -14,18 +14,20 @@ class SignUpUsecase implements UseCase<dynamic, SignUpParams> {
   @override
   Future<Either<Failure, UserCredential>> call(SignUpParams params) async {
     return await _repository.signUp(
-        email: params.email, password: params.password, name: params.name);
+        email: params.email, password: params.password, firstName: params.firstName,lastName: params.lastname);
   }
 }
 
 class SignUpParams {
   final String email;
   final String password;
-  final String name;
+  final String firstName;
+  final String lastname;
 
   SignUpParams({
     required this.email,
     required this.password,
-    required this.name,
+    required this.firstName,
+    required this.lastname,
   });
 }

@@ -29,7 +29,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       Map<String, dynamic> formValue = signUpForm.currentState?.value ?? {};
       final result = await _signUpUsecase(
         SignUpParams(
-          name: formValue['name'],
+          firstName: formValue['firstName'],
+          lastname: formValue['lastName'],
           email: formValue['email'],
           password: formValue['password'],
         ),

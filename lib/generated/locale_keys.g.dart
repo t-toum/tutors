@@ -41,5 +41,23 @@ abstract class  LocaleKeys {
   static const kLanguage = 'kLanguage';
   static const kSignOut = 'kSignOut';
   static const kSecurity = 'kSecurity';
+  static const kFirstname = 'kFirstname';
+  static const kLastname = 'kLastname';
+  static const kGender = 'kGender';
+  static const kBirthday = 'kBirthday';
+  static const kAddress = 'kAddress';
+  static const kJobInfo = 'kJobInfo';
+  static const kJobTitle = 'kJobTitle';
+  static const kCurrentPosition = 'kCurrentPosition';
+  static const kIndustry = 'kIndustry';
+  static const kLocation = 'kLocation';
+  static const kCountry = 'kCountry';
+  static const kRegion = 'kRegion';
+  static const kCity = 'kCity';
+  static const kContactInfo = 'kContactInfo';
+  static const kPhoneNumber = 'kPhoneNumber';
+  static const kSave = 'kSave';
+  static const kMale = 'kMale';
+  static const kFemale = 'kFemale';
 
 }

@@ -4,6 +4,7 @@ import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/features/account/presentation/pages/account_page.dart';
+import 'package:tutors/features/account/presentation/pages/educations/education_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
 import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
@@ -70,6 +71,15 @@ class AppRoute {
             ),
           ],
           child: const AccountPage(),
+        );
+      case RoutePath.educationRoute:
+        return _materialRoute(
+          providers: [
+            BlocProvider<AccountCubit>(
+              create: (context) => getIt<AccountCubit>(),
+            ),
+          ],
+          child: const EducationPage(),
         );
 
       default:

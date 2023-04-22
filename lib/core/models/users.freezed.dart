@@ -21,7 +21,8 @@ Users _$UsersFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Users {
   String? get id => throw _privateConstructorUsedError;
-  String? get username => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   String? get role => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get tel => throw _privateConstructorUsedError;
@@ -32,6 +33,11 @@ mixin _$Users {
   String? get industry => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get birthDay => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
   List<String>? get education => throw _privateConstructorUsedError;
   List<String>? get experience => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
@@ -48,7 +54,8 @@ abstract class $UsersCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? username,
+      String? firstName,
+      String? lastName,
       String? role,
       String? email,
       String? tel,
@@ -59,6 +66,10 @@ abstract class $UsersCopyWith<$Res> {
       String? industry,
       String? country,
       String? city,
+      String? gender,
+      @TimestampConverter() DateTime? birthDay,
+      String? address,
+      String? phone,
       List<String>? education,
       List<String>? experience,
       List<String>? skills});
@@ -78,7 +89,8 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? role = freezed,
     Object? email = freezed,
     Object? tel = freezed,
@@ -89,6 +101,10 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? industry = freezed,
     Object? country = freezed,
     Object? city = freezed,
+    Object? gender = freezed,
+    Object? birthDay = freezed,
+    Object? address = freezed,
+    Object? phone = freezed,
     Object? education = freezed,
     Object? experience = freezed,
     Object? skills = freezed,
@@ -98,9 +114,13 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       role: freezed == role
           ? _value.role
@@ -141,6 +161,22 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthDay: freezed == birthDay
+          ? _value.birthDay
+          : birthDay // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
               as String?,
       education: freezed == education
           ? _value.education
@@ -166,7 +202,8 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? username,
+      String? firstName,
+      String? lastName,
       String? role,
       String? email,
       String? tel,
@@ -177,6 +214,10 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       String? industry,
       String? country,
       String? city,
+      String? gender,
+      @TimestampConverter() DateTime? birthDay,
+      String? address,
+      String? phone,
       List<String>? education,
       List<String>? experience,
       List<String>? skills});
@@ -192,7 +233,8 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? role = freezed,
     Object? email = freezed,
     Object? tel = freezed,
@@ -203,6 +245,10 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
     Object? industry = freezed,
     Object? country = freezed,
     Object? city = freezed,
+    Object? gender = freezed,
+    Object? birthDay = freezed,
+    Object? address = freezed,
+    Object? phone = freezed,
     Object? education = freezed,
     Object? experience = freezed,
     Object? skills = freezed,
@@ -212,9 +258,13 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       role: freezed == role
           ? _value.role
@@ -256,6 +306,22 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthDay: freezed == birthDay
+          ? _value.birthDay
+          : birthDay // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
       education: freezed == education
           ? _value._education
           : education // ignore: cast_nullable_to_non_nullable
@@ -277,7 +343,8 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
 class _$_Users implements _Users {
   const _$_Users(
       {this.id,
-      this.username,
+      this.firstName,
+      this.lastName,
       this.role,
       this.email,
       this.tel,
@@ -288,6 +355,10 @@ class _$_Users implements _Users {
       this.industry,
       this.country,
       this.city,
+      this.gender,
+      @TimestampConverter() this.birthDay,
+      this.address,
+      this.phone,
       final List<String>? education,
       final List<String>? experience,
       final List<String>? skills})
@@ -301,7 +372,9 @@ class _$_Users implements _Users {
   @override
   final String? id;
   @override
-  final String? username;
+  final String? firstName;
+  @override
+  final String? lastName;
   @override
   final String? role;
   @override
@@ -322,6 +395,15 @@ class _$_Users implements _Users {
   final String? country;
   @override
   final String? city;
+  @override
+  final String? gender;
+  @override
+  @TimestampConverter()
+  final DateTime? birthDay;
+  @override
+  final String? address;
+  @override
+  final String? phone;
   final List<String>? _education;
   @override
   List<String>? get education {
@@ -354,7 +436,7 @@ class _$_Users implements _Users {
 
   @override
   String toString() {
-    return 'Users(id: $id, username: $username, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, education: $education, experience: $experience, skills: $skills)';
+    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, education: $education, experience: $experience, skills: $skills)';
   }
 
   @override
@@ -363,8 +445,10 @@ class _$_Users implements _Users {
         (other.runtimeType == runtimeType &&
             other is _$_Users &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.tel, tel) || other.tel == tel) &&
@@ -380,6 +464,11 @@ class _$_Users implements _Users {
                 other.industry == industry) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.city, city) || other.city == city) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.birthDay, birthDay) ||
+                other.birthDay == birthDay) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             const DeepCollectionEquality()
                 .equals(other._education, _education) &&
             const DeepCollectionEquality()
@@ -389,23 +478,29 @@ class _$_Users implements _Users {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      username,
-      role,
-      email,
-      tel,
-      profileUrl,
-      coverUrl,
-      jobTitle,
-      position,
-      industry,
-      country,
-      city,
-      const DeepCollectionEquality().hash(_education),
-      const DeepCollectionEquality().hash(_experience),
-      const DeepCollectionEquality().hash(_skills));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        firstName,
+        lastName,
+        role,
+        email,
+        tel,
+        profileUrl,
+        coverUrl,
+        jobTitle,
+        position,
+        industry,
+        country,
+        city,
+        gender,
+        birthDay,
+        address,
+        phone,
+        const DeepCollectionEquality().hash(_education),
+        const DeepCollectionEquality().hash(_experience),
+        const DeepCollectionEquality().hash(_skills)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -424,7 +519,8 @@ class _$_Users implements _Users {
 abstract class _Users implements Users {
   const factory _Users(
       {final String? id,
-      final String? username,
+      final String? firstName,
+      final String? lastName,
       final String? role,
       final String? email,
       final String? tel,
@@ -435,6 +531,10 @@ abstract class _Users implements Users {
       final String? industry,
       final String? country,
       final String? city,
+      final String? gender,
+      @TimestampConverter() final DateTime? birthDay,
+      final String? address,
+      final String? phone,
       final List<String>? education,
       final List<String>? experience,
       final List<String>? skills}) = _$_Users;
@@ -444,7 +544,9 @@ abstract class _Users implements Users {
   @override
   String? get id;
   @override
-  String? get username;
+  String? get firstName;
+  @override
+  String? get lastName;
   @override
   String? get role;
   @override
@@ -465,6 +567,15 @@ abstract class _Users implements Users {
   String? get country;
   @override
   String? get city;
+  @override
+  String? get gender;
+  @override
+  @TimestampConverter()
+  DateTime? get birthDay;
+  @override
+  String? get address;
+  @override
+  String? get phone;
   @override
   List<String>? get education;
   @override

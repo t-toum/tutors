@@ -8,7 +8,8 @@ part of 'users.dart';
 
 _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
       id: json['id'] as String?,
-      username: json['username'] as String?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
       role: json['role'] as String?,
       email: json['email'] as String?,
       tel: json['tel'] as String?,
@@ -19,6 +20,11 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
       industry: json['industry'] as String?,
       country: json['country'] as String?,
       city: json['city'] as String?,
+      gender: json['gender'] as String?,
+      birthDay:
+          const TimestampConverter().fromJson(json['birthDay'] as Timestamp?),
+      address: json['address'] as String?,
+      phone: json['phone'] as String?,
       education: (json['education'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -31,7 +37,8 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
 
 Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
       'id': instance.id,
-      'username': instance.username,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
       'role': instance.role,
       'email': instance.email,
       'tel': instance.tel,
@@ -42,6 +49,10 @@ Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
       'industry': instance.industry,
       'country': instance.country,
       'city': instance.city,
+      'gender': instance.gender,
+      'birthDay': const TimestampConverter().toJson(instance.birthDay),
+      'address': instance.address,
+      'phone': instance.phone,
       'education': instance.education,
       'experience': instance.experience,
       'skills': instance.skills,

@@ -15,13 +15,14 @@ class SignUpRepositoryImpl implements SignUpRepository {
 
   @override
   Future<Either<Failure, UserCredential>> signUp(
-      {required String email, required String password, String? name}) async {
+      {required String email, required String password, String? firstName,String? lastName}) async {
     try {
       final UserCredential credential = await _signUpRemoteDatasource
           .signUpWithEmail(email: email, password: password);
       Users data = Users(
         id: credential.user?.uid,
-        username: name,
+        firstName: firstName,
+        lastName: lastName,
         email: credential.user?.email
       );
       await _signUpRemoteDatasource.saveUserData(

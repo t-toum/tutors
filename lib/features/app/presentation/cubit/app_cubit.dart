@@ -13,7 +13,6 @@ import '../../domain/usecases/save_user_data_usecase.dart';
 import '../../domain/usecases/sign_in_google_usecase.dart';
 import '../../domain/usecases/get_user_usecase.dart';
 
-
 part 'app_cubit.freezed.dart';
 part 'app_state.dart';
 
@@ -45,7 +44,9 @@ class AppCubit extends Cubit<AppState> {
   }
 
   Future<void> getCurrentUserData(
-      {required String doc, bool isGoogle = false , Map<String,dynamic>? data}) async {
+      {required String doc,
+      bool isGoogle = false,
+      Map<String, dynamic>? data}) async {
     emit(state.copyWith(status: DataStatus.loading));
     final currentUser = await _getUserUsecase(doc);
     if (currentUser.isLeft()) {
@@ -61,7 +62,7 @@ class AppCubit extends Cubit<AppState> {
             AppNavigator.pushAndRemoveUntil(RoutePath.roleRoute, params: doc);
           }
         } else {
-          await saveUserData(doc: doc,data: data??{});
+          await saveUserData(doc: doc, data: data ?? {});
         }
       } else {
         emit(
@@ -80,10 +81,12 @@ class AppCubit extends Cubit<AppState> {
       final credential = result.getRight()?.user;
       Users user = Users(
         id: credential?.uid,
-        username: credential?.displayName,
+        firstName: credential?.displayName?.split(" ").first,
+        lastName: credential?.displayName?.split(" ").last,
         email: credential?.email,
       );
-      await getCurrentUserData(doc: credential?.uid ?? '', isGoogle: true,data: user.toJson());
+      await getCurrentUserData(
+          doc: credential?.uid ?? '', isGoogle: true, data: user.toJson());
     }
   }
 
@@ -96,8 +99,8 @@ class AppCubit extends Cubit<AppState> {
     if (result.isLeft()) {
       emit(state.copyWith(
           status: DataStatus.failure, error: result.getLeft()?.msg));
-    }else{
-      await getCurrentUserData(doc: doc,isGoogle: true);
+    } else {
+      await getCurrentUserData(doc: doc, isGoogle: true);
     }
   }
 }

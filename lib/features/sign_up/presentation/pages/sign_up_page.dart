@@ -51,15 +51,26 @@ class SignUpPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   CustomTextField(
-                    name: "name",
+                    name: "firstName",
                     icon: AppImages.accountName,
-                    hintText: LocaleKeys.kUsername.tr(),
+                    hintText: LocaleKeys.kFirstname.tr(),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required<String>(
                         errorText: LocaleKeys.kRequiredField.tr(),
                       )
                     ]),
                   ),
+                  const SizedBox(height: 20),
+                  CustomTextField(
+                    name: "lastName",
+                    icon: AppImages.accountName,
+                    hintText: LocaleKeys.kLastname.tr(),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required<String>(
+                        errorText: LocaleKeys.kRequiredField.tr(),
+                      )
+                    ]),
+                  ), 
                   const SizedBox(height: 20),
                   CustomTextField(
                     name: "email",
