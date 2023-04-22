@@ -6,7 +6,7 @@ import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 
 import '../../../../generated/locale_keys.g.dart';
-import '../pages/account_edit_info_page.dart';
+import '../pages/user_info/account_edit_info_page.dart';
 
 class PersonalInfoWidget extends StatelessWidget {
   final Users? users;

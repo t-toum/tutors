@@ -59,5 +59,6 @@ abstract class  LocaleKeys {
   static const kSave = 'kSave';
   static const kMale = 'kMale';
   static const kFemale = 'kFemale';
+  static const kUserInfo = 'kUserInfo';
 
 }

@@ -56,5 +56,6 @@
     "kPhoneNumber":"Phone number",
     "kSave":"Save",
     "kMale":"Male",
-    "kFemale":"Female"
+    "kFemale":"Female",
+    "kUserInfo":"User info"
 }

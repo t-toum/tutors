@@ -5,8 +5,8 @@ import '../../../../core/widgets/avatar_widget.dart';
 import '../../../../generated/locale_keys.g.dart';
 import 'header_bar.dart';
 
-class ExperenceWidget extends StatelessWidget {
-  const ExperenceWidget({super.key});
+class ExperienceWidget extends StatelessWidget {
+  const ExperienceWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

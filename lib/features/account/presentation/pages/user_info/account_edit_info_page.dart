@@ -8,7 +8,7 @@ import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
-import '../../../../core/widgets/custom_button.dart';
+import '../../../../../core/widgets/custom_button.dart';
 
 class AccountEditInfoPage extends StatelessWidget {
   const AccountEditInfoPage({super.key});

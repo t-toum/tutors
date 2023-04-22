@@ -7,11 +7,12 @@ import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
+import 'package:tutors/features/account/presentation/pages/user_info/user_detail_page.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../widgets/cover_widget.dart';
 import '../widgets/education_widget.dart';
-import '../widgets/experence_widget.dart';
+import '../widgets/experience_widget.dart';
 import '../widgets/personal_info_widget.dart';
 import '../widgets/profile_avatar_widget.dart';
 import '../widgets/skills_widget.dart';
@@ -79,17 +80,17 @@ class AccountPage extends StatelessWidget {
                                     url: state.currentUser?.profileUrl ?? '',
                                     onTap: () {
                                       AppNavigator.openModalImagePicker(
-                                            onCamera: () async {
-                                          AppNavigator.goBack();
-                                          await cubit.getImage(
-                                              imageSource: ImageSource.camera,
-                                              type: ImageType.profile);
-                                        }, onGallery: () async {
-                                          AppNavigator.goBack();
-                                          await cubit.getImage(
-                                              imageSource: ImageSource.gallery,
-                                              type: ImageType.profile);
-                                        });
+                                          onCamera: () async {
+                                        AppNavigator.goBack();
+                                        await cubit.getImage(
+                                            imageSource: ImageSource.camera,
+                                            type: ImageType.profile);
+                                      }, onGallery: () async {
+                                        AppNavigator.goBack();
+                                        await cubit.getImage(
+                                            imageSource: ImageSource.gallery,
+                                            type: ImageType.profile);
+                                      });
                                     },
                                   ))
                             ],
@@ -102,7 +103,11 @@ class AccountPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: GestureDetector(
                             onTap: () {
-                              AppNavigator.openModalBottomSheet(body: Container(), title: "User info");
+                              AppNavigator.openModalBottomSheet(
+                                  body: UserDetailPage(
+                                    user: state.currentUser,
+                                  ),
+                                  title: LocaleKeys.kUserInfo.tr());
                             },
                             child: Text(
                               LocaleKeys.kShowAll.tr(),
@@ -119,7 +124,7 @@ class AccountPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  ExperenceWidget(),
+                  ExperienceWidget(),
                   const SizedBox(
                     height: 10,
                   ),
