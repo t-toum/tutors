@@ -1,34 +1,39 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'education.dart';
+part of 'experience.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Education _$$_EducationFromJson(Map<String, dynamic> json) => _$_Education(
+_$_Experience _$$_ExperienceFromJson(Map<String, dynamic> json) =>
+    _$_Experience(
       id: json['id'] as String?,
-      school: json['school'] == null
-          ? null
-          : School.fromJson(json['school'] as Map<String, dynamic>),
-      grade: json['grade'] as String?,
-      fieldStudy: json['fieldStudy'] as String?,
+      title: json['title'] as String?,
+      type: json['type'] as String?,
+      company: json['company'] as String?,
+      location: json['location'] as String?,
+      locationType: json['locationType'] as String?,
+      isPresent: json['isPresent'] as bool?,
       startDate:
           const TimestampConverter().fromJson(json['startDate'] as Timestamp?),
       endDate:
           const TimestampConverter().fromJson(json['endDate'] as Timestamp?),
-      acctivities: json['acctivities'] as String?,
       description: json['description'] as String?,
+      imageUrl: json['imageUrl'] as String?,
     );
 
-Map<String, dynamic> _$$_EducationToJson(_$_Education instance) =>
+Map<String, dynamic> _$$_ExperienceToJson(_$_Experience instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'school': instance.school,
-      'grade': instance.grade,
-      'fieldStudy': instance.fieldStudy,
+      'title': instance.title,
+      'type': instance.type,
+      'company': instance.company,
+      'location': instance.location,
+      'locationType': instance.locationType,
+      'isPresent': instance.isPresent,
       'startDate': const TimestampConverter().toJson(instance.startDate),
       'endDate': const TimestampConverter().toJson(instance.endDate),
-      'acctivities': instance.acctivities,
       'description': instance.description,
+      'imageUrl': instance.imageUrl,
     };

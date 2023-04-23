@@ -5,6 +5,7 @@ import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/features/account/presentation/pages/account_page.dart';
 import 'package:tutors/features/account/presentation/pages/educations/education_page.dart';
+import 'package:tutors/features/account/presentation/pages/experiences/edit_experience_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
 import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
@@ -80,6 +81,16 @@ class AppRoute {
             ),
           ],
           child: const EducationPage(),
+        );
+
+      case RoutePath.editExperienceRoute:
+        return _materialRoute(
+          providers: [
+            BlocProvider<AccountCubit>(
+              create: (context) => getIt<AccountCubit>()..getCurrentUser(),
+            ),
+          ],
+          child: const EditExperiencePage(),
         );
 
       default:

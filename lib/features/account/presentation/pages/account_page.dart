@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tutors/core/constants/app_colors.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/models/experience.dart';
+import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
@@ -120,11 +122,27 @@ class AccountPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  EducationWidget(),
+                  BlocSelector<AccountCubit, AccountState, Users?>(
+                    selector: (state) {
+                      return state.currentUser;
+                    },
+                    builder: (context, state) {
+                      return const EducationWidget();
+                    },
+                  ),
+
                   const SizedBox(
                     height: 10,
                   ),
-                  ExperienceWidget(),
+                  BlocSelector<AccountCubit, AccountState, List<Experience>?>(
+                      selector: (state) {
+                    return state.currentUser?.experience;
+                  }, builder: (context, state) {
+                    return ExperienceWidget(
+                      experiences: state,
+                    );
+                  }),
+
                   const SizedBox(
                     height: 10,
                   ),

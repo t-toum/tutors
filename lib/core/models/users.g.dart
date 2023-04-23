@@ -29,7 +29,7 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
           ?.map((e) => Education.fromJson(e as Map<String, dynamic>))
           .toList(),
       experience: (json['experience'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => Experience.fromJson(e as Map<String, dynamic>))
           .toList(),
       skills:
           (json['skills'] as List<dynamic>?)?.map((e) => e as String).toList(),

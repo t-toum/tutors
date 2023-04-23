@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/models/users.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/usecases/no_params.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
@@ -29,11 +31,30 @@ class AccountCubit extends Cubit<AccountState> {
 
   late GlobalKey<FormBuilderState> editInfoKey;
   late List<String> genders;
+  late GlobalKey<FormBuilderState> addExperienceKey;
+  late List<String>employmentType;
+  late List<String>locationType;
   AccountCubit(this._getCurrentUserUsecase, this._imagePicker,
       this._uploadImageUsecase, this._updateUserProfile)
       : super(const AccountState()) {
     editInfoKey = GlobalKey<FormBuilderState>();
     genders = [LocaleKeys.kMale.tr(), LocaleKeys.kFemale.tr()];
+    addExperienceKey = GlobalKey<FormBuilderState>();
+    employmentType = [
+      "Full-time",
+      "Part-time",
+      "Self-employed",
+      "Freelance",
+      "Contract",
+      "Internship",
+      "Apprenticeship",
+      "Seasonal"
+    ];
+    locationType =[
+      "On-site",
+      "Hybrid",
+      "Remote"
+    ];
   }
 
   Future<void> getCurrentUser() async {
@@ -95,7 +116,7 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   //Update user
-  Future<void> _updateProfile({required Map<String, dynamic> data}) async {
+  Future<void> _updateProfile({required Map<String, dynamic> data,bool isGoback = false}) async {
     final result = await _updateUserProfile(
         UpdateProfileParams(userID: state.currentUser?.id ?? '', data: data));
     if (result.isLeft()) {
@@ -103,6 +124,27 @@ class AccountCubit extends Cubit<AccountState> {
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
       await getCurrentUser();
+      if(isGoback){
+        AppNavigator.goBack();
+      }
     }
+  }
+
+  Future<void> addExperience() async {
+    if (addExperienceKey.currentState!.saveAndValidate()) {
+      emit(state.copyWith(status: DataStatus.loading));
+      final formValue = addExperienceKey.currentState?.value ?? {};
+      final data = {
+        "experience": FieldValue.arrayUnion([formValue])
+      };
+      print(data);
+      await _updateProfile(data: data,isGoback: true);
+    }else{
+      print("");
+    }
+  }
+
+  void onChangedPresent(bool? value) {
+    emit(state.copyWith(isPresent: value));
   }
 }

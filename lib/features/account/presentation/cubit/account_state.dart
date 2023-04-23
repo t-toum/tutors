@@ -7,5 +7,6 @@ class AccountState with _$AccountState {
     final DataStatus status,
     final String? error,
     final Users? currentUser,
+    final bool? isPresent,
   }) = _Initial;
 }

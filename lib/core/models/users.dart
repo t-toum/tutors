@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tutors/core/models/education.dart';
 
+import '../utils/json_coverter.dart';
+import 'experience.dart';
+
 part 'users.freezed.dart';
 part 'users.g.dart';
 
@@ -26,31 +29,8 @@ class Users with _$Users {
     final String? address,
     final String? phone,
     final List<Education>? education,
-    final List<String>? experience,
+    final List<Experience>? experience,
     final List<String>? skills,
   }) = _Users;
   factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
-}
-
-class TimestampConverter implements JsonConverter<DateTime?, Timestamp?> {
-  const TimestampConverter();
-
-  @override
-  DateTime? fromJson(Timestamp? json) {
-    if (json != null) {
-      DateTime? dateTime = DateTime.fromMicrosecondsSinceEpoch(json.microsecondsSinceEpoch);
-      return dateTime;
-    }else{
-      return null;
-    }
-  }
-
-  @override
-  Timestamp? toJson(DateTime? object) {
-    if(object!=null){
-      return Timestamp.fromDate(object);
-    }else{
-      return null;
-    }
-  }
 }

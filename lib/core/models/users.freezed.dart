@@ -39,7 +39,7 @@ mixin _$Users {
   String? get address => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   List<Education>? get education => throw _privateConstructorUsedError;
-  List<String>? get experience => throw _privateConstructorUsedError;
+  List<Experience>? get experience => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,7 +71,7 @@ abstract class $UsersCopyWith<$Res> {
       String? address,
       String? phone,
       List<Education>? education,
-      List<String>? experience,
+      List<Experience>? experience,
       List<String>? skills});
 }
 
@@ -185,7 +185,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
       experience: freezed == experience
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Experience>?,
       skills: freezed == skills
           ? _value.skills
           : skills // ignore: cast_nullable_to_non_nullable
@@ -219,7 +219,7 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       String? address,
       String? phone,
       List<Education>? education,
-      List<String>? experience,
+      List<Experience>? experience,
       List<String>? skills});
 }
 
@@ -329,7 +329,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
       experience: freezed == experience
           ? _value._experience
           : experience // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Experience>?,
       skills: freezed == skills
           ? _value._skills
           : skills // ignore: cast_nullable_to_non_nullable
@@ -360,7 +360,7 @@ class _$_Users implements _Users {
       this.address,
       this.phone,
       final List<Education>? education,
-      final List<String>? experience,
+      final List<Experience>? experience,
       final List<String>? skills})
       : _education = education,
         _experience = experience,
@@ -414,9 +414,9 @@ class _$_Users implements _Users {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String>? _experience;
+  final List<Experience>? _experience;
   @override
-  List<String>? get experience {
+  List<Experience>? get experience {
     final value = _experience;
     if (value == null) return null;
     if (_experience is EqualUnmodifiableListView) return _experience;
@@ -536,7 +536,7 @@ abstract class _Users implements Users {
       final String? address,
       final String? phone,
       final List<Education>? education,
-      final List<String>? experience,
+      final List<Experience>? experience,
       final List<String>? skills}) = _$_Users;
 
   factory _Users.fromJson(Map<String, dynamic> json) = _$_Users.fromJson;
@@ -579,7 +579,7 @@ abstract class _Users implements Users {
   @override
   List<Education>? get education;
   @override
-  List<String>? get experience;
+  List<Experience>? get experience;
   @override
   List<String>? get skills;
   @override

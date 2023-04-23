@@ -57,5 +57,16 @@
     "kSave":"Save",
     "kMale":"Male",
     "kFemale":"Female",
-    "kUserInfo":"User info"
+    "kUserInfo":"User info",
+    "kAddExperience":"Add experience",
+    "kTitle":"Title",
+    "kEmploymentType":"Employment type",
+    "kCompanyName":"Company name",
+    "kLocationType":"Location type",
+    "kImCurrentWorking":"I am currently working in this role",
+    "kStartDate":"Start date",
+    "kEndDate":"End date",
+    "kDescription":"Description",
+    "kPresent":"Present",
+    "kDeleteExperiene":"Delete experience"
 }

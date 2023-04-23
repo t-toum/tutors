@@ -60,5 +60,16 @@ abstract class  LocaleKeys {
   static const kMale = 'kMale';
   static const kFemale = 'kFemale';
   static const kUserInfo = 'kUserInfo';
+  static const kAddExperience = 'kAddExperience';
+  static const kTitle = 'kTitle';
+  static const kEmploymentType = 'kEmploymentType';
+  static const kCompanyName = 'kCompanyName';
+  static const kLocationType = 'kLocationType';
+  static const kImCurrentWorking = 'kImCurrentWorking';
+  static const kStartDate = 'kStartDate';
+  static const kEndDate = 'kEndDate';
+  static const kDescription = 'kDescription';
+  static const kPresent = 'kPresent';
+  static const kDeleteExperiene = 'kDeleteExperiene';
 
 }

@@ -24,7 +24,9 @@ mixin _$Education {
   School? get school => throw _privateConstructorUsedError;
   String? get grade => throw _privateConstructorUsedError;
   String? get fieldStudy => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get endDate => throw _privateConstructorUsedError;
   String? get acctivities => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -45,8 +47,8 @@ abstract class $EducationCopyWith<$Res> {
       School? school,
       String? grade,
       String? fieldStudy,
-      DateTime? startDate,
-      DateTime? endDate,
+      @TimestampConverter() DateTime? startDate,
+      @TimestampConverter() DateTime? endDate,
       String? acctivities,
       String? description});
 
@@ -136,8 +138,8 @@ abstract class _$$_EducationCopyWith<$Res> implements $EducationCopyWith<$Res> {
       School? school,
       String? grade,
       String? fieldStudy,
-      DateTime? startDate,
-      DateTime? endDate,
+      @TimestampConverter() DateTime? startDate,
+      @TimestampConverter() DateTime? endDate,
       String? acctivities,
       String? description});
 
@@ -210,8 +212,8 @@ class _$_Education implements _Education {
       this.school,
       this.grade,
       this.fieldStudy,
-      this.startDate,
-      this.endDate,
+      @TimestampConverter() this.startDate,
+      @TimestampConverter() this.endDate,
       this.acctivities,
       this.description});
 
@@ -227,8 +229,10 @@ class _$_Education implements _Education {
   @override
   final String? fieldStudy;
   @override
+  @TimestampConverter()
   final DateTime? startDate;
   @override
+  @TimestampConverter()
   final DateTime? endDate;
   @override
   final String? acctivities;
@@ -284,8 +288,8 @@ abstract class _Education implements Education {
       final School? school,
       final String? grade,
       final String? fieldStudy,
-      final DateTime? startDate,
-      final DateTime? endDate,
+      @TimestampConverter() final DateTime? startDate,
+      @TimestampConverter() final DateTime? endDate,
       final String? acctivities,
       final String? description}) = _$_Education;
 
@@ -301,8 +305,10 @@ abstract class _Education implements Education {
   @override
   String? get fieldStudy;
   @override
+  @TimestampConverter()
   DateTime? get startDate;
   @override
+  @TimestampConverter()
   DateTime? get endDate;
   @override
   String? get acctivities;
