@@ -68,5 +68,12 @@
     "kEndDate":"End date",
     "kDescription":"Description",
     "kPresent":"Present",
-    "kDeleteExperiene":"Delete experience"
+    "kDeleteExperiene":"Delete experience",
+    "kAddEducation":"Add education",
+    "kSchool":"School",
+    "kDegree":"Degree",
+    "kFieldOfStudy":"Field of study",
+    "kGrade":"Grade",
+    "kActivitiesAndSocieties":"Activities and societies",
+    "kDeleteEducation":"Delete education"
 }

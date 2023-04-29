@@ -21,8 +21,9 @@ Education _$EducationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Education {
   String? get id => throw _privateConstructorUsedError;
-  School? get school => throw _privateConstructorUsedError;
+  String? get school => throw _privateConstructorUsedError;
   String? get grade => throw _privateConstructorUsedError;
+  String? get degree => throw _privateConstructorUsedError;
   String? get fieldStudy => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
@@ -30,6 +31,7 @@ mixin _$Education {
   DateTime? get endDate => throw _privateConstructorUsedError;
   String? get acctivities => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,15 +46,15 @@ abstract class $EducationCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      School? school,
+      String? school,
       String? grade,
+      String? degree,
       String? fieldStudy,
       @TimestampConverter() DateTime? startDate,
       @TimestampConverter() DateTime? endDate,
       String? acctivities,
-      String? description});
-
-  $SchoolCopyWith<$Res>? get school;
+      String? description,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -71,11 +73,13 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
     Object? id = freezed,
     Object? school = freezed,
     Object? grade = freezed,
+    Object? degree = freezed,
     Object? fieldStudy = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? acctivities = freezed,
     Object? description = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -85,10 +89,14 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
       school: freezed == school
           ? _value.school
           : school // ignore: cast_nullable_to_non_nullable
-              as School?,
+              as String?,
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
+              as String?,
+      degree: freezed == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
               as String?,
       fieldStudy: freezed == fieldStudy
           ? _value.fieldStudy
@@ -110,19 +118,11 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SchoolCopyWith<$Res>? get school {
-    if (_value.school == null) {
-      return null;
-    }
-
-    return $SchoolCopyWith<$Res>(_value.school!, (value) {
-      return _then(_value.copyWith(school: value) as $Val);
-    });
   }
 }
 
@@ -135,16 +135,15 @@ abstract class _$$_EducationCopyWith<$Res> implements $EducationCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      School? school,
+      String? school,
       String? grade,
+      String? degree,
       String? fieldStudy,
       @TimestampConverter() DateTime? startDate,
       @TimestampConverter() DateTime? endDate,
       String? acctivities,
-      String? description});
-
-  @override
-  $SchoolCopyWith<$Res>? get school;
+      String? description,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -161,11 +160,13 @@ class __$$_EducationCopyWithImpl<$Res>
     Object? id = freezed,
     Object? school = freezed,
     Object? grade = freezed,
+    Object? degree = freezed,
     Object? fieldStudy = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? acctivities = freezed,
     Object? description = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$_Education(
       id: freezed == id
@@ -175,10 +176,14 @@ class __$$_EducationCopyWithImpl<$Res>
       school: freezed == school
           ? _value.school
           : school // ignore: cast_nullable_to_non_nullable
-              as School?,
+              as String?,
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
+              as String?,
+      degree: freezed == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
               as String?,
       fieldStudy: freezed == fieldStudy
           ? _value.fieldStudy
@@ -200,6 +205,10 @@ class __$$_EducationCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -211,11 +220,13 @@ class _$_Education implements _Education {
       {this.id,
       this.school,
       this.grade,
+      this.degree,
       this.fieldStudy,
       @TimestampConverter() this.startDate,
       @TimestampConverter() this.endDate,
       this.acctivities,
-      this.description});
+      this.description,
+      this.imageUrl});
 
   factory _$_Education.fromJson(Map<String, dynamic> json) =>
       _$$_EducationFromJson(json);
@@ -223,9 +234,11 @@ class _$_Education implements _Education {
   @override
   final String? id;
   @override
-  final School? school;
+  final String? school;
   @override
   final String? grade;
+  @override
+  final String? degree;
   @override
   final String? fieldStudy;
   @override
@@ -238,10 +251,12 @@ class _$_Education implements _Education {
   final String? acctivities;
   @override
   final String? description;
+  @override
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'Education(id: $id, school: $school, grade: $grade, fieldStudy: $fieldStudy, startDate: $startDate, endDate: $endDate, acctivities: $acctivities, description: $description)';
+    return 'Education(id: $id, school: $school, grade: $grade, degree: $degree, fieldStudy: $fieldStudy, startDate: $startDate, endDate: $endDate, acctivities: $acctivities, description: $description, imageUrl: $imageUrl)';
   }
 
   @override
@@ -252,6 +267,7 @@ class _$_Education implements _Education {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.school, school) || other.school == school) &&
             (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.degree, degree) || other.degree == degree) &&
             (identical(other.fieldStudy, fieldStudy) ||
                 other.fieldStudy == fieldStudy) &&
             (identical(other.startDate, startDate) ||
@@ -260,13 +276,15 @@ class _$_Education implements _Education {
             (identical(other.acctivities, acctivities) ||
                 other.acctivities == acctivities) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, school, grade, fieldStudy,
-      startDate, endDate, acctivities, description);
+  int get hashCode => Object.hash(runtimeType, id, school, grade, degree,
+      fieldStudy, startDate, endDate, acctivities, description, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -285,13 +303,15 @@ class _$_Education implements _Education {
 abstract class _Education implements Education {
   const factory _Education(
       {final String? id,
-      final School? school,
+      final String? school,
       final String? grade,
+      final String? degree,
       final String? fieldStudy,
       @TimestampConverter() final DateTime? startDate,
       @TimestampConverter() final DateTime? endDate,
       final String? acctivities,
-      final String? description}) = _$_Education;
+      final String? description,
+      final String? imageUrl}) = _$_Education;
 
   factory _Education.fromJson(Map<String, dynamic> json) =
       _$_Education.fromJson;
@@ -299,9 +319,11 @@ abstract class _Education implements Education {
   @override
   String? get id;
   @override
-  School? get school;
+  String? get school;
   @override
   String? get grade;
+  @override
+  String? get degree;
   @override
   String? get fieldStudy;
   @override
@@ -314,6 +336,8 @@ abstract class _Education implements Education {
   String? get acctivities;
   @override
   String? get description;
+  @override
+  String? get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$_EducationCopyWith<_$_Education> get copyWith =>

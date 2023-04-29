@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
+import 'package:tutors/core/models/education.dart';
 import 'package:tutors/core/models/experience.dart';
 
 import '../constants/firebase_collection.dart';
@@ -103,9 +104,19 @@ class CouldFireStoreService {
       }).toList();
       Map<String, dynamic> userData = userSnapshot.data() ?? {};
 
-      //TODO: get education
-      //TODO: get skill
+      //get education
+      final educationSnapshot = await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(docID)
+          .collection(SubCollection.educations)
+          .get();
+      List<Education> listEducation = educationSnapshot.docs.map((e) {
+        Map<String, dynamic> mapData = e.data();
+        mapData['id'] = e.id;
+        return Education.fromJson(mapData);
+      }).toList();
       userData["experiences"] = listExperience.map((e) => e.toJson()).toList();
+      userData["educations"] = listEducation.map((e) => e.toJson()).toList();
       Users users = Users.fromJson(userData);
       return users;
     } on FirebaseException catch (e) {
@@ -142,6 +153,22 @@ class CouldFireStoreService {
           .collection(SubCollection.experiences)
           .doc(experienceId)
           .update(data);
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<String?> addEducation(
+      {required String userId, required Map<String, dynamic> data}) async {
+    try {
+      final result = await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(userId)
+          .collection(SubCollection.educations)
+          .add(data);
+      return result.id;
     } on FirebaseException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

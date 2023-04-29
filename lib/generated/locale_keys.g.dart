@@ -71,5 +71,12 @@ abstract class  LocaleKeys {
   static const kDescription = 'kDescription';
   static const kPresent = 'kPresent';
   static const kDeleteExperiene = 'kDeleteExperiene';
+  static const kAddEducation = 'kAddEducation';
+  static const kSchool = 'kSchool';
+  static const kDegree = 'kDegree';
+  static const kFieldOfStudy = 'kFieldOfStudy';
+  static const kGrade = 'kGrade';
+  static const kActivitiesAndSocieties = 'kActivitiesAndSocieties';
+  static const kDeleteEducation = 'kDeleteEducation';
 
 }

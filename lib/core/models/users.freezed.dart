@@ -38,7 +38,7 @@ mixin _$Users {
   DateTime? get birthDay => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
-  List<Education>? get education => throw _privateConstructorUsedError;
+  List<Education>? get educations => throw _privateConstructorUsedError;
   List<Experience>? get experiences => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
 
@@ -70,7 +70,7 @@ abstract class $UsersCopyWith<$Res> {
       @TimestampConverter() DateTime? birthDay,
       String? address,
       String? phone,
-      List<Education>? education,
+      List<Education>? educations,
       List<Experience>? experiences,
       List<String>? skills});
 }
@@ -105,7 +105,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? birthDay = freezed,
     Object? address = freezed,
     Object? phone = freezed,
-    Object? education = freezed,
+    Object? educations = freezed,
     Object? experiences = freezed,
     Object? skills = freezed,
   }) {
@@ -178,9 +178,9 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      education: freezed == education
-          ? _value.education
-          : education // ignore: cast_nullable_to_non_nullable
+      educations: freezed == educations
+          ? _value.educations
+          : educations // ignore: cast_nullable_to_non_nullable
               as List<Education>?,
       experiences: freezed == experiences
           ? _value.experiences
@@ -218,7 +218,7 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       @TimestampConverter() DateTime? birthDay,
       String? address,
       String? phone,
-      List<Education>? education,
+      List<Education>? educations,
       List<Experience>? experiences,
       List<String>? skills});
 }
@@ -249,7 +249,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
     Object? birthDay = freezed,
     Object? address = freezed,
     Object? phone = freezed,
-    Object? education = freezed,
+    Object? educations = freezed,
     Object? experiences = freezed,
     Object? skills = freezed,
   }) {
@@ -322,9 +322,9 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      education: freezed == education
-          ? _value._education
-          : education // ignore: cast_nullable_to_non_nullable
+      educations: freezed == educations
+          ? _value._educations
+          : educations // ignore: cast_nullable_to_non_nullable
               as List<Education>?,
       experiences: freezed == experiences
           ? _value._experiences
@@ -359,10 +359,10 @@ class _$_Users implements _Users {
       @TimestampConverter() this.birthDay,
       this.address,
       this.phone,
-      final List<Education>? education,
+      final List<Education>? educations,
       final List<Experience>? experiences,
       final List<String>? skills})
-      : _education = education,
+      : _educations = educations,
         _experiences = experiences,
         _skills = skills;
 
@@ -404,12 +404,12 @@ class _$_Users implements _Users {
   final String? address;
   @override
   final String? phone;
-  final List<Education>? _education;
+  final List<Education>? _educations;
   @override
-  List<Education>? get education {
-    final value = _education;
+  List<Education>? get educations {
+    final value = _educations;
     if (value == null) return null;
-    if (_education is EqualUnmodifiableListView) return _education;
+    if (_educations is EqualUnmodifiableListView) return _educations;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -436,7 +436,7 @@ class _$_Users implements _Users {
 
   @override
   String toString() {
-    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, education: $education, experiences: $experiences, skills: $skills)';
+    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, educations: $educations, experiences: $experiences, skills: $skills)';
   }
 
   @override
@@ -470,7 +470,7 @@ class _$_Users implements _Users {
             (identical(other.address, address) || other.address == address) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             const DeepCollectionEquality()
-                .equals(other._education, _education) &&
+                .equals(other._educations, _educations) &&
             const DeepCollectionEquality()
                 .equals(other._experiences, _experiences) &&
             const DeepCollectionEquality().equals(other._skills, _skills));
@@ -497,7 +497,7 @@ class _$_Users implements _Users {
         birthDay,
         address,
         phone,
-        const DeepCollectionEquality().hash(_education),
+        const DeepCollectionEquality().hash(_educations),
         const DeepCollectionEquality().hash(_experiences),
         const DeepCollectionEquality().hash(_skills)
       ]);
@@ -535,7 +535,7 @@ abstract class _Users implements Users {
       @TimestampConverter() final DateTime? birthDay,
       final String? address,
       final String? phone,
-      final List<Education>? education,
+      final List<Education>? educations,
       final List<Experience>? experiences,
       final List<String>? skills}) = _$_Users;
 
@@ -577,7 +577,7 @@ abstract class _Users implements Users {
   @override
   String? get phone;
   @override
-  List<Education>? get education;
+  List<Education>? get educations;
   @override
   List<Experience>? get experiences;
   @override

@@ -4,4 +4,5 @@ class FireCollection{
 
 class SubCollection{
   static const String experiences = "experiences";
+  static const String educations = "educations";
 }

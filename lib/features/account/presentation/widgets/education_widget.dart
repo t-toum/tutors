@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/models/education.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/widgets/avatar_widget.dart';
@@ -10,8 +12,8 @@ import '../pages/educations/add_education_page.dart';
 import 'header_bar.dart';
 
 class EducationWidget extends StatelessWidget {
-  final List<Education> education;
-  const EducationWidget({super.key, this.education = const []});
+  final List<Education> educations;
+  const EducationWidget({super.key, this.educations = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -29,102 +31,67 @@ class EducationWidget extends StatelessWidget {
               },
               addNew: () {
                 AppNavigator.openModalBottomSheet(
-                    body: AddEducationPage(), title: "Add education");
+                  body: BlocProvider<AccountCubit>.value(
+                    value: context.read<AccountCubit>(),
+                    child: const AddEducationPage(),
+                  ),
+                  title: '',
+                );
               },
             ),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AvatarWidget(
-                  isCircle: true,
-                  imageUrl:
-                      'https://upload.wikimedia.org/wikipedia/en/5/52/Logo-nuol.gif',
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            ...educations.map((education) {
+              return Column(
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "National University of Laos",
-                        style: Theme.of(context).textTheme.titleSmall,
+                      AvatarWidget(
+                        isCircle: true,
+                        imageUrl: education.imageUrl ?? '',
                       ),
-                      Text(
-                        "Bachelor's degree, Computer Programming",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "2016 - 2020",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Grade: B+",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Activities and societies: Football",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Description",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              education.school ?? '',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            Text(
+                              education.degree ?? '',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              "${education.startDate?.year} - ${education.endDate?.year}",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              "${LocaleKeys.kGrade} : ${education.grade}",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              "${LocaleKeys.kActivitiesAndSocieties.tr()}: ${education.acctivities}",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              education.description ?? '',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AvatarWidget(
-                  isCircle: true,
-                  imageUrl:
-                      "https://upload.wikimedia.org/wikipedia/en/5/52/Logo-nuol.gif",
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "National University of Laos",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      Text(
-                        "Bachelor's degree, Computer Programming",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "2016 - 2020",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Grade: B+",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Activities and societies: Football",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "Description",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
+                  const Divider(
+                    thickness: 2,
                   ),
-                )
-              ],
-            ),
+                ],
+              );
+            }).toList(),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
+import 'package:tutors/core/models/education.dart';
 import 'package:tutors/core/models/experience.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
@@ -16,6 +17,7 @@ import 'package:tutors/core/usecases/no_params.dart';
 import 'package:tutors/features/account/domain/usecases/update_experience_usecase.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
+import '../../domain/usecases/add_education_usecase.dart';
 import '../../domain/usecases/add_experience_usecase.dart';
 import '../../domain/usecases/delete_experience_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
@@ -34,12 +36,16 @@ class AccountCubit extends Cubit<AccountState> {
   final AddExperienceUsecase _addExperienceUsecase;
   final DeleteExperienceUsecase _deleteExperienceUsecase;
   final UpdateExperienceUsecase _updateExperienceUsecase;
+  final AddEducationUsecase _addEducationUsecase;
 
   late GlobalKey<FormBuilderState> editInfoKey;
   late List<String> genders;
   late GlobalKey<FormBuilderState> addExperienceKey;
   late List<String> employmentType;
   late List<String> locationType;
+
+  late GlobalKey<FormBuilderState> addEducationKey;
+
   AccountCubit(
     this._getCurrentUserUsecase,
     this._imagePicker,
@@ -48,6 +54,7 @@ class AccountCubit extends Cubit<AccountState> {
     this._addExperienceUsecase,
     this._deleteExperienceUsecase,
     this._updateExperienceUsecase,
+    this._addEducationUsecase,
   ) : super(const AccountState()) {
     editInfoKey = GlobalKey<FormBuilderState>();
     genders = [LocaleKeys.kMale.tr(), LocaleKeys.kFemale.tr()];
@@ -63,6 +70,7 @@ class AccountCubit extends Cubit<AccountState> {
       "Seasonal"
     ];
     locationType = ["On-site", "Hybrid", "Remote"];
+    addEducationKey = GlobalKey<FormBuilderState>();
   }
 
   Future<void> getCurrentUser() async {
@@ -179,8 +187,9 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> udateExperience({required String experienceId}) async {
     if (addExperienceKey.currentState!.saveAndValidate()) {
       emit(state.copyWith(status: DataStatus.loading));
-      Map<String,dynamic> formValue = Map.from(addExperienceKey.currentState?.value ?? {});
-      formValue['id']= experienceId;
+      Map<String, dynamic> formValue =
+          Map.from(addExperienceKey.currentState?.value ?? {});
+      formValue['id'] = experienceId;
       Experience experience = Experience.fromJson(formValue);
       final result = await _updateExperienceUsecase(UpdateExperienceParams(
           userId: state.currentUser?.id ?? '',
@@ -195,6 +204,27 @@ class AccountCubit extends Cubit<AccountState> {
       }
     } else {
       print("Update experience validated");
+    }
+  }
+
+  Future<void> addEducation() async {
+    if (addEducationKey.currentState!.saveAndValidate()) {
+      Map<String, dynamic> formValue =
+          Map.from(addEducationKey.currentState?.value ?? {});
+      Education data = Education.fromJson(formValue);
+      final education = await _addEducationUsecase(
+          AddEducationParams(userId: state.currentUser?.id ?? '', data: data));
+      if (education.isLeft()) {
+        emit(
+          state.copyWith(
+              status: DataStatus.failure, error: education.getLeft()?.msg),
+        );
+      } else {
+        await getCurrentUser();
+        AppNavigator.goBack();
+      }
+    } else {
+      print("Add education validated");
     }
   }
 }

@@ -9,8 +9,9 @@ part 'education.g.dart';
 class Education with _$Education {
   const factory Education({
     final String? id,
-    final School? school,
+    final String? school,
     final String? grade,
+    final String? degree,
     final String? fieldStudy,
     @TimestampConverter()
     final DateTime? startDate,
@@ -18,6 +19,7 @@ class Education with _$Education {
     final DateTime? endDate,
     final String? acctivities,
     final String? description,
+    final String? imageUrl,
   }) = _Education;
   factory Education.fromJson(Map<String, dynamic> json) =>
       _$EducationFromJson(json);

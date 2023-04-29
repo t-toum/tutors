@@ -28,7 +28,7 @@ class Users with _$Users {
     @TimestampConverter() final DateTime? birthDay,
     final String? address,
     final String? phone,
-    final List<Education>? education,
+    final List<Education>? educations,
     final List<Experience>? experiences,
     final List<String>? skills,
   }) = _Users;

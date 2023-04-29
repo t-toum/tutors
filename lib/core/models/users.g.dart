@@ -25,7 +25,7 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
           const TimestampConverter().fromJson(json['birthDay'] as Timestamp?),
       address: json['address'] as String?,
       phone: json['phone'] as String?,
-      education: (json['education'] as List<dynamic>?)
+      educations: (json['educations'] as List<dynamic>?)
           ?.map((e) => Education.fromJson(e as Map<String, dynamic>))
           .toList(),
       experiences: (json['experiences'] as List<dynamic>?)
@@ -53,7 +53,7 @@ Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
       'birthDay': const TimestampConverter().toJson(instance.birthDay),
       'address': instance.address,
       'phone': instance.phone,
-      'education': instance.education,
+      'educations': instance.educations,
       'experiences': instance.experiences,
       'skills': instance.skills,
     };
