@@ -28,7 +28,7 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
       education: (json['education'] as List<dynamic>?)
           ?.map((e) => Education.fromJson(e as Map<String, dynamic>))
           .toList(),
-      experience: (json['experience'] as List<dynamic>?)
+      experiences: (json['experiences'] as List<dynamic>?)
           ?.map((e) => Experience.fromJson(e as Map<String, dynamic>))
           .toList(),
       skills:
@@ -54,6 +54,6 @@ Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
       'address': instance.address,
       'phone': instance.phone,
       'education': instance.education,
-      'experience': instance.experience,
+      'experiences': instance.experiences,
       'skills': instance.skills,
     };

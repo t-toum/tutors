@@ -136,7 +136,7 @@ class AccountPage extends StatelessWidget {
                   ),
                   BlocSelector<AccountCubit, AccountState, List<Experience>?>(
                       selector: (state) {
-                    return state.currentUser?.experience;
+                    return state.currentUser?.experiences;
                   }, builder: (context, state) {
                     return ExperienceWidget(
                       experiences: state,

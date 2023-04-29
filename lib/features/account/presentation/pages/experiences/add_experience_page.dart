@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,9 @@ import '../../../../../generated/locale_keys.g.dart';
 class AddExperiencePage extends StatelessWidget {
   final Experience? experience;
   final bool isUpdate;
-  const AddExperiencePage({super.key, this.experience, this.isUpdate = false});
+  final String docID;
+  const AddExperiencePage(
+      {super.key, this.experience, this.isUpdate = false, required this.docID});
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +117,8 @@ class AddExperiencePage extends StatelessWidget {
                           labelText: "${LocaleKeys.kStartDate.tr()} *",
                           suffixIcon: const Icon(Icons.date_range),
                         ),
+                        valueTransformer: (value) =>
+                            (value != null) ? Timestamp.fromDate(value) : null,
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(
                             errorText: LocaleKeys.kRequiredField.tr(),
@@ -130,6 +135,8 @@ class AddExperiencePage extends StatelessWidget {
                           labelText: "${LocaleKeys.kEndDate.tr()} *",
                           suffixIcon: const Icon(Icons.date_range),
                         ),
+                        valueTransformer: (value) =>
+                            (value != null) ? Timestamp.fromDate(value) : null,
                         validator: (state.isPresent == true)
                             ? null
                             : FormBuilderValidators.compose([
@@ -148,7 +155,10 @@ class AddExperiencePage extends StatelessWidget {
                       if (isUpdate) ...[
                         const SizedBox(height: 15),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              cubit.deleteExperience(
+                                  experienceId: experience?.id ?? '');
+                            },
                             child: Text(
                               LocaleKeys.kDeleteExperiene.tr(),
                               style: Theme.of(context)
@@ -168,7 +178,13 @@ class AddExperiencePage extends StatelessWidget {
                 height: 50,
                 child: CustomButton(
                   onPressed: () {
-                    context.read<AccountCubit>().addExperience();
+                    if (isUpdate) {
+                      context
+                          .read<AccountCubit>()
+                          .udateExperience(experienceId: experience?.id ?? '');
+                    } else {
+                      context.read<AccountCubit>().addExperience(docID: docID);
+                    }
                   },
                   textButton: LocaleKeys.kSave.tr(),
                 ),

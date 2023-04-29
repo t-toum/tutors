@@ -31,7 +31,9 @@ class ExperienceWidget extends StatelessWidget {
                     AppNavigator.openModalBottomSheet(
                         body: BlocProvider<AccountCubit>.value(
                           value: context.read<AccountCubit>(),
-                          child: const AddExperiencePage(),
+                          child: AddExperiencePage(
+                            docID: state.currentUser?.id ?? '',
+                          ),
                         ),
                         title: '');
                   },

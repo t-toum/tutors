@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
+import 'package:tutors/core/models/experience.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/error/failures.dart';
 import 'package:tutors/features/account/domain/repositories/account_repository.dart';
@@ -48,6 +49,54 @@ class AccountRepositoryImpl implements AccountRepository {
     try {
       return Right(await _accountRemoteDatasource.updateProfile(
           userId: userID, data: data));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> addExperience(
+      {required Experience experience, required String docID}) async {
+    try {
+      final result = await _accountRemoteDatasource.addExperience(
+          experience: experience, docID: docID);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteExperience(
+      {required String userId, required String experienceId}) async {
+    try {
+      return Right(await _accountRemoteDatasource.deleteExperience(
+          userId: userId, experienceId: experienceId));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateExperience(
+      {required String userId,
+      required String experienceId,
+      required Experience data}) async {
+    try {
+      return Right(await _accountRemoteDatasource.updateExperience(
+          userId: userId, experienceId: experienceId, data: data));
     } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));
     } on CacheException catch (e) {

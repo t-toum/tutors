@@ -41,7 +41,9 @@ class EditExperiencePage extends StatelessWidget {
                     AppNavigator.openModalBottomSheet(
                         body: BlocProvider<AccountCubit>.value(
                           value: context.read<AccountCubit>(),
-                          child: const AddExperiencePage(),
+                          child: AddExperiencePage(
+                            docID: state.currentUser?.id ?? '',
+                          ),
                         ),
                         title: '');
                   },
@@ -56,7 +58,7 @@ class EditExperiencePage extends StatelessWidget {
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
-              children: state.currentUser?.experience?.map((experience) {
+              children: state.currentUser?.experiences?.map((experience) {
                     return Card(
                       margin: const EdgeInsets.only(bottom: 8),
                       child: Padding(
@@ -70,6 +72,7 @@ class EditExperiencePage extends StatelessWidget {
                                   child: AddExperiencePage(
                                     isUpdate: true,
                                     experience: experience,
+                                    docID: state.currentUser?.id ?? '',
                                   ),
                                 ),
                                 title: '');

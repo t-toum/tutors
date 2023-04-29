@@ -1,30 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
+import 'package:tutors/core/models/experience.dart';
 
-abstract class CouldFireStoreService {
-  Future<void> setData({
-    required String collection,
-    required String doc,
-    required Map<String, dynamic> data,
-  });
+import '../constants/firebase_collection.dart';
+import '../models/users.dart';
 
-  Future<List<Map<String, dynamic>>> getAllData({required String collection});
-  Future<Map<String, dynamic>?> getDataByDocs(
-      {required String collection, required String doc});
-  Future<void> updateData(
-      {required String collection,
-      required String doc,
-      required Map<String, dynamic> data});
-}
-
-@LazySingleton(as: CouldFireStoreService)
-class CouldFireStoreServiceImpl implements CouldFireStoreService {
+@lazySingleton
+class CouldFireStoreService {
   final FirebaseFirestore _firebaseFirestore;
-
-  CouldFireStoreServiceImpl(this._firebaseFirestore);
-
-  @override
+  CouldFireStoreService(this._firebaseFirestore);
   Future<void> setData(
       {required String collection,
       required String doc,
@@ -38,7 +23,6 @@ class CouldFireStoreServiceImpl implements CouldFireStoreService {
     }
   }
 
-  @override
   Future<Map<String, dynamic>?> getDataByDocs(
       {required String collection, required String doc}) async {
     try {
@@ -52,7 +36,6 @@ class CouldFireStoreServiceImpl implements CouldFireStoreService {
     }
   }
 
-  @override
   Future<List<Map<String, dynamic>>> getAllData(
       {required String collection}) async {
     try {
@@ -66,7 +49,6 @@ class CouldFireStoreServiceImpl implements CouldFireStoreService {
     }
   }
 
-  @override
   Future<void> updateData(
       {required String collection,
       required String doc,
@@ -75,6 +57,90 @@ class CouldFireStoreServiceImpl implements CouldFireStoreService {
       return await _firebaseFirestore
           .collection(collection)
           .doc(doc)
+          .update(data);
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<String?> addExperience(
+      {required Experience experience, required String docID}) async {
+    try {
+      final result = await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(docID)
+          .collection(SubCollection.experiences)
+          .add(experience.toJson());
+      return result.id;
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<Users> getUser({required String docID}) async {
+    try {
+      //get user
+      final userSnapshot = await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(docID)
+          .get();
+
+      //get experience
+      final experienceSnapshot = await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(docID)
+          .collection(SubCollection.experiences)
+          .get();
+      List<Experience> listExperience = experienceSnapshot.docs.map((e) {
+        Map<String, dynamic> mapData = e.data();
+        mapData['id'] = e.id;
+
+        return Experience.fromJson(mapData);
+      }).toList();
+      Map<String, dynamic> userData = userSnapshot.data() ?? {};
+
+      //TODO: get education
+      //TODO: get skill
+      userData["experiences"] = listExperience.map((e) => e.toJson()).toList();
+      Users users = Users.fromJson(userData);
+      return users;
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<void> deleteExperience(
+      {required String userId, required String experienceId}) async {
+    try {
+      return await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(userId)
+          .collection(SubCollection.experiences)
+          .doc(experienceId)
+          .delete();
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<void> updateExperience(
+      {required String userId,
+      required String experienceId,
+      required Map<String, dynamic> data}) async {
+    try {
+      return await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(userId)
+          .collection(SubCollection.experiences)
+          .doc(experienceId)
           .update(data);
     } on FirebaseException catch (e) {
       throw ServerException(e.message);

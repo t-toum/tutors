@@ -39,7 +39,7 @@ mixin _$Users {
   String? get address => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   List<Education>? get education => throw _privateConstructorUsedError;
-  List<Experience>? get experience => throw _privateConstructorUsedError;
+  List<Experience>? get experiences => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,7 +71,7 @@ abstract class $UsersCopyWith<$Res> {
       String? address,
       String? phone,
       List<Education>? education,
-      List<Experience>? experience,
+      List<Experience>? experiences,
       List<String>? skills});
 }
 
@@ -106,7 +106,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? address = freezed,
     Object? phone = freezed,
     Object? education = freezed,
-    Object? experience = freezed,
+    Object? experiences = freezed,
     Object? skills = freezed,
   }) {
     return _then(_value.copyWith(
@@ -182,9 +182,9 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.education
           : education // ignore: cast_nullable_to_non_nullable
               as List<Education>?,
-      experience: freezed == experience
-          ? _value.experience
-          : experience // ignore: cast_nullable_to_non_nullable
+      experiences: freezed == experiences
+          ? _value.experiences
+          : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
       skills: freezed == skills
           ? _value.skills
@@ -219,7 +219,7 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       String? address,
       String? phone,
       List<Education>? education,
-      List<Experience>? experience,
+      List<Experience>? experiences,
       List<String>? skills});
 }
 
@@ -250,7 +250,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
     Object? address = freezed,
     Object? phone = freezed,
     Object? education = freezed,
-    Object? experience = freezed,
+    Object? experiences = freezed,
     Object? skills = freezed,
   }) {
     return _then(_$_Users(
@@ -326,9 +326,9 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value._education
           : education // ignore: cast_nullable_to_non_nullable
               as List<Education>?,
-      experience: freezed == experience
-          ? _value._experience
-          : experience // ignore: cast_nullable_to_non_nullable
+      experiences: freezed == experiences
+          ? _value._experiences
+          : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
       skills: freezed == skills
           ? _value._skills
@@ -360,10 +360,10 @@ class _$_Users implements _Users {
       this.address,
       this.phone,
       final List<Education>? education,
-      final List<Experience>? experience,
+      final List<Experience>? experiences,
       final List<String>? skills})
       : _education = education,
-        _experience = experience,
+        _experiences = experiences,
         _skills = skills;
 
   factory _$_Users.fromJson(Map<String, dynamic> json) =>
@@ -414,12 +414,12 @@ class _$_Users implements _Users {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Experience>? _experience;
+  final List<Experience>? _experiences;
   @override
-  List<Experience>? get experience {
-    final value = _experience;
+  List<Experience>? get experiences {
+    final value = _experiences;
     if (value == null) return null;
-    if (_experience is EqualUnmodifiableListView) return _experience;
+    if (_experiences is EqualUnmodifiableListView) return _experiences;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -436,7 +436,7 @@ class _$_Users implements _Users {
 
   @override
   String toString() {
-    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, education: $education, experience: $experience, skills: $skills)';
+    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, education: $education, experiences: $experiences, skills: $skills)';
   }
 
   @override
@@ -472,7 +472,7 @@ class _$_Users implements _Users {
             const DeepCollectionEquality()
                 .equals(other._education, _education) &&
             const DeepCollectionEquality()
-                .equals(other._experience, _experience) &&
+                .equals(other._experiences, _experiences) &&
             const DeepCollectionEquality().equals(other._skills, _skills));
   }
 
@@ -498,7 +498,7 @@ class _$_Users implements _Users {
         address,
         phone,
         const DeepCollectionEquality().hash(_education),
-        const DeepCollectionEquality().hash(_experience),
+        const DeepCollectionEquality().hash(_experiences),
         const DeepCollectionEquality().hash(_skills)
       ]);
 
@@ -536,7 +536,7 @@ abstract class _Users implements Users {
       final String? address,
       final String? phone,
       final List<Education>? education,
-      final List<Experience>? experience,
+      final List<Experience>? experiences,
       final List<String>? skills}) = _$_Users;
 
   factory _Users.fromJson(Map<String, dynamic> json) = _$_Users.fromJson;
@@ -579,7 +579,7 @@ abstract class _Users implements Users {
   @override
   List<Education>? get education;
   @override
-  List<Experience>? get experience;
+  List<Experience>? get experiences;
   @override
   List<String>? get skills;
   @override
