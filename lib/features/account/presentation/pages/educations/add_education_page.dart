@@ -118,7 +118,7 @@ class AddEducationPage extends StatelessWidget {
                               //     experienceId: experience?.id ?? '');
                             },
                             child: Text(
-                              LocaleKeys.kDeleteExperiene.tr(),
+                              LocaleKeys.kDeleteEducation.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium

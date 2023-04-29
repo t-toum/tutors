@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/models/experience.dart';
 
-import '../../../../core/widgets/avatar_widget.dart';
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../../core/widgets/avatar_widget.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 class ExperienceComponent extends StatelessWidget {
   final Experience? experience;

@@ -7,8 +7,8 @@ import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
-import '../../../../core/widgets/avatar_widget.dart';
 import '../pages/educations/add_education_page.dart';
+import 'components/education_component.dart';
 import 'header_bar.dart';
 
 class EducationWidget extends StatelessWidget {
@@ -43,48 +43,8 @@ class EducationWidget extends StatelessWidget {
             ...educations.map((education) {
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AvatarWidget(
-                        isCircle: true,
-                        imageUrl: education.imageUrl ?? '',
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              education.school ?? '',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            Text(
-                              education.degree ?? '',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(
-                              "${education.startDate?.year} - ${education.endDate?.year}",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(
-                              "${LocaleKeys.kGrade} : ${education.grade}",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(
-                              "${LocaleKeys.kActivitiesAndSocieties.tr()}: ${education.acctivities}",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(
-                              education.description ?? '',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  EducationComponent(
+                    education: education,
                   ),
                   const Divider(
                     thickness: 2,

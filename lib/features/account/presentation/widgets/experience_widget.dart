@@ -7,7 +7,7 @@ import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 
 import '../../../../generated/locale_keys.g.dart';
-import '../components/experience_component.dart';
+import 'components/experience_component.dart';
 import '../pages/experiences/add_experience_page.dart';
 import 'header_bar.dart';
 

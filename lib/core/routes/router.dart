@@ -77,7 +77,7 @@ class AppRoute {
         return _materialRoute(
           providers: [
             BlocProvider<AccountCubit>(
-              create: (context) => getIt<AccountCubit>(),
+              create: (context) => getIt<AccountCubit>()..getCurrentUser(),
             ),
           ],
           child: const EducationPage(),

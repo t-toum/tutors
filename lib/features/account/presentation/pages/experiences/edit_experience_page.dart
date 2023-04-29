@@ -9,7 +9,7 @@ import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../../core/navigator/app_navigator.dart';
-import '../../components/experience_component.dart';
+import '../../widgets/components/experience_component.dart';
 import 'add_experience_page.dart';
 
 class EditExperiencePage extends StatelessWidget {
