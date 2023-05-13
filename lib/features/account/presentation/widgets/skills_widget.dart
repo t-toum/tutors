@@ -40,6 +40,7 @@ class SkillsWidget extends StatelessWidget {
             const SizedBox(height: 10),
             ...skills.map((skill) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     skill,

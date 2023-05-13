@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,6 +50,7 @@ class AccountCubit extends Cubit<AccountState> {
   late List<String> locationType;
 
   late GlobalKey<FormBuilderState> addEducationKey;
+  late GlobalKey<FormBuilderState> addSkillKey;
 
   AccountCubit(
     this._getCurrentUserUsecase,
@@ -77,6 +79,7 @@ class AccountCubit extends Cubit<AccountState> {
     ];
     locationType = ["On-site", "Hybrid", "Remote"];
     addEducationKey = GlobalKey<FormBuilderState>();
+    addSkillKey = GlobalKey<FormBuilderState>();
   }
 
   Future<void> getCurrentUser() async {
@@ -272,5 +275,27 @@ class AccountCubit extends Cubit<AccountState> {
         AppNavigator.goBack();
       }
     }
+  }
+
+  Future<void> addSkill() async {
+    if (addSkillKey.currentState!.saveAndValidate()) {
+      emit(state.copyWith(status: DataStatus.loading));
+      Map<String, dynamic> formValue =
+          Map.of(addSkillKey.currentState?.value ?? {});
+      Map<String, dynamic> data = {
+        "skills": FieldValue.arrayUnion([formValue['skill']]),
+      };
+      await _updateProfile(data: data, isGoback: true);
+      emit(state.copyWith(status: DataStatus.success));
+    }
+  }
+
+  Future<void> deleteSkill({required String skill}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    Map<String, dynamic> data = {
+      "skills": FieldValue.arrayRemove([skill]),
+    };
+    await _updateProfile(data: data);
+    emit(state.copyWith(status: DataStatus.success));
   }
 }

@@ -75,6 +75,7 @@
     "kFieldOfStudy":"Field of study",
     "kGrade":"Grade",
     "kActivitiesAndSocieties":"Activities and societies",
-    "kDeleteEducation":"Delete education"
-
+    "kDeleteEducation":"Delete education",
+    "kAddSkill": "Add skill",
+    "kDeleteSkill":"Delete skill"
 }

@@ -78,5 +78,6 @@ abstract class  LocaleKeys {
   static const kGrade = 'kGrade';
   static const kActivitiesAndSocieties = 'kActivitiesAndSocieties';
   static const kDeleteEducation = 'kDeleteEducation';
+  static const kAddSkill = 'kAddSkill';
 
 }
