@@ -121,4 +121,39 @@ class AccountRepositoryImpl implements AccountRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteEducation(
+      {required String userId, required String educationId}) async {
+    try {
+      return Right(await _accountRemoteDatasource.deleteEducation(
+        userId: userId,
+        educationId: educationId,
+      ));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateEducation(
+      {required String userId,
+      required String educationId,
+      required Map<String, dynamic> data}) async {
+    try {
+      return Right(
+        await _accountRemoteDatasource.updateEducation(
+          userId: userId,
+          educationId: educationId,
+          data: data,
+        ),
+      );
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

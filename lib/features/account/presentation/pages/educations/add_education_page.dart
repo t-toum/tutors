@@ -42,7 +42,7 @@ class AddEducationPage extends StatelessWidget {
                     children: [
                       FormBuilderTextField(
                         initialValue: education?.school,
-                        name: 'shool',
+                        name: 'school',
                         decoration: InputDecoration(
                           labelText: "${LocaleKeys.kSchool.tr()} *",
                         ),
@@ -61,7 +61,7 @@ class AddEducationPage extends StatelessWidget {
                       ),
                       FormBuilderTextField(
                         initialValue: education?.fieldStudy,
-                        name: 'fieldOfStudy',
+                        name: 'fieldStudy',
                         decoration: InputDecoration(
                           labelText: LocaleKeys.kFieldOfStudy.tr(),
                         ),
@@ -114,8 +114,9 @@ class AddEducationPage extends StatelessWidget {
                         const SizedBox(height: 15),
                         TextButton(
                             onPressed: () {
-                              // cubit.deleteExperience(
-                              //     experienceId: experience?.id ?? '');
+                              cubit.deleteEducation(
+                                educationId: education?.id ?? '',
+                              );
                             },
                             child: Text(
                               LocaleKeys.kDeleteEducation.tr(),
@@ -137,9 +138,7 @@ class AddEducationPage extends StatelessWidget {
                 child: CustomButton(
                   onPressed: () {
                     if (isUpdate) {
-                      // context
-                      //     .read<AccountCubit>()
-                      //     .udateExperience(experienceId: experience?.id ?? '');
+                      context.read<AccountCubit>().updateEducation(educationId: education?.id??'');
                     } else {
                       context.read<AccountCubit>().addEducation();
                     }

@@ -3,9 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/models/users.dart';
-import 'package:tutors/core/navigator/app_navigator.dart';
-import 'package:tutors/core/routes/route_path.dart';
-import 'package:tutors/core/usecases/no_params.dart';
 
 import '../../domain/usecases/get_current_user_usecase.dart';
 

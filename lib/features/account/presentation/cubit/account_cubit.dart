@@ -19,8 +19,10 @@ import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../domain/usecases/add_education_usecase.dart';
 import '../../domain/usecases/add_experience_usecase.dart';
+import '../../domain/usecases/delete_education_usecase.dart';
 import '../../domain/usecases/delete_experience_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
+import '../../domain/usecases/update_education_usecase.dart';
 import '../../domain/usecases/update_user_profile.dart';
 import '../../domain/usecases/upload_image_usecase.dart';
 
@@ -37,6 +39,8 @@ class AccountCubit extends Cubit<AccountState> {
   final DeleteExperienceUsecase _deleteExperienceUsecase;
   final UpdateExperienceUsecase _updateExperienceUsecase;
   final AddEducationUsecase _addEducationUsecase;
+  final DeleteEducatonUsecase _deleteEducatonUsecase;
+  final UpdateEducationUsecase _updateEducationUsecase;
 
   late GlobalKey<FormBuilderState> editInfoKey;
   late List<String> genders;
@@ -55,6 +59,8 @@ class AccountCubit extends Cubit<AccountState> {
     this._deleteExperienceUsecase,
     this._updateExperienceUsecase,
     this._addEducationUsecase,
+    this._deleteEducatonUsecase,
+    this._updateEducationUsecase,
   ) : super(const AccountState()) {
     editInfoKey = GlobalKey<FormBuilderState>();
     genders = [LocaleKeys.kMale.tr(), LocaleKeys.kFemale.tr()];
@@ -225,6 +231,46 @@ class AccountCubit extends Cubit<AccountState> {
       }
     } else {
       print("Add education validated");
+    }
+  }
+
+  Future<void> deleteEducation({required String educationId}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _deleteEducatonUsecase(
+      DeleteEducationParams(
+        userId: state.currentUser?.id ?? '',
+        educationId: educationId,
+      ),
+    );
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: result.getLeft()?.msg));
+    } else {
+      await getCurrentUser();
+      AppNavigator.goBack();
+    }
+  }
+
+  Future<void> updateEducation({required String educationId}) async {
+    if (addEducationKey.currentState!.saveAndValidate()) {
+      emit(state.copyWith(status: DataStatus.loading));
+      Map<String, dynamic> formValue = Map.of(
+        addEducationKey.currentState?.value ?? {},
+      );
+      formValue["id"] = educationId;
+      final result = await _updateEducationUsecase(
+        UpdateEducationParams(
+            userId: state.currentUser?.id ?? '',
+            educationId: educationId,
+            data: formValue),
+      );
+      if (result.isLeft()) {
+        emit(state.copyWith(
+            status: DataStatus.failure, error: result.getLeft()?.msg));
+      } else {
+        await getCurrentUser();
+        AppNavigator.goBack();
+      }
     }
   }
 }

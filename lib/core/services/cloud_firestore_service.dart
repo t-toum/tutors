@@ -175,4 +175,38 @@ class CouldFireStoreService {
       throw ServerException(e.toString());
     }
   }
+
+  Future<void> deleteEducation(
+      {required String userId, required String educationId}) async {
+    try {
+      return await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(userId)
+          .collection(SubCollection.educations)
+          .doc(educationId)
+          .delete();
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  Future<void> updateEducation(
+      {required String userId,
+      required String educationId,
+      required Map<String, dynamic> data}) async {
+    try {
+      return await _firebaseFirestore
+          .collection(FireCollection.users)
+          .doc(userId)
+          .collection(SubCollection.educations)
+          .doc(educationId)
+          .update(data);
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
 }

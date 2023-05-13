@@ -39,6 +39,16 @@ abstract class AccountRemoteDatasource {
     required String userId,
     required Education data,
   });
+
+  //Delete education
+  Future<void> deleteEducation(
+      {required String userId, required String educationId});
+
+  Future<void> updateEducation({
+    required String userId,
+    required String educationId,
+    required Map<String, dynamic> data,
+  });
 }
 
 @LazySingleton(as: AccountRemoteDatasource)
@@ -97,5 +107,24 @@ class AccountRemoteDatasourceImpl implements AccountRemoteDatasource {
       {required String userId, required Education data}) async {
     return await _couldFireStoreService.addEducation(
         userId: userId, data: data.toJson());
+  }
+
+  @override
+  Future<void> deleteEducation(
+      {required String userId, required String educationId}) async {
+    return await _couldFireStoreService.deleteEducation(
+        userId: userId, educationId: educationId);
+  }
+
+  @override
+  Future<void> updateEducation(
+      {required String userId,
+      required String educationId,
+      required Map<String, dynamic> data}) async {
+    return await _couldFireStoreService.updateEducation(
+      userId: userId,
+      educationId: educationId,
+      data: data,
+    );
   }
 }

@@ -7,7 +7,6 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../services/cloud_firestore_service.dart';
 @module
 abstract class InjectionModule {
   @preResolve

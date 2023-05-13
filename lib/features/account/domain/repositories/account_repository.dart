@@ -35,4 +35,15 @@ abstract class AccountRepository {
     required String userId,
     required Education data,
   });
+
+  Future<Either<Failure, void>> deleteEducation({
+    required String userId,
+    required String educationId,
+  });
+
+  Future<Either<Failure, void>> updateEducation({
+    required String userId,
+    required String educationId,
+    required Map<String, dynamic> data,
+  });
 }
