@@ -60,7 +60,7 @@ class AppRoute {
         return _materialRoute(
           providers: [
             BlocProvider<HomeCubit>(
-              create: (context) => getIt<HomeCubit>(),
+              create: (context) => getIt<HomeCubit>()..getCurrentUser(),
             ),
           ],
           child: const TabsPage(),

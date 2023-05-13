@@ -11,6 +11,7 @@ import 'package:tutors/features/settings/presentation/pages/setting_page.dart';
 
 import '../../../../core/constants/app_images.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../widgets/tab_item.dart';
 
 class TabsPage extends StatelessWidget {
   const TabsPage({super.key});
@@ -22,115 +23,150 @@ class TabsPage extends StatelessWidget {
         return DefaultTabController(
           length: 5,
           child: Scaffold(
-            body: Builder(
-              builder: (context) {
-                switch (state.currentTab) {
-                  case 0:
-                    return MultiBlocProvider(
-                      providers: [
-                        BlocProvider<CourseCubit>(
-                          create: (context) => getIt<CourseCubit>(),
+              body: Builder(
+                builder: (context) {
+                  switch (state.currentTab) {
+                    case 0:
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider<CourseCubit>(
+                            create: (context) => getIt<CourseCubit>(),
+                          ),
+                        ],
+                        child: const CoursePage(),
+                      );
+                    case 5:
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider<SettingCubit>(
+                            create: (context) => getIt<SettingCubit>(),
+                          ),
+                        ],
+                        child: const SettingPage(),
+                      );
+                    default:
+                      return const PageNotFound();
+                  }
+                },
+              ),
+              floatingActionButton: state.currentUser?.role == "teacher"
+                  ? FloatingActionButton(
+                      child: const Icon(Icons.add),
+                      onPressed: () {},
+                    )
+                  : null,
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              bottomNavigationBar: BottomAppBar(
+                shape: const CircularNotchedRectangle(),
+                notchMargin: 10,
+                child: SizedBox(
+                  height: 60,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TabItem(
+                          onPressed: () {
+                            context.read<HomeCubit>().onChangedTab(0);
+                          },
+                          active: state.currentTab == 0,
+                          icon: Image.asset(
+                            AppImages.book,
+                            width: 25,
+                            height: 25,
+                          ),
+                          activeIcon: Image.asset(
+                            AppImages.bookActive,
+                            width: 25,
+                            height: 25,
+                          ),
+                          title: LocaleKeys.kCourses.tr(),
+                        ),
+                        TabItem(
+                          onPressed: () {
+                            context.read<HomeCubit>().onChangedTab(1);
+                          },
+                          active: state.currentTab == 1,
+                          icon: Image.asset(
+                            AppImages.bubble,
+                            width: 25,
+                            height: 25,
+                          ),
+                          activeIcon: Image.asset(
+                            AppImages.bubbleActive,
+                            width: 25,
+                            height: 25,
+                          ),
+                          title: LocaleKeys.kChat.tr(),
+                        ),
+                        if (state.currentUser?.role == 'teacher') ...[
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                        ],
+                        TabItem(
+                          onPressed: () {
+                            context.read<HomeCubit>().onChangedTab(3);
+                          },
+                          active: state.currentTab == 3,
+                          icon: Image.asset(
+                            AppImages.myCourse,
+                            width: 25,
+                            height: 25,
+                          ),
+                          activeIcon: Image.asset(
+                            AppImages.myCourseActive,
+                            width: 25,
+                            height: 25,
+                          ),
+                          title: LocaleKeys.kMyCourse.tr(),
+                        ),
+                        if (state.currentUser?.role == "student") ...[
+                          TabItem(
+                            onPressed: () {
+                              context.read<HomeCubit>().onChangedTab(4);
+                            },
+                            active: state.currentTab == 4,
+                            icon: Image.asset(
+                              AppImages.favorite,
+                              width: 25,
+                              height: 25,
+                            ),
+                            activeIcon: Image.asset(
+                              AppImages.favoriteActive,
+                              width: 25,
+                              height: 25,
+                            ),
+                            title: LocaleKeys.kFavorites.tr(),
+                          ),
+                        ],
+                        TabItem(
+                          onPressed: () {
+                            context.read<HomeCubit>().onChangedTab(5);
+                          },
+                          active: state.currentTab == 5,
+                          icon: Image.asset(
+                            AppImages.settings,
+                            width: 25,
+                            height: 25,
+                          ),
+                          activeIcon: Image.asset(
+                            AppImages.settingsActive,
+                            width: 25,
+                            height: 25,
+                          ),
+                          title: LocaleKeys.kSettings.tr(),
                         ),
                       ],
-                      child: const CoursePage(),
-                    );
-                  case 4:
-                    return MultiBlocProvider(
-                      providers: [
-                        BlocProvider<SettingCubit>(
-                          create: (context) => getIt<SettingCubit>(),
-                        ),
-                      ],
-                      child: const SettingPage(),
-                    );
-                  default:
-                    return const PageNotFound();
-                }
-              },
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.black,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              currentIndex: state.currentTab,
-              onTap: (index) {
-                context.read<HomeCubit>().onChangedTab(index);
-              },
-              items: [
-                BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    AppImages.bookActive,
-                    width: 20,
-                    height: 20,
+                    ),
                   ),
-                  label: LocaleKeys.kCourses.tr(),
-                  icon: Image.asset(
-                    AppImages.book,
-                    width: 20,
-                    height: 20,
-                  ),
-                  tooltip: LocaleKeys.kCourses.tr(),
                 ),
-                BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    AppImages.bubbleActive,
-                    width: 20,
-                    height: 20,
-                  ),
-                  label: LocaleKeys.kChat.tr(),
-                  icon: Image.asset(
-                    AppImages.bubble,
-                    width: 20,
-                    height: 20,
-                  ),
-                  tooltip: LocaleKeys.kChat.tr(),
-                ),
-                BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    AppImages.myCourseActive,
-                    width: 20,
-                    height: 20,
-                  ),
-                  label: LocaleKeys.kMyCourse.tr(),
-                  icon: Image.asset(
-                    AppImages.myCourse,
-                    width: 20,
-                    height: 20,
-                  ),
-                  tooltip: LocaleKeys.kMyCourse.tr(),
-                ),
-                BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    AppImages.favoriteActive,
-                    width: 20,
-                    height: 20,
-                  ),
-                  label: LocaleKeys.kFavorites.tr(),
-                  icon: Image.asset(
-                    AppImages.favorite,
-                    width: 20,
-                    height: 20,
-                  ),
-                  tooltip: LocaleKeys.kFavorites.tr(),
-                ),
-                BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    AppImages.settingsActive,
-                    width: 20,
-                    height: 20,
-                  ),
-                  label: LocaleKeys.kSettings.tr(),
-                  icon: Image.asset(
-                    AppImages.settings,
-                    width: 20,
-                    height: 20,
-                  ),
-                  tooltip: LocaleKeys.kSettings.tr(),
-                ),
-              ],
-            ),
-          ),
+              )),
         );
       },
     );
