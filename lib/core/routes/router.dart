@@ -6,6 +6,7 @@ import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/features/account/presentation/pages/account_page.dart';
 import 'package:tutors/features/account/presentation/pages/educations/education_page.dart';
 import 'package:tutors/features/account/presentation/pages/experiences/edit_experience_page.dart';
+import 'package:tutors/features/account/presentation/pages/skills/skills_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
 import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
@@ -92,7 +93,15 @@ class AppRoute {
           ],
           child: const EditExperiencePage(),
         );
-
+      case RoutePath.skillsRoute:
+        return _materialRoute(
+          providers: [
+            BlocProvider<AccountCubit>(
+              create: (context) => getIt<AccountCubit>()..getCurrentUser(),
+            ),
+          ],
+          child: const SkillsPage(),
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => const PageNotFound(),

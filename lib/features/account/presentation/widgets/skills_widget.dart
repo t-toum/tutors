@@ -1,12 +1,17 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
+import 'package:tutors/features/account/presentation/pages/skills/add_skill_page.dart';
 
 import '../../../../generated/locale_keys.g.dart';
+import '../cubit/account_cubit.dart';
 import 'header_bar.dart';
 
 class SkillsWidget extends StatelessWidget {
-  const SkillsWidget({super.key});
+  final List<String> skills;
+  const SkillsWidget({super.key, this.skills = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +24,31 @@ class SkillsWidget extends StatelessWidget {
           children: [
             HeaderBar(
               title: LocaleKeys.kSkills.tr(),
+              onEdit: () {
+                AppNavigator.navigateTo(RoutePath.skillsRoute);
+              },
+              addNew: () {
+                AppNavigator.openModalBottomSheet(
+                  body: BlocProvider<AccountCubit>.value(
+                    value: context.read<AccountCubit>(),
+                    child: const AddSkillPage(),
+                  ),
+                  title: '',
+                );
+              },
             ),
             const SizedBox(height: 10),
-            Text("Microsoct Office",style: Theme.of(context).textTheme.bodyMedium,),
-            const Divider(thickness: 2),
-            Text("Adobe Photoshop",style: Theme.of(context).textTheme.bodyMedium,),
-            const Divider(thickness: 2),
-            Text("Adobe Photoshop",style: Theme.of(context).textTheme.bodyMedium,),
-            const Divider(thickness: 2),
-            const SizedBox(height: 20)
+            ...skills.map((skill) {
+              return Column(
+                children: [
+                  Text(
+                    skill,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const Divider(thickness: 2),
+                ],
+              );
+            }).toList(),
           ],
         ),
       ),

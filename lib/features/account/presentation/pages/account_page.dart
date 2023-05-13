@@ -124,10 +124,12 @@ class AccountPage extends StatelessWidget {
                   ),
                   BlocSelector<AccountCubit, AccountState, List<Education>>(
                     selector: (state) {
-                      return state.currentUser?.educations??[];
+                      return state.currentUser?.educations ?? [];
                     },
                     builder: (context, state) {
-                      return  EducationWidget(educations: state,);
+                      return EducationWidget(
+                        educations: state,
+                      );
                     },
                   ),
 
@@ -146,7 +148,12 @@ class AccountPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  SkillsWidget(),
+                  SkillsWidget(
+                    skills: state.currentUser?.skills ?? [],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),

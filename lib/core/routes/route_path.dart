@@ -7,4 +7,5 @@ class RoutePath {
   static const String accountRoute = "/account";
   static const String educationRoute = "/education";
   static const String editExperienceRoute = "/editExperience";
+  static const String skillsRoute = "/skills";
 }

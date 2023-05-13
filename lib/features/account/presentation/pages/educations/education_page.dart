@@ -26,8 +26,7 @@ class EducationPage extends StatelessWidget {
           LocaleKeys.kEducation.tr(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        actions: [
-          Padding(
+        actions: [Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: InkWell(
               onTap: () {
@@ -45,6 +44,7 @@ class EducationPage extends StatelessWidget {
               ),
             ),
           )
+          
         ],
       ),
       body: BlocBuilder<AccountCubit, AccountState>(
