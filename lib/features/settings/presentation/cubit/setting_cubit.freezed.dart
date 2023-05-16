@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  String get language => throw _privateConstructorUsedError;
+  bool? get isSetlang => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingStateCopyWith<SettingState> get copyWith =>
@@ -30,7 +32,8 @@ abstract class $SettingStateCopyWith<$Res> {
           SettingState value, $Res Function(SettingState) then) =
       _$SettingStateCopyWithImpl<$Res, SettingState>;
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call(
+      {DataStatus status, String? error, String language, bool? isSetlang});
 }
 
 /// @nodoc
@@ -48,6 +51,8 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? language = null,
+    Object? isSetlang = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -58,6 +63,14 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSetlang: freezed == isSetlang
+          ? _value.isSetlang
+          : isSetlang // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -70,7 +83,8 @@ abstract class _$$_InitialCopyWith<$Res>
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DataStatus status, String? error});
+  $Res call(
+      {DataStatus status, String? error, String language, bool? isSetlang});
 }
 
 /// @nodoc
@@ -85,6 +99,8 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? language = null,
+    Object? isSetlang = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -95,6 +111,14 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSetlang: freezed == isSetlang
+          ? _value.isSetlang
+          : isSetlang // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -102,17 +126,26 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.status = DataStatus.initial, this.error});
+  const _$_Initial(
+      {this.status = DataStatus.initial,
+      this.error,
+      this.language = 'en',
+      this.isSetlang});
 
   @override
   @JsonKey()
   final DataStatus status;
   @override
   final String? error;
+  @override
+  @JsonKey()
+  final String language;
+  @override
+  final bool? isSetlang;
 
   @override
   String toString() {
-    return 'SettingState(status: $status, error: $error)';
+    return 'SettingState(status: $status, error: $error, language: $language, isSetlang: $isSetlang)';
   }
 
   @override
@@ -121,11 +154,16 @@ class _$_Initial implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
+            (identical(other.isSetlang, isSetlang) ||
+                other.isSetlang == isSetlang));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error);
+  int get hashCode =>
+      Object.hash(runtimeType, status, error, language, isSetlang);
 
   @JsonKey(ignore: true)
   @override
@@ -135,13 +173,20 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements SettingState {
-  const factory _Initial({final DataStatus status, final String? error}) =
-      _$_Initial;
+  const factory _Initial(
+      {final DataStatus status,
+      final String? error,
+      final String language,
+      final bool? isSetlang}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
+  @override
+  String get language;
+  @override
+  bool? get isSetlang;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

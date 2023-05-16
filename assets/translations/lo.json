@@ -35,7 +35,7 @@
     "kFromCamera":"From Camera",
     "kFromGallery":"From Gallery",
     "kEditInfo":"Edit info",
-    "kSettings":"Settings",
+    "kSettings":"ຕັ້ງຄ່າ",
     "kLanguage":"Language",
     "kSignOut":"Sign out",
     "kSecurity":"Security",
@@ -76,5 +76,7 @@
     "kGrade":"Grade",
     "kActivitiesAndSocieties":"Activities and societies",
     "kDeleteEducation":"Delete education",
-    "kAddSkill": "Add skill"
+    "kAddSkill": "Add skill",
+    "kEnglish": "English",
+    "kLao": "Lao"
 }

@@ -16,6 +16,7 @@ class SettingPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: AppColors.secondaryColor,
         appBar: AppBar(
+          centerTitle: false,
           elevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
@@ -39,17 +40,19 @@ class SettingPage extends StatelessWidget {
                   ),
                   const Divider(thickness: 1),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      AppNavigator.navigateTo(RoutePath.languageRoute);
+                    },
                     leading: Image.asset(AppImages.globe, width: 20),
                     title: Text(LocaleKeys.kLanguage.tr()),
                   ),
                   const Divider(thickness: 1),
-                  ListTile(
-                    onTap: () {},
-                    leading: Image.asset(AppImages.lock, width: 16),
-                    title: Text(LocaleKeys.kSecurity.tr()),
-                  ),
-                  const Divider(thickness: 1),
+                  // ListTile(
+                  //   onTap: () {},
+                  //   leading: Image.asset(AppImages.lock, width: 16),
+                  //   title: Text(LocaleKeys.kSecurity.tr()),
+                  // ),
+                  // const Divider(thickness: 1),
                   ListTile(
                     onTap: ()async {
                       await context.read<SettingCubit>().signOut();

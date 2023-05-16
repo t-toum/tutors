@@ -9,6 +9,8 @@ import 'package:tutors/features/account/presentation/pages/experiences/edit_expe
 import 'package:tutors/features/account/presentation/pages/skills/skills_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
+import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
+import 'package:tutors/features/settings/presentation/pages/language_page.dart';
 import 'package:tutors/features/sign_in/presentation/pages/sign_in_page.dart';
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:tutors/features/sign_up/presentation/pages/select_role_page.dart';
@@ -101,6 +103,15 @@ class AppRoute {
             ),
           ],
           child: const SkillsPage(),
+        );
+        case RoutePath.languageRoute:
+        return _materialRoute(
+          providers: [
+            BlocProvider<SettingCubit>(
+              create: (context) => getIt<SettingCubit>()..getLanguage(),
+            ),
+          ],
+          child: const LanguagePage(),
         );
       default:
         return MaterialPageRoute(

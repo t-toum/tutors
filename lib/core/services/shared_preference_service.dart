@@ -33,13 +33,13 @@ class SharedPreferenceServiceImpl implements SharedPreferenceService {
   T? getData<T>({required String key}) {
     try {
       if (T == String) {
-        return _preferences.getString(key) as T;
+        return _preferences.getString(key) as T?;
       } else if (T == bool) {
-        return _preferences.getBool(key) as T;
+        return _preferences.getBool(key) as T?;
       } else if (T == int) {
-        return _preferences.getInt(key) as T;
+        return _preferences.getInt(key) as T?;
       } else {
-        return _preferences.getStringList(key) as T;
+        return _preferences.getStringList(key) as T?;
       }
     } catch (e) {
       throw CacheException(e.toString());

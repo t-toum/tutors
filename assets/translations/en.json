@@ -77,5 +77,7 @@
     "kActivitiesAndSocieties":"Activities and societies",
     "kDeleteEducation":"Delete education",
     "kAddSkill": "Add skill",
-    "kDeleteSkill":"Delete skill"
+    "kDeleteSkill":"Delete skill",
+    "kEnglish": "English",
+    "kLao": "Lao"
 }

@@ -11,3 +11,5 @@ enum ImageType {
   cover,
   profile,
 }
+
+enum AppLanguage { lo, en }

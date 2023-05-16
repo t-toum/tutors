@@ -6,5 +6,8 @@ class SettingState with _$SettingState {
     @Default(DataStatus.initial)
     final DataStatus status,
     final String? error,
+    @Default('en')
+    final String language,
+    final bool? isSetlang,
   }) = _Initial;
 }

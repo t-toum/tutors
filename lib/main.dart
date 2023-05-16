@@ -8,12 +8,15 @@ void main() async {
   await configureDependencies();
   runApp(
     EasyLocalization(
+      useOnlyLangCode: true,
+      path: 'assets/translations',
       supportedLocales: const [
         Locale('en'),
-        Locale('la'),
+        Locale('lo'),
       ],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en', 'US'),
+      saveLocale: true,
+      useFallbackTranslations: true,
+      fallbackLocale: const Locale('en'),
       child: const MyApp(),
     ),
   );
