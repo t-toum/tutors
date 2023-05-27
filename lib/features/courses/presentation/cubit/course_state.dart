@@ -6,6 +6,7 @@ class CourseState with _$CourseState {
     @Default(DataStatus.initial)
     final DataStatus status,
     final String? error,
+    final Users? currentUser,
     @Default(false)
     final bool canReset,
   }) = _Initial;

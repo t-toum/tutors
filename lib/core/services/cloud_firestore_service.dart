@@ -13,7 +13,7 @@ class CouldFireStoreService {
   CouldFireStoreService(this._firebaseFirestore);
   Future<void> setData(
       {required String collection,
-      required String doc,
+      String? doc,
       required Map<String, dynamic> data}) async {
     try {
       return await _firebaseFirestore.collection(collection).doc(doc).set(data);

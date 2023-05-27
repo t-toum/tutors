@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 arch -x86_64 pod install
 flutter pub run build_runner build --delete-conflicting-outputs
-flutter pub run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart

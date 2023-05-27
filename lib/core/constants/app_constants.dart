@@ -5,7 +5,6 @@ enum DataStatus {
   failure,
 }
 
-
 enum ImageType {
   none,
   cover,
@@ -13,3 +12,8 @@ enum ImageType {
 }
 
 enum AppLanguage { lo, en }
+
+enum CourseType {
+  online,
+  offine,
+}

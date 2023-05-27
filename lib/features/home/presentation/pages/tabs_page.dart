@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
@@ -52,7 +54,9 @@ class TabsPage extends StatelessWidget {
               floatingActionButton: state.currentUser?.role == "teacher"
                   ? FloatingActionButton(
                       child: const Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        AppNavigator.navigateTo(RoutePath.addCourseRoute);
+                      },
                     )
                   : null,
               floatingActionButtonLocation:

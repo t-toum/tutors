@@ -9,5 +9,6 @@ class RoutePath {
   static const String editExperienceRoute = "/editExperience";
   static const String skillsRoute = "/skills";
   static const String languageRoute = "/language";
+  static const String addCourseRoute = "/addCourse";
 
 }

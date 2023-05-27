@@ -7,18 +7,19 @@ class TimestampConverter implements JsonConverter<DateTime?, Timestamp?> {
   @override
   DateTime? fromJson(Timestamp? json) {
     if (json != null) {
-      DateTime? dateTime = DateTime.fromMicrosecondsSinceEpoch(json.microsecondsSinceEpoch);
+      DateTime? dateTime =
+          DateTime.fromMicrosecondsSinceEpoch(json.microsecondsSinceEpoch);
       return dateTime;
-    }else{
+    } else {
       return null;
     }
   }
 
   @override
   Timestamp? toJson(DateTime? object) {
-    if(object!=null){
+    if (object != null) {
       return Timestamp.fromDate(object);
-    }else{
+    } else {
       return null;
     }
   }

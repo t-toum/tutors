@@ -79,5 +79,11 @@
     "kAddSkill": "Add skill",
     "kDeleteSkill":"Delete skill",
     "kEnglish": "English",
-    "kLao": "Lao"
+    "kLao": "Lao",
+    "kAddCourse":"Add course",
+    "kGeneral":"General",
+    "kSubject":"Subject",
+    "kCategory":"Category",
+    "kNext":"Next"
+
 }
