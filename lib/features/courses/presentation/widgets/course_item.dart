@@ -1,70 +1,97 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tutors/core/constants/app_images.dart';
+import 'package:tutors/core/extensions/date_time_extension.dart';
+import 'package:tutors/core/models/course.dart';
 
+import '../../../../core/constants/app_images.dart';
 import '../../../../core/widgets/avatar_widget.dart';
-import '../widgets/course_field.dart';
+import '../../../../generated/locale_keys.g.dart';
+import 'course_field.dart';
 
 class CourseItem extends StatelessWidget {
-  const CourseItem({super.key});
-
+  final Course course;
+  const CourseItem({super.key, required this.course});
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: () {},
       child: Card(
         margin: const EdgeInsets.only(bottom: 10),
         child: Container(
           padding: const EdgeInsets.all(20),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Englis for beginner",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(
-                    "Offline",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      course.title ?? '',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      course.category ?? '',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 5),
+
+                    //User info
+                    Row(
+                      children: [
+                         AvatarWidget(
+                          imageUrl: course.users?.profileUrl??"",
+                          width: 20,
+                          height: 20,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          "${course.users?.firstName} ${course.users?.lastName} ",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    CourseField(
+                      icon: Icons.pin_drop_outlined,
+                      text: course.location ?? '',
+                    ),
+                    const SizedBox(height: 5),
+                    const CourseField(
+                      icon: Icons.access_time_sharp,
+                      text: "60 Days",
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text(
+                            " ${LocaleKeys.kStart.tr()}: ${course.startDate?.shortDate()}",
+                            style: Theme.of(context).textTheme.bodySmall),
+                        const SizedBox(width: 3),
+                        const Text("-"),
+                        const SizedBox(width: 3),
+                        Text("${course.endDate?.shortDate()}",
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  AvatarWidget(
-                    imageUrl: '',
-                    width: 20,
-                    height: 20,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    "John Smith",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 5),
-              CourseField(
-                icon: Icons.access_time_sharp,
-                text: "60 hourse",
-                
-              ),
-              CourseField(
-                  icon: Icons.pin_drop_outlined, text: "Vientiane Capital, Laos"),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Start: Wed 8 Oct 2023",
-                      style: Theme.of(context).textTheme.bodySmall),
-                  Image.asset(
-                    AppImages.heart,
-                    width: 25,
-                  )
-                ],
+              SizedBox(
+                height: 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(course.createdDate.shortDate(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    Image.asset(
+                      AppImages.heart,
+                      width: 25,
+                    ),
+                  ],
+                ),
               )
             ],
           ),

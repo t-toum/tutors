@@ -31,6 +31,9 @@ mixin _$Course {
   @TimestampConverter()
   DateTime? get endDate => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  Users? get users => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +54,11 @@ abstract class $CourseCopyWith<$Res> {
       String? category,
       @TimestampConverter() DateTime? startDate,
       @TimestampConverter() DateTime? endDate,
-      String? description});
+      String? description,
+      Users? users,
+      @TimestampConverter() DateTime? createdDate});
+
+  $UsersCopyWith<$Res>? get users;
 }
 
 /// @nodoc
@@ -76,6 +83,8 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? description = freezed,
+    Object? users = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -114,7 +123,27 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      users: freezed == users
+          ? _value.users
+          : users // ignore: cast_nullable_to_non_nullable
+              as Users?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UsersCopyWith<$Res>? get users {
+    if (_value.users == null) {
+      return null;
+    }
+
+    return $UsersCopyWith<$Res>(_value.users!, (value) {
+      return _then(_value.copyWith(users: value) as $Val);
+    });
   }
 }
 
@@ -133,7 +162,12 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
       String? category,
       @TimestampConverter() DateTime? startDate,
       @TimestampConverter() DateTime? endDate,
-      String? description});
+      String? description,
+      Users? users,
+      @TimestampConverter() DateTime? createdDate});
+
+  @override
+  $UsersCopyWith<$Res>? get users;
 }
 
 /// @nodoc
@@ -155,6 +189,8 @@ class __$$_CourseCopyWithImpl<$Res>
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? description = freezed,
+    Object? users = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_$_Course(
       id: freezed == id
@@ -193,6 +229,14 @@ class __$$_CourseCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      users: freezed == users
+          ? _value.users
+          : users // ignore: cast_nullable_to_non_nullable
+              as Users?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -209,7 +253,9 @@ class _$_Course implements _Course {
       this.category,
       @TimestampConverter() this.startDate,
       @TimestampConverter() this.endDate,
-      this.description});
+      this.description,
+      this.users,
+      @TimestampConverter() this.createdDate});
 
   factory _$_Course.fromJson(Map<String, dynamic> json) =>
       _$$_CourseFromJson(json);
@@ -234,10 +280,15 @@ class _$_Course implements _Course {
   final DateTime? endDate;
   @override
   final String? description;
+  @override
+  final Users? users;
+  @override
+  @TimestampConverter()
+  final DateTime? createdDate;
 
   @override
   String toString() {
-    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description)';
+    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description, users: $users, createdDate: $createdDate)';
   }
 
   @override
@@ -257,13 +308,16 @@ class _$_Course implements _Course {
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.users, users) || other.users == users) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, title, subject,
-      location, category, startDate, endDate, description);
+      location, category, startDate, endDate, description, users, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -289,7 +343,9 @@ abstract class _Course implements Course {
       final String? category,
       @TimestampConverter() final DateTime? startDate,
       @TimestampConverter() final DateTime? endDate,
-      final String? description}) = _$_Course;
+      final String? description,
+      final Users? users,
+      @TimestampConverter() final DateTime? createdDate}) = _$_Course;
 
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
@@ -313,6 +369,11 @@ abstract class _Course implements Course {
   DateTime? get endDate;
   @override
   String? get description;
+  @override
+  Users? get users;
+  @override
+  @TimestampConverter()
+  DateTime? get createdDate;
   @override
   @JsonKey(ignore: true)
   _$$_CourseCopyWith<_$_Course> get copyWith =>

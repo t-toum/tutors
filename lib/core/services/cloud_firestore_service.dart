@@ -29,7 +29,9 @@ class CouldFireStoreService {
     try {
       final documentSnapshot =
           await _firebaseFirestore.collection(collection).doc(doc).get();
-      return documentSnapshot.data();
+          Map<String,dynamic> mapData = documentSnapshot.data()??{};
+          mapData['id']= documentSnapshot.id;
+      return mapData;
     } on FirebaseException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -42,7 +44,11 @@ class CouldFireStoreService {
     try {
       final documentSnapshot =
           await _firebaseFirestore.collection(collection).get();
-      return documentSnapshot.docs.map((e) => e.data()).toList();
+      return documentSnapshot.docs.map((e){
+        Map<String,dynamic> map = Map.of(e.data());
+        map["id"]= e.id;
+        return map;
+      }).toList();
     } on FirebaseException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

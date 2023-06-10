@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
-import 'package:tutors/core/navigator/app_navigator.dart';
-import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
@@ -12,6 +10,8 @@ import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
 import 'package:tutors/features/settings/presentation/pages/setting_page.dart';
 
 import '../../../../core/constants/app_images.dart';
+import '../../../../core/navigator/app_navigator.dart';
+import '../../../../core/routes/route_path.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../widgets/tab_item.dart';
 
@@ -20,6 +20,7 @@ class TabsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return DefaultTabController(
@@ -32,7 +33,8 @@ class TabsPage extends StatelessWidget {
                       return MultiBlocProvider(
                         providers: [
                           BlocProvider<CourseCubit>(
-                            create: (context) => getIt<CourseCubit>(),
+                            create: (context) =>
+                                getIt<CourseCubit>()..getAllCourse(),
                           ),
                         ],
                         child: const CoursePage(),
@@ -52,12 +54,15 @@ class TabsPage extends StatelessWidget {
                 },
               ),
               floatingActionButton: state.currentUser?.role == "teacher"
-                  ? FloatingActionButton(
-                      child: const Icon(Icons.add),
-                      onPressed: () {
-                        AppNavigator.navigateTo(RoutePath.addCourseRoute);
-                      },
-                    )
+                  ? Visibility(
+                    visible: !keyboardIsOpen,
+                    child: FloatingActionButton(
+                        child: const Icon(Icons.add),
+                        onPressed: () {
+                          AppNavigator.navigateTo(RoutePath.addCourseRoute);
+                        },
+                      ),
+                  )
                   : null,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,

@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_colors.dart';
+import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/widgets/search_text_field.dart';
+import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/constants/app_images.dart';
 import '../widgets/course_item.dart';
@@ -45,20 +49,32 @@ class CoursePage extends StatelessWidget {
               )
             ],
           ),
-          body: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  ...List.generate(10, (index) {
-                    return CourseItem();
-                  }),
-                ],
-              ),
-            ),
-          ),
+          body: Builder(builder: (context) {
+            if (state.status == DataStatus.loading) {
+              return const LoadingWidget();
+            } else {
+              if (state.listCourse?.isNotEmpty == true) {
+                return GestureDetector(
+                  onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                  child: SingleChildScrollView(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: state.listCourse?.map((course) {
+                            return CourseItem(course: course);
+                          }).toList() ??
+                          [],
+                    ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text(LocaleKeys.kNoData.tr()),
+                );
+              }
+            }
+          }),
         );
       },
     );

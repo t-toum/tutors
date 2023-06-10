@@ -8,8 +8,10 @@ class CourseField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon,size: 20,),
+        Icon(icon,size: 20),
         const SizedBox(width: 5),
         Text(
           text,

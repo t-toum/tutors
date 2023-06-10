@@ -84,6 +84,9 @@
     "kGeneral":"General",
     "kSubject":"Subject",
     "kCategory":"Category",
-    "kNext":"Next"
+    "kNext":"Next",
+    "kStart":"Start",
+    "kEnd":"End",
+    "kNoData":"No Data"
 
 }

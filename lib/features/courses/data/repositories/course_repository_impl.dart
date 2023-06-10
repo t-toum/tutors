@@ -25,4 +25,22 @@ class CourseRepositoryImpl implements CourseRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Course>>> getAllCourse() async {
+    try {
+      final listCourse = await _courseRemoteDatasource.getAllCourse();
+      // for (Course e in listCourse) {
+      //   // await 
+
+      // }
+      return Right(listCourse);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

@@ -28,7 +28,7 @@ class AvatarWidget extends StatelessWidget {
             shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
             image: DecorationImage(
               image: imageProvider,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             border: Border.all(
               color: Colors.white,

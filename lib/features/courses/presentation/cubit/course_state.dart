@@ -9,5 +9,6 @@ class CourseState with _$CourseState {
     final Users? currentUser,
     @Default(false)
     final bool canReset,
+    List<Course>? listCourse,
   }) = _Initial;
 }

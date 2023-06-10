@@ -12,6 +12,7 @@ import 'package:tutors/core/navigator/app_navigator.dart';
 import '../../../../core/usecases/no_params.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/add_course_usecase.dart';
+import '../../domain/usecases/get_all_course_usecase.dart';
 
 part 'course_cubit.freezed.dart';
 part 'course_state.dart';
@@ -20,12 +21,14 @@ part 'course_state.dart';
 class CourseCubit extends Cubit<CourseState> {
   final GetCurrentUserDataUsecase _getCurrentUserDataUsecase;
   final AddCourseUsecase _addCourseUsecase;
+  final GetAllCourseUsecase _getAllCourseUsecase;
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
   CourseCubit(
     this._getCurrentUserDataUsecase,
     this._addCourseUsecase,
+    this._getAllCourseUsecase,
   ) : super(const CourseState()) {
     searchTextController = TextEditingController();
     generalKey = GlobalKey<FormBuilderState>();
@@ -35,12 +38,7 @@ class CourseCubit extends Cubit<CourseState> {
     });
   }
 
-  List<String> categorys =[
-    "General",
-    "Tecnology",
-    "Design",
-    "Language"
-  ];
+  List<String> categorys = ["General", "Tecnology", "Design", "Language"];
 
   void onResetSearchTextfield() {
     searchTextController.clear();
@@ -65,6 +63,9 @@ class CourseCubit extends Cubit<CourseState> {
           Map.from(generalKey.currentState?.value ?? {});
       formValue["userId"] = state.currentUser?.id;
       Course data = Course.fromJson(formValue);
+      data = data.copyWith(
+        createdDate: DateTime.now()
+      );
       final result = await _addCourseUsecase(data);
       if (result.isLeft()) {
         emit(
@@ -79,6 +80,26 @@ class CourseCubit extends Cubit<CourseState> {
       }
     } else {
       print("Add course validated");
+    }
+  }
+
+  Future<void> getAllCourse() async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _getAllCourseUsecase(NoParams());
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: DataStatus.success,
+          listCourse: result.getRight(),
+        ),
+      );
     }
   }
 

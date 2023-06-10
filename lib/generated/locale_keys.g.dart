@@ -87,5 +87,8 @@ abstract class  LocaleKeys {
   static const kSubject = 'kSubject';
   static const kCategory = 'kCategory';
   static const kNext = 'kNext';
+  static const kStart = 'kStart';
+  static const kEnd = 'kEnd';
+  static const kNoData = 'kNoData';
 
 }
