@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
 import 'package:tutors/core/error/failures.dart';
+import 'package:tutors/core/models/category.dart';
 import 'package:tutors/core/models/course.dart';
 
 import '../../domain/repositories/course_repository.dart';
@@ -30,11 +31,21 @@ class CourseRepositoryImpl implements CourseRepository {
   Future<Either<Failure, List<Course>>> getAllCourse() async {
     try {
       final listCourse = await _courseRemoteDatasource.getAllCourse();
-      // for (Course e in listCourse) {
-      //   // await 
-
-      // }
       return Right(listCourse);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Category>>> getCategories() async {
+    try {
+      final categories = await _courseRemoteDatasource.getCategories();
+      return Right(categories);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));
     } on CacheException catch (e) {

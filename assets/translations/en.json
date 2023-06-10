@@ -87,6 +87,8 @@
     "kNext":"Next",
     "kStart":"Start",
     "kEnd":"End",
-    "kNoData":"No Data"
+    "kNoData":"No Data",
+    "kFilterBy":"Filter by",
+    "kDone":"Done"
 
 }

@@ -11,10 +11,12 @@ import 'package:tutors/core/models/course.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 
+import '../../../../core/models/category.dart';
 import '../../../../core/usecases/no_params.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/add_course_usecase.dart';
 import '../../domain/usecases/get_all_course_usecase.dart';
+import '../../domain/usecases/get_categories_usecase.dart';
 
 part 'course_cubit.freezed.dart';
 part 'course_state.dart';
@@ -24,6 +26,7 @@ class CourseCubit extends Cubit<CourseState> {
   final GetCurrentUserDataUsecase _getCurrentUserDataUsecase;
   final AddCourseUsecase _addCourseUsecase;
   final GetAllCourseUsecase _getAllCourseUsecase;
+  final GetCategoriesUsecase _getCategoriesUsecase;
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
@@ -31,6 +34,7 @@ class CourseCubit extends Cubit<CourseState> {
     this._getCurrentUserDataUsecase,
     this._addCourseUsecase,
     this._getAllCourseUsecase,
+    this._getCategoriesUsecase,
   ) : super(const CourseState()) {
     searchTextController = TextEditingController();
     generalKey = GlobalKey<FormBuilderState>();
@@ -53,7 +57,17 @@ class CourseCubit extends Cubit<CourseState> {
     });
   }
 
-  List<String> categorys = ["General", "Tecnology", "Design", "Language"];
+  Future<void> getCategories() async {
+    final categories = await _getCategoriesUsecase(NoParams());
+    if (categories.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: categories.getLeft()?.msg));
+    } else {
+      final sortData = categories.getRight();
+      sortData?.sort((a,b)=>b.name.compareToWithNull(a.name));
+      emit(state.copyWith(categories: sortData));
+    }
+  }
 
   void onResetSearchTextfield() {
     searchTextController.clear();
@@ -111,10 +125,7 @@ class CourseCubit extends Cubit<CourseState> {
       data?.sort((a, b) => b.createdDate.compareToWithNull(a.createdDate));
       emit(
         state.copyWith(
-          status: DataStatus.success,
-          listCourse: data,
-          allCourse: data
-        ),
+            status: DataStatus.success, listCourse: data, allCourse: data),
       );
     }
   }

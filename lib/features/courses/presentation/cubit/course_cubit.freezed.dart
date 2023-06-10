@@ -22,6 +22,7 @@ mixin _$CourseState {
   bool get canReset => throw _privateConstructorUsedError;
   List<Course>? get listCourse => throw _privateConstructorUsedError;
   List<Course>? get allCourse => throw _privateConstructorUsedError;
+  List<Category>? get categories => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseStateCopyWith<CourseState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $CourseStateCopyWith<$Res> {
       Users? currentUser,
       bool canReset,
       List<Course>? listCourse,
-      List<Course>? allCourse});
+      List<Course>? allCourse,
+      List<Category>? categories});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -64,6 +66,7 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
     Object? canReset = null,
     Object? listCourse = freezed,
     Object? allCourse = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -90,6 +93,10 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
           ? _value.allCourse
           : allCourse // ignore: cast_nullable_to_non_nullable
               as List<Course>?,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>?,
     ) as $Val);
   }
 
@@ -119,7 +126,8 @@ abstract class _$$_InitialCopyWith<$Res> implements $CourseStateCopyWith<$Res> {
       Users? currentUser,
       bool canReset,
       List<Course>? listCourse,
-      List<Course>? allCourse});
+      List<Course>? allCourse,
+      List<Category>? categories});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -141,6 +149,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? canReset = null,
     Object? listCourse = freezed,
     Object? allCourse = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -167,6 +176,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._allCourse
           : allCourse // ignore: cast_nullable_to_non_nullable
               as List<Course>?,
+      categories: freezed == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>?,
     ));
   }
 }
@@ -180,9 +193,11 @@ class _$_Initial implements _Initial {
       this.currentUser,
       this.canReset = false,
       final List<Course>? listCourse,
-      final List<Course>? allCourse})
+      final List<Course>? allCourse,
+      final List<Category>? categories})
       : _listCourse = listCourse,
-        _allCourse = allCourse;
+        _allCourse = allCourse,
+        _categories = categories;
 
   @override
   @JsonKey()
@@ -214,9 +229,19 @@ class _$_Initial implements _Initial {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Category>? _categories;
+  @override
+  List<Category>? get categories {
+    final value = _categories;
+    if (value == null) return null;
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse)';
+    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories)';
   }
 
   @override
@@ -233,7 +258,9 @@ class _$_Initial implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._listCourse, _listCourse) &&
             const DeepCollectionEquality()
-                .equals(other._allCourse, _allCourse));
+                .equals(other._allCourse, _allCourse) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories));
   }
 
   @override
@@ -244,7 +271,8 @@ class _$_Initial implements _Initial {
       currentUser,
       canReset,
       const DeepCollectionEquality().hash(_listCourse),
-      const DeepCollectionEquality().hash(_allCourse));
+      const DeepCollectionEquality().hash(_allCourse),
+      const DeepCollectionEquality().hash(_categories));
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +288,8 @@ abstract class _Initial implements CourseState {
       final Users? currentUser,
       final bool canReset,
       final List<Course>? listCourse,
-      final List<Course>? allCourse}) = _$_Initial;
+      final List<Course>? allCourse,
+      final List<Category>? categories}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -274,6 +303,8 @@ abstract class _Initial implements CourseState {
   List<Course>? get listCourse;
   @override
   List<Course>? get allCourse;
+  @override
+  List<Category>? get categories;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

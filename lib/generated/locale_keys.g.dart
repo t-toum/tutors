@@ -90,5 +90,7 @@ abstract class  LocaleKeys {
   static const kStart = 'kStart';
   static const kEnd = 'kEnd';
   static const kNoData = 'kNoData';
+  static const kFilterBy = 'kFilterBy';
+  static const kDone = 'kDone';
 
 }

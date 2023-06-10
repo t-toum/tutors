@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/constants/app_colors.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/widgets/search_text_field.dart';
@@ -40,7 +42,10 @@ class CoursePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () async{
+                    final filterData = await AppNavigator.navigateCallbackData(RoutePath.filterCourse);
+                    print("Filter data $filterData");
+                  },
                   child: Image.asset(
                     AppImages.filter,
                     width: 20,

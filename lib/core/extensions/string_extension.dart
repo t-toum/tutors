@@ -11,6 +11,14 @@ extension NullExceptionString on String? {
       return false;
     }
   }
+  int compareToWithNull(String? b){
+    final a = this;
+    if (a!=null && b !=null){
+      return b.compareTo(a);
+    }else {
+      return 0;
+    }
+  }
 }
 
 extension ExtString on String {

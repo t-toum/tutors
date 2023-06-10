@@ -22,9 +22,11 @@ class AddCoursePage extends StatelessWidget {
         title: Text(LocaleKeys.kAddCourse.tr()),
       ),
       body: BlocBuilder<CourseCubit, CourseState>(
-        buildWhen: (previous, current) => previous.currentUser != current.currentUser,
+        // buildWhen: (previous, current) =>
+        //     previous.currentUser != current.currentUser &&
+        //     previous.categories != current.categories,
         builder: (context, state) {
-          if(state.status == DataStatus.loading){
+          if (state.status == DataStatus.loading) {
             return const LoadingWidget();
           }
           return SingleChildScrollView(
@@ -78,12 +80,18 @@ class AddCoursePage extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: "${LocaleKeys.kCategory.tr()} *",
                     ),
-                    items: cubit.categorys.map((item) {
-                      return DropdownMenuItem(
-                        value: item,
-                        child: Text(item),
-                      );
-                    }).toList(),
+                    items: state.categories?.map((item) {
+                          return DropdownMenuItem(
+                            value: item.name,
+                            child: Text(item.name ?? ""),
+                          );
+                        }).toList() ??
+                        [],
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                        errorText: LocaleKeys.kRequiredField.tr(),
+                      ),
+                    ]),
                   ),
                   FormBuilderDateTimePicker(
                     name: "startDate",

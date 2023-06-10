@@ -10,5 +10,7 @@ class RoutePath {
   static const String skillsRoute = "/skills";
   static const String languageRoute = "/language";
   static const String addCourseRoute = "/addCourse";
+  static const String filterCourse = "/filterCourse";
+
 
 }

@@ -20,6 +20,7 @@ import 'package:tutors/features/sign_up/presentation/pages/sign_up_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
+import '../../features/courses/presentation/pages/course_filter_page.dart';
 import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
 import '../widgets/not_found_page.dart';
 
@@ -32,7 +33,6 @@ class AppRoute {
             BlocProvider<AppCubit>(
               create: (context) => getIt<AppCubit>()..getAuthentication(),
             ),
-            
           ],
           child: const AppPage(),
         );
@@ -68,11 +68,23 @@ class AppRoute {
               create: (context) => getIt<HomeCubit>()..getCurrentUser(),
             ),
             BlocProvider<CourseCubit>(
-              create: (context) => getIt<CourseCubit>()..getAllCourse(),
+              create: (context) => getIt<CourseCubit>()
+                ..getAllCourse()
+                ..getCategories(),
             ),
-            
           ],
           child: const TabsPage(),
+        );
+      case RoutePath.filterCourse:
+        return _materialRoute(
+          providers: [
+            BlocProvider<CourseCubit>(
+              create: (context) => getIt<CourseCubit>()
+                ..getAllCourse()
+                ..getCategories(),
+            ),
+          ],
+          child: const CourseFilterPage(),
         );
       case RoutePath.accountRoute:
         return _materialRoute(
@@ -120,11 +132,13 @@ class AppRoute {
           ],
           child: const LanguagePage(),
         );
-        case RoutePath.addCourseRoute:
+      case RoutePath.addCourseRoute:
         return _materialRoute(
           providers: [
             BlocProvider<CourseCubit>(
-              create: (context) => getIt<CourseCubit>()..getCurrentUser(),
+              create: (context) => getIt<CourseCubit>()
+                ..getCurrentUser()
+                ..getCategories(),
             ),
           ],
           child: const AddCoursePage(),
