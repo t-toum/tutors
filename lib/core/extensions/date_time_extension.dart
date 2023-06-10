@@ -10,4 +10,13 @@ extension DatetimeExtension on DateTime? {
       return "";
     }
   }
+
+  int compareToWithNull(DateTime? b) {
+    final a = this;
+    if (a != null && b != null) {
+      return a.compareTo(b);
+    } else {
+      return 0;
+    }
+  }
 }

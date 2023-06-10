@@ -30,13 +30,8 @@ class TabsPage extends StatelessWidget {
                 builder: (context) {
                   switch (state.currentTab) {
                     case 0:
-                      return MultiBlocProvider(
-                        providers: [
-                          BlocProvider<CourseCubit>(
-                            create: (context) =>
-                                getIt<CourseCubit>()..getAllCourse(),
-                          ),
-                        ],
+                      return BlocProvider<CourseCubit>.value(
+                        value: context.read<CourseCubit>(),
                         child: const CoursePage(),
                       );
                     case 5:
@@ -55,14 +50,18 @@ class TabsPage extends StatelessWidget {
               ),
               floatingActionButton: state.currentUser?.role == "teacher"
                   ? Visibility(
-                    visible: !keyboardIsOpen,
-                    child: FloatingActionButton(
+                      visible: !keyboardIsOpen,
+                      child: FloatingActionButton(
                         child: const Icon(Icons.add),
-                        onPressed: () {
-                          AppNavigator.navigateTo(RoutePath.addCourseRoute);
+                        onPressed: () async {
+                          final data = await AppNavigator.navigateCallbackData(
+                              RoutePath.addCourseRoute);
+                          if (data != null && context.mounted) {
+                            await context.read<CourseCubit>().getAllCourse();
+                          }
                         },
                       ),
-                  )
+                    )
                   : null,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,

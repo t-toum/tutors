@@ -54,18 +54,15 @@ class CoursePage extends StatelessWidget {
               return const LoadingWidget();
             } else {
               if (state.listCourse?.isNotEmpty == true) {
-                return GestureDetector(
-                  onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-                  child: SingleChildScrollView(
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: state.listCourse?.map((course) {
-                            return CourseItem(course: course);
-                          }).toList() ??
-                          [],
-                    ),
+                return SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: state.listCourse?.map((course) {
+                          return CourseItem(course: course);
+                        }).toList() ??
+                        [],
                   ),
                 );
               } else {

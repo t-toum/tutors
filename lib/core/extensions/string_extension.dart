@@ -2,6 +2,15 @@ extension NullExceptionString on String? {
   bool get isNotNull {
     return this != null;
   }
+
+  bool containsWithNull(String? e) {
+    final val = this;
+    if (val != null && e != null) {
+      return val.toLowerCase().contains(e.toLowerCase());
+    } else {
+      return false;
+    }
+  }
 }
 
 extension ExtString on String {

@@ -4,7 +4,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
+import 'package:tutors/core/extensions/string_extension.dart';
 import 'package:tutors/core/models/course.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
@@ -34,7 +36,20 @@ class CourseCubit extends Cubit<CourseState> {
     generalKey = GlobalKey<FormBuilderState>();
 
     searchTextController.addListener(() {
-      emit(state.copyWith(canReset: searchTextController.text.isNotEmpty));
+      List<Course>? searchList;
+      if (searchTextController.text.isNotEmpty) {
+        searchList = state.allCourse?.where((course) {
+              return course.title.containsWithNull(searchTextController.text) ||
+                  course.category.containsWithNull(searchTextController.text);
+            }).toList() ??
+            [];
+      } else {
+        searchList = state.allCourse;
+      }
+      emit(state.copyWith(
+        listCourse: searchList,
+        canReset: searchTextController.text.isNotEmpty,
+      ));
     });
   }
 
@@ -63,9 +78,7 @@ class CourseCubit extends Cubit<CourseState> {
           Map.from(generalKey.currentState?.value ?? {});
       formValue["userId"] = state.currentUser?.id;
       Course data = Course.fromJson(formValue);
-      data = data.copyWith(
-        createdDate: DateTime.now()
-      );
+      data = data.copyWith(createdDate: DateTime.now());
       final result = await _addCourseUsecase(data);
       if (result.isLeft()) {
         emit(
@@ -76,7 +89,7 @@ class CourseCubit extends Cubit<CourseState> {
         );
       } else {
         emit(state.copyWith(status: DataStatus.success));
-        AppNavigator.goBack();
+        AppNavigator.goBackWithData(data: true);
       }
     } else {
       print("Add course validated");
@@ -94,10 +107,13 @@ class CourseCubit extends Cubit<CourseState> {
         ),
       );
     } else {
+      final data = result.getRight();
+      data?.sort((a, b) => b.createdDate.compareToWithNull(a.createdDate));
       emit(
         state.copyWith(
           status: DataStatus.success,
-          listCourse: result.getRight(),
+          listCourse: data,
+          allCourse: data
         ),
       );
     }

@@ -23,6 +23,9 @@ class AppNavigator {
   static void navigateTo(String routeName, {dynamic params}) {
     navigatorKey!.currentState?.pushNamed(routeName, arguments: params);
   }
+  static dynamic navigateCallbackData(String routeName, {dynamic params})async {
+    return await navigatorKey!.currentState?.pushNamed(routeName,arguments: params);
+  }
 
   static void goBack() {
     navigatorKey!.currentState!.pop();

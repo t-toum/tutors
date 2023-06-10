@@ -10,5 +10,6 @@ class CourseState with _$CourseState {
     @Default(false)
     final bool canReset,
     List<Course>? listCourse,
+    List<Course>? allCourse,
   }) = _Initial;
 }
