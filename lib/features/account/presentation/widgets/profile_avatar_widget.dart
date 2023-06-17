@@ -7,10 +7,12 @@ import '../../../../core/constants/app_colors.dart';
 class ProfileAvatarWidget extends StatelessWidget {
   final String url;
   final Function()? onTap;
+  final bool isSelf;
   const ProfileAvatarWidget({
     super.key,
     required this.url,
     this.onTap,
+    required this.isSelf,
   });
 
   @override
@@ -67,26 +69,27 @@ class ProfileAvatarWidget extends StatelessWidget {
             },
           ),
         ),
-        Positioned(
-          left: 80,
-          top: 70,
-          child: Container(
-            width: 20,
-            height: 20,
-            padding: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 1.5,
+        if (isSelf)
+          Positioned(
+            left: 80,
+            top: 70,
+            child: Container(
+              width: 20,
+              height: 20,
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white,
+                  width: 1.5,
+                ),
+              ),
+              child: Image.asset(
+                AppImages.plusWhite,
               ),
             ),
-            child: Image.asset(
-              AppImages.plusWhite,
-            ),
-          ),
-        )
+          )
       ],
     );
   }

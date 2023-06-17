@@ -49,6 +49,7 @@ abstract class AccountRemoteDatasource {
     required String educationId,
     required Map<String, dynamic> data,
   });
+  Future<Users> getProfile({required String id});
 }
 
 @LazySingleton(as: AccountRemoteDatasource)
@@ -126,5 +127,11 @@ class AccountRemoteDatasourceImpl implements AccountRemoteDatasource {
       educationId: educationId,
       data: data,
     );
+  }
+
+  @override
+  Future<Users> getProfile({required String id}) async {
+    final user = await _couldFireStoreService.getUser(docID: id);
+    return user;
   }
 }

@@ -19,7 +19,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i7;
 import 'package:logger/logger.dart' as _i8;
 import 'package:shared_preferences/shared_preferences.dart' as _i9;
-import 'package:tutors/core/DI/register_modules.dart' as _i66;
+import 'package:tutors/core/DI/register_modules.dart' as _i67;
 import 'package:tutors/core/services/auth_service.dart' as _i11;
 import 'package:tutors/core/services/cloud_firestore_service.dart' as _i12;
 import 'package:tutors/core/services/shared_preference_service.dart' as _i22;
@@ -40,16 +40,18 @@ import 'package:tutors/features/account/domain/usecases/delete_experience_usecas
     as _i42;
 import 'package:tutors/features/account/domain/usecases/get_current_user_usecase.dart'
     as _i45;
+import 'package:tutors/features/account/domain/usecases/get_profile_usecase.dart'
+    as _i46;
 import 'package:tutors/features/account/domain/usecases/update_education_usecase.dart'
-    as _i56;
-import 'package:tutors/features/account/domain/usecases/update_experience_usecase.dart'
     as _i57;
-import 'package:tutors/features/account/domain/usecases/update_user_profile.dart'
+import 'package:tutors/features/account/domain/usecases/update_experience_usecase.dart'
     as _i58;
-import 'package:tutors/features/account/domain/usecases/upload_image_usecase.dart'
+import 'package:tutors/features/account/domain/usecases/update_user_profile.dart'
     as _i59;
-import 'package:tutors/features/account/presentation/cubit/account_cubit.dart'
+import 'package:tutors/features/account/domain/usecases/upload_image_usecase.dart'
     as _i60;
+import 'package:tutors/features/account/presentation/cubit/account_cubit.dart'
+    as _i61;
 import 'package:tutors/features/app/data/datasources/app_remote_datasource.dart'
     as _i38;
 import 'package:tutors/features/app/data/repositories/app_repository_impl.dart'
@@ -59,12 +61,12 @@ import 'package:tutors/features/app/domain/repository/app_repository.dart'
 import 'package:tutors/features/app/domain/usecases/get_current_user_auth_usecase.dart'
     as _i43;
 import 'package:tutors/features/app/domain/usecases/get_user_usecase.dart'
-    as _i46;
+    as _i47;
 import 'package:tutors/features/app/domain/usecases/save_user_data_usecase.dart'
-    as _i48;
+    as _i49;
 import 'package:tutors/features/app/domain/usecases/sign_in_google_usecase.dart'
-    as _i53;
-import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i61;
+    as _i54;
+import 'package:tutors/features/app/presentation/cubit/app_cubit.dart' as _i62;
 import 'package:tutors/features/courses/data/datasources/course_remote_datasource.dart'
     as _i13;
 import 'package:tutors/features/courses/data/repositories/course_repository_impl.dart'
@@ -78,7 +80,7 @@ import 'package:tutors/features/courses/domain/usecases/get_all_course_usecase.d
 import 'package:tutors/features/courses/domain/usecases/get_categories_usecase.dart'
     as _i17;
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart'
-    as _i62;
+    as _i63;
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart'
     as _i18;
 import 'package:tutors/features/home/data/repositories/home_ropository_impl.dart'
@@ -88,23 +90,23 @@ import 'package:tutors/features/home/domain/repositories/home_repository.dart'
 import 'package:tutors/features/home/domain/usecases/get_current_user_usecase.dart'
     as _i44;
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart'
-    as _i47;
+    as _i48;
 import 'package:tutors/features/settings/data/datasources/setting_local_datasource.dart'
-    as _i49;
+    as _i50;
 import 'package:tutors/features/settings/data/datasources/setting_remote_datasource.dart'
     as _i21;
 import 'package:tutors/features/settings/data/repositories/setting_repository_impl.dart'
-    as _i51;
+    as _i52;
 import 'package:tutors/features/settings/domain/repositories/setting_repository.dart'
-    as _i50;
+    as _i51;
 import 'package:tutors/features/settings/domain/usecases/get_language_usecase.dart'
-    as _i63;
-import 'package:tutors/features/settings/domain/usecases/set_language_usecase.dart'
     as _i64;
-import 'package:tutors/features/settings/domain/usecases/sign_out_usecase.dart'
-    as _i54;
-import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart'
+import 'package:tutors/features/settings/domain/usecases/set_language_usecase.dart'
     as _i65;
+import 'package:tutors/features/settings/domain/usecases/sign_out_usecase.dart'
+    as _i55;
+import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart'
+    as _i66;
 import 'package:tutors/features/sign_in/data/datasources/sign_in_remote_datasorece.dart'
     as _i23;
 import 'package:tutors/features/sign_in/data/repositories/sign_in_repository_impl.dart'
@@ -114,7 +116,7 @@ import 'package:tutors/features/sign_in/domain/repositories/sign_in_repository.d
 import 'package:tutors/features/sign_in/domain/usecases/sign_in_usecase.dart'
     as _i26;
 import 'package:tutors/features/sign_in/presentation/cubit/sign_in_cubit.dart'
-    as _i52;
+    as _i53;
 import 'package:tutors/features/sign_up/data/datasources/sign_up_remote_datasorece.dart'
     as _i27;
 import 'package:tutors/features/sign_up/data/repositories/sign_up_repository_impl.dart'
@@ -126,7 +128,7 @@ import 'package:tutors/features/sign_up/domain/usecases/sign_up_usecase.dart'
 import 'package:tutors/features/sign_up/domain/usecases/update_user_role_usecase.dart'
     as _i31;
 import 'package:tutors/features/sign_up/presentation/cubit/sign_up_cubit.dart'
-    as _i55;
+    as _i56;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -223,73 +225,76 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i44.GetCurrentUserDataUsecase(gh<_i19.HomeRepository>()));
     gh.lazySingleton<_i45.GetCurrentUserUsecase>(
         () => _i45.GetCurrentUserUsecase(gh<_i33.AccountRepository>()));
-    gh.lazySingleton<_i46.GetUserUsecase>(
-        () => _i46.GetUserUsecase(gh<_i39.AppRepository>()));
-    gh.factory<_i47.HomeCubit>(
-        () => _i47.HomeCubit(gh<_i44.GetCurrentUserDataUsecase>()));
-    gh.lazySingleton<_i48.SaveUserDataUsecase>(
-        () => _i48.SaveUserDataUsecase(gh<_i39.AppRepository>()));
-    gh.lazySingleton<_i49.SettingLocalDatasource>(() =>
-        _i49.SettingLocalDatasourceImpl(gh<_i22.SharedPreferenceService>()));
-    gh.lazySingleton<_i50.SettingRepository>(() => _i51.SettingRepositoryImpl(
+    gh.lazySingleton<_i46.GetProfileUsecase>(
+        () => _i46.GetProfileUsecase(gh<_i33.AccountRepository>()));
+    gh.lazySingleton<_i47.GetUserUsecase>(
+        () => _i47.GetUserUsecase(gh<_i39.AppRepository>()));
+    gh.factory<_i48.HomeCubit>(
+        () => _i48.HomeCubit(gh<_i44.GetCurrentUserDataUsecase>()));
+    gh.lazySingleton<_i49.SaveUserDataUsecase>(
+        () => _i49.SaveUserDataUsecase(gh<_i39.AppRepository>()));
+    gh.lazySingleton<_i50.SettingLocalDatasource>(() =>
+        _i50.SettingLocalDatasourceImpl(gh<_i22.SharedPreferenceService>()));
+    gh.lazySingleton<_i51.SettingRepository>(() => _i52.SettingRepositoryImpl(
           gh<_i21.SettingRemoteDatasource>(),
-          gh<_i49.SettingLocalDatasource>(),
+          gh<_i50.SettingLocalDatasource>(),
         ));
-    gh.factory<_i52.SignInCubit>(() => _i52.SignInCubit(
+    gh.factory<_i53.SignInCubit>(() => _i53.SignInCubit(
           gh<_i26.SignInUsecase>(),
-          gh<_i46.GetUserUsecase>(),
+          gh<_i47.GetUserUsecase>(),
         ));
-    gh.lazySingleton<_i53.SignInWithGoogleUsecase>(
-        () => _i53.SignInWithGoogleUsecase(gh<_i39.AppRepository>()));
-    gh.lazySingleton<_i54.SignOutUsecase>(
-        () => _i54.SignOutUsecase(gh<_i50.SettingRepository>()));
-    gh.factory<_i55.SignUpCubit>(() => _i55.SignUpCubit(
+    gh.lazySingleton<_i54.SignInWithGoogleUsecase>(
+        () => _i54.SignInWithGoogleUsecase(gh<_i39.AppRepository>()));
+    gh.lazySingleton<_i55.SignOutUsecase>(
+        () => _i55.SignOutUsecase(gh<_i51.SettingRepository>()));
+    gh.factory<_i56.SignUpCubit>(() => _i56.SignUpCubit(
           gh<_i30.SignUpUsecase>(),
           gh<_i31.UpdateUserRoleUsecase>(),
         ));
-    gh.lazySingleton<_i56.UpdateEducationUsecase>(
-        () => _i56.UpdateEducationUsecase(gh<_i33.AccountRepository>()));
-    gh.lazySingleton<_i57.UpdateExperienceUsecase>(
-        () => _i57.UpdateExperienceUsecase(gh<_i33.AccountRepository>()));
-    gh.lazySingleton<_i58.UpdateUserProfile>(
-        () => _i58.UpdateUserProfile(gh<_i33.AccountRepository>()));
-    gh.lazySingleton<_i59.UploadImageUsecase>(
-        () => _i59.UploadImageUsecase(gh<_i33.AccountRepository>()));
-    gh.factory<_i60.AccountCubit>(() => _i60.AccountCubit(
+    gh.lazySingleton<_i57.UpdateEducationUsecase>(
+        () => _i57.UpdateEducationUsecase(gh<_i33.AccountRepository>()));
+    gh.lazySingleton<_i58.UpdateExperienceUsecase>(
+        () => _i58.UpdateExperienceUsecase(gh<_i33.AccountRepository>()));
+    gh.lazySingleton<_i59.UpdateUserProfile>(
+        () => _i59.UpdateUserProfile(gh<_i33.AccountRepository>()));
+    gh.lazySingleton<_i60.UploadImageUsecase>(
+        () => _i60.UploadImageUsecase(gh<_i33.AccountRepository>()));
+    gh.factory<_i61.AccountCubit>(() => _i61.AccountCubit(
           gh<_i45.GetCurrentUserUsecase>(),
           gh<_i6.ImagePicker>(),
-          gh<_i59.UploadImageUsecase>(),
-          gh<_i58.UpdateUserProfile>(),
+          gh<_i60.UploadImageUsecase>(),
+          gh<_i59.UpdateUserProfile>(),
           gh<_i37.AddExperienceUsecase>(),
           gh<_i42.DeleteExperienceUsecase>(),
-          gh<_i57.UpdateExperienceUsecase>(),
+          gh<_i58.UpdateExperienceUsecase>(),
           gh<_i36.AddEducationUsecase>(),
           gh<_i41.DeleteEducatonUsecase>(),
-          gh<_i56.UpdateEducationUsecase>(),
+          gh<_i57.UpdateEducationUsecase>(),
+          gh<_i46.GetProfileUsecase>(),
         ));
-    gh.factory<_i61.AppCubit>(() => _i61.AppCubit(
+    gh.factory<_i62.AppCubit>(() => _i62.AppCubit(
           gh<_i43.GetCurrentUserAuthUsecase>(),
-          gh<_i46.GetUserUsecase>(),
-          gh<_i53.SignInWithGoogleUsecase>(),
-          gh<_i48.SaveUserDataUsecase>(),
+          gh<_i47.GetUserUsecase>(),
+          gh<_i54.SignInWithGoogleUsecase>(),
+          gh<_i49.SaveUserDataUsecase>(),
         ));
-    gh.factory<_i62.CourseCubit>(() => _i62.CourseCubit(
+    gh.factory<_i63.CourseCubit>(() => _i63.CourseCubit(
           gh<_i44.GetCurrentUserDataUsecase>(),
           gh<_i35.AddCourseUsecase>(),
           gh<_i16.GetAllCourseUsecase>(),
           gh<_i17.GetCategoriesUsecase>(),
         ));
-    gh.lazySingleton<_i63.GetLanguageUsecase>(
-        () => _i63.GetLanguageUsecase(gh<_i50.SettingRepository>()));
-    gh.lazySingleton<_i64.SetLanguageUsecase>(
-        () => _i64.SetLanguageUsecase(gh<_i50.SettingRepository>()));
-    gh.factory<_i65.SettingCubit>(() => _i65.SettingCubit(
-          gh<_i54.SignOutUsecase>(),
-          gh<_i63.GetLanguageUsecase>(),
-          gh<_i64.SetLanguageUsecase>(),
+    gh.lazySingleton<_i64.GetLanguageUsecase>(
+        () => _i64.GetLanguageUsecase(gh<_i51.SettingRepository>()));
+    gh.lazySingleton<_i65.SetLanguageUsecase>(
+        () => _i65.SetLanguageUsecase(gh<_i51.SettingRepository>()));
+    gh.factory<_i66.SettingCubit>(() => _i66.SettingCubit(
+          gh<_i55.SignOutUsecase>(),
+          gh<_i64.GetLanguageUsecase>(),
+          gh<_i65.SetLanguageUsecase>(),
         ));
     return this;
   }
 }
 
-class _$InjectionModule extends _i66.InjectionModule {}
+class _$InjectionModule extends _i67.InjectionModule {}

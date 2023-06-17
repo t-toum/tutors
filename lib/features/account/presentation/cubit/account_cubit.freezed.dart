@@ -20,6 +20,7 @@ mixin _$AccountState {
   String? get error => throw _privateConstructorUsedError;
   Users? get currentUser => throw _privateConstructorUsedError;
   bool? get isPresent => throw _privateConstructorUsedError;
+  bool get isSelf => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountStateCopyWith<AccountState> get copyWith =>
@@ -33,7 +34,11 @@ abstract class $AccountStateCopyWith<$Res> {
       _$AccountStateCopyWithImpl<$Res, AccountState>;
   @useResult
   $Res call(
-      {DataStatus status, String? error, Users? currentUser, bool? isPresent});
+      {DataStatus status,
+      String? error,
+      Users? currentUser,
+      bool? isPresent,
+      bool isSelf});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -55,6 +60,7 @@ class _$AccountStateCopyWithImpl<$Res, $Val extends AccountState>
     Object? error = freezed,
     Object? currentUser = freezed,
     Object? isPresent = freezed,
+    Object? isSelf = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -73,6 +79,10 @@ class _$AccountStateCopyWithImpl<$Res, $Val extends AccountState>
           ? _value.isPresent
           : isPresent // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isSelf: null == isSelf
+          ? _value.isSelf
+          : isSelf // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -98,7 +108,11 @@ abstract class _$$_InitialCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DataStatus status, String? error, Users? currentUser, bool? isPresent});
+      {DataStatus status,
+      String? error,
+      Users? currentUser,
+      bool? isPresent,
+      bool isSelf});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -118,6 +132,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? error = freezed,
     Object? currentUser = freezed,
     Object? isPresent = freezed,
+    Object? isSelf = null,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -136,6 +151,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.isPresent
           : isPresent // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isSelf: null == isSelf
+          ? _value.isSelf
+          : isSelf // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -147,7 +166,8 @@ class _$_Initial implements _Initial {
       {this.status = DataStatus.initial,
       this.error,
       this.currentUser,
-      this.isPresent});
+      this.isPresent,
+      this.isSelf = true});
 
   @override
   @JsonKey()
@@ -158,10 +178,13 @@ class _$_Initial implements _Initial {
   final Users? currentUser;
   @override
   final bool? isPresent;
+  @override
+  @JsonKey()
+  final bool isSelf;
 
   @override
   String toString() {
-    return 'AccountState(status: $status, error: $error, currentUser: $currentUser, isPresent: $isPresent)';
+    return 'AccountState(status: $status, error: $error, currentUser: $currentUser, isPresent: $isPresent, isSelf: $isSelf)';
   }
 
   @override
@@ -174,12 +197,13 @@ class _$_Initial implements _Initial {
             (identical(other.currentUser, currentUser) ||
                 other.currentUser == currentUser) &&
             (identical(other.isPresent, isPresent) ||
-                other.isPresent == isPresent));
+                other.isPresent == isPresent) &&
+            (identical(other.isSelf, isSelf) || other.isSelf == isSelf));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, status, error, currentUser, isPresent);
+      Object.hash(runtimeType, status, error, currentUser, isPresent, isSelf);
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +217,8 @@ abstract class _Initial implements AccountState {
       {final DataStatus status,
       final String? error,
       final Users? currentUser,
-      final bool? isPresent}) = _$_Initial;
+      final bool? isPresent,
+      final bool isSelf}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -203,6 +228,8 @@ abstract class _Initial implements AccountState {
   Users? get currentUser;
   @override
   bool? get isPresent;
+  @override
+  bool get isSelf;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

@@ -10,7 +10,8 @@ import '../pages/user_info/account_edit_info_page.dart';
 
 class PersonalInfoWidget extends StatelessWidget {
   final Users? users;
-  const PersonalInfoWidget({super.key, this.users});
+  final bool isSefl;
+  const PersonalInfoWidget({super.key, this.users, required this.isSefl});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountCubit, AccountState>(
@@ -23,7 +24,7 @@ class PersonalInfoWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
+                 if (isSefl) TextButton(
                     onPressed: () {
                       AppNavigator.openModalBottomSheet(
                         title: LocaleKeys.kEditInfo.tr(),

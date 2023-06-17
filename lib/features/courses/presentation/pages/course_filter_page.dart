@@ -6,7 +6,6 @@ import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/models/category.dart';
-import '../../../../core/usecases/filter_params.dart';
 
 class CourseFilterPage extends StatelessWidget {
   final List<Category> categories;

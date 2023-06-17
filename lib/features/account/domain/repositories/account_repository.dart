@@ -46,4 +46,5 @@ abstract class AccountRepository {
     required String educationId,
     required Map<String, dynamic> data,
   });
+  Future<Either<Failure, Users>> getProfile({required String id});
 }

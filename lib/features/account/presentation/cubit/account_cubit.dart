@@ -23,6 +23,7 @@ import '../../domain/usecases/add_experience_usecase.dart';
 import '../../domain/usecases/delete_education_usecase.dart';
 import '../../domain/usecases/delete_experience_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
+import '../../domain/usecases/get_profile_usecase.dart';
 import '../../domain/usecases/update_education_usecase.dart';
 import '../../domain/usecases/update_user_profile.dart';
 import '../../domain/usecases/upload_image_usecase.dart';
@@ -42,6 +43,7 @@ class AccountCubit extends Cubit<AccountState> {
   final AddEducationUsecase _addEducationUsecase;
   final DeleteEducatonUsecase _deleteEducatonUsecase;
   final UpdateEducationUsecase _updateEducationUsecase;
+  final GetProfileUsecase _getProfileUsecase;
 
   late GlobalKey<FormBuilderState> editInfoKey;
   late List<String> genders;
@@ -63,6 +65,7 @@ class AccountCubit extends Cubit<AccountState> {
     this._addEducationUsecase,
     this._deleteEducatonUsecase,
     this._updateEducationUsecase,
+    this._getProfileUsecase,
   ) : super(const AccountState()) {
     editInfoKey = GlobalKey<FormBuilderState>();
     genders = [LocaleKeys.kMale.tr(), LocaleKeys.kFemale.tr()];
@@ -82,15 +85,18 @@ class AccountCubit extends Cubit<AccountState> {
     addSkillKey = GlobalKey<FormBuilderState>();
   }
 
-  Future<void> getCurrentUser() async {
+  Future<void> getCurrentUser({bool isSelf = true, String? userId}) async {
     emit(state.copyWith(status: DataStatus.loading));
-    final user = await _getCurrentUserUsecase(NoParams());
+    final user = (isSelf)
+        ? await _getCurrentUserUsecase(NoParams())
+        : await _getProfileUsecase(userId ?? '');
     if (user.isLeft()) {
       emit(state.copyWith(
           status: DataStatus.failure, error: user.getLeft()?.msg));
     } else {
       emit(state.copyWith(
         status: DataStatus.success,
+        isSelf: isSelf,
         currentUser: user.getRight(),
       ));
     }

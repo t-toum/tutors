@@ -89,6 +89,9 @@
     "kEnd":"End",
     "kNoData":"No Data",
     "kFilterBy":"Filter by",
-    "kDone":"Done"
+    "kDone":"Done",
+    "kAbout":"About",
+    "kInStructor":"Instructor",
+    "kRegister":"Register"
 
 }

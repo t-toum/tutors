@@ -30,6 +30,7 @@ class AccountPage extends StatelessWidget {
         if (state.status == DataStatus.loading) {
           return const LoadingWidget();
         }
+        final bool isSelf = state.isSelf;
         return Scaffold(
           backgroundColor: AppColors.secondaryColor,
           body: SafeArea(
@@ -51,6 +52,7 @@ class AccountPage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: CoverWidget(
+                                      isSelf: state.isSelf,
                                       url: state.currentUser?.coverUrl ?? '',
                                       onTap: () {
                                         AppNavigator.openModalImagePicker(
@@ -71,6 +73,7 @@ class AccountPage extends StatelessWidget {
                                   Expanded(
                                     child: PersonalInfoWidget(
                                       users: state.currentUser,
+                                      isSefl: state.isSelf,
                                     ),
                                   )
                                 ],
@@ -79,6 +82,7 @@ class AccountPage extends StatelessWidget {
                                   top: 140,
                                   left: 20,
                                   child: ProfileAvatarWidget(
+                                    isSelf: state.isSelf,
                                     url: state.currentUser?.profileUrl ?? '',
                                     onTap: () {
                                       AppNavigator.openModalImagePicker(
@@ -129,6 +133,7 @@ class AccountPage extends StatelessWidget {
                     builder: (context, state) {
                       return EducationWidget(
                         educations: state,
+                        isSelf: isSelf,
                       );
                     },
                   ),
@@ -142,6 +147,7 @@ class AccountPage extends StatelessWidget {
                   }, builder: (context, state) {
                     return ExperienceWidget(
                       experiences: state,
+                      isSelf: isSelf,
                     );
                   }),
 
@@ -149,6 +155,7 @@ class AccountPage extends StatelessWidget {
                     height: 10,
                   ),
                   SkillsWidget(
+                    isSelf: isSelf,
                     skills: state.currentUser?.skills ?? [],
                   ),
                   const SizedBox(

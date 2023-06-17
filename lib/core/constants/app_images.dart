@@ -1,5 +1,7 @@
 class AppImages {
+
   static const String _path="assets/images";
+  static const String defaultImage ="https://firebasestorage.googleapis.com/v0/b/tutors-ea0ea.appspot.com/o/apps%2Fapp_logo.png?alt=media&token=8ecfb664-c371-4a00-88e4-782e27662706";
   static const String appLogo = "$_path/app_logo.png";
   static const String googleLogo = "$_path/google_logo.png";
   static const String accountName = "$_path/account_name.png";

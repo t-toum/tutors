@@ -21,7 +21,8 @@ class Course with _$Course {
     final String? description,
     final Users? users,
     @TimestampConverter()
-    final DateTime? createdDate
+    final DateTime? createdDate,
+    final String? imageUrl,
   }) = _Course;
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 }

@@ -41,6 +41,7 @@ mixin _$Users {
   List<Education>? get educations => throw _privateConstructorUsedError;
   List<Experience>? get experiences => throw _privateConstructorUsedError;
   List<String>? get skills => throw _privateConstructorUsedError;
+  String? get about => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,7 +73,8 @@ abstract class $UsersCopyWith<$Res> {
       String? phone,
       List<Education>? educations,
       List<Experience>? experiences,
-      List<String>? skills});
+      List<String>? skills,
+      String? about});
 }
 
 /// @nodoc
@@ -108,6 +110,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? educations = freezed,
     Object? experiences = freezed,
     Object? skills = freezed,
+    Object? about = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -190,6 +193,10 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.skills
           : skills // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      about: freezed == about
+          ? _value.about
+          : about // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -220,7 +227,8 @@ abstract class _$$_UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
       String? phone,
       List<Education>? educations,
       List<Experience>? experiences,
-      List<String>? skills});
+      List<String>? skills,
+      String? about});
 }
 
 /// @nodoc
@@ -252,6 +260,7 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
     Object? educations = freezed,
     Object? experiences = freezed,
     Object? skills = freezed,
+    Object? about = freezed,
   }) {
     return _then(_$_Users(
       id: freezed == id
@@ -334,6 +343,10 @@ class __$$_UsersCopyWithImpl<$Res> extends _$UsersCopyWithImpl<$Res, _$_Users>
           ? _value._skills
           : skills // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      about: freezed == about
+          ? _value.about
+          : about // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -361,7 +374,8 @@ class _$_Users implements _Users {
       this.phone,
       final List<Education>? educations,
       final List<Experience>? experiences,
-      final List<String>? skills})
+      final List<String>? skills,
+      this.about})
       : _educations = educations,
         _experiences = experiences,
         _skills = skills;
@@ -435,8 +449,11 @@ class _$_Users implements _Users {
   }
 
   @override
+  final String? about;
+
+  @override
   String toString() {
-    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, educations: $educations, experiences: $experiences, skills: $skills)';
+    return 'Users(id: $id, firstName: $firstName, lastName: $lastName, role: $role, email: $email, tel: $tel, profileUrl: $profileUrl, coverUrl: $coverUrl, jobTitle: $jobTitle, position: $position, industry: $industry, country: $country, city: $city, gender: $gender, birthDay: $birthDay, address: $address, phone: $phone, educations: $educations, experiences: $experiences, skills: $skills, about: $about)';
   }
 
   @override
@@ -473,7 +490,8 @@ class _$_Users implements _Users {
                 .equals(other._educations, _educations) &&
             const DeepCollectionEquality()
                 .equals(other._experiences, _experiences) &&
-            const DeepCollectionEquality().equals(other._skills, _skills));
+            const DeepCollectionEquality().equals(other._skills, _skills) &&
+            (identical(other.about, about) || other.about == about));
   }
 
   @JsonKey(ignore: true)
@@ -499,7 +517,8 @@ class _$_Users implements _Users {
         phone,
         const DeepCollectionEquality().hash(_educations),
         const DeepCollectionEquality().hash(_experiences),
-        const DeepCollectionEquality().hash(_skills)
+        const DeepCollectionEquality().hash(_skills),
+        about
       ]);
 
   @JsonKey(ignore: true)
@@ -537,7 +556,8 @@ abstract class _Users implements Users {
       final String? phone,
       final List<Education>? educations,
       final List<Experience>? experiences,
-      final List<String>? skills}) = _$_Users;
+      final List<String>? skills,
+      final String? about}) = _$_Users;
 
   factory _Users.fromJson(Map<String, dynamic> json) = _$_Users.fromJson;
 
@@ -582,6 +602,8 @@ abstract class _Users implements Users {
   List<Experience>? get experiences;
   @override
   List<String>? get skills;
+  @override
+  String? get about;
   @override
   @JsonKey(ignore: true)
   _$$_UsersCopyWith<_$_Users> get copyWith =>

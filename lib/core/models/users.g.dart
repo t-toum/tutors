@@ -33,6 +33,7 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => _$_Users(
           .toList(),
       skills:
           (json['skills'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      about: json['about'] as String?,
     );
 
 Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
@@ -56,4 +57,5 @@ Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
       'educations': instance.educations,
       'experiences': instance.experiences,
       'skills': instance.skills,
+      'about': instance.about,
     };

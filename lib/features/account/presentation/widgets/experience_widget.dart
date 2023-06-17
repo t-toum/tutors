@@ -13,7 +13,12 @@ import 'header_bar.dart';
 
 class ExperienceWidget extends StatelessWidget {
   final List<Experience>? experiences;
-  const ExperienceWidget({super.key, this.experiences});
+  final bool isSelf;
+  const ExperienceWidget({
+    super.key,
+    this.experiences,
+    required this.isSelf,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class ExperienceWidget extends StatelessWidget {
             child: Column(
               children: [
                 HeaderBar(
+                  isSelf: isSelf,
                   addNew: () {
                     AppNavigator.openModalBottomSheet(
                         body: BlocProvider<AccountCubit>.value(

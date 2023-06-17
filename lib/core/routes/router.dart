@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
+import 'package:tutors/core/models/course.dart';
 import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/features/account/presentation/pages/account_page.dart';
@@ -9,6 +10,7 @@ import 'package:tutors/features/account/presentation/pages/experiences/edit_expe
 import 'package:tutors/features/account/presentation/pages/skills/skills_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/add_course_page.dart';
+import 'package:tutors/features/courses/presentation/pages/course_detail_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
 import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
@@ -23,6 +25,7 @@ import '../../features/app/presentation/pages/app_page.dart';
 import '../../features/courses/presentation/pages/course_filter_page.dart';
 import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
 import '../models/category.dart';
+import '../params/account_param.dart';
 import '../widgets/not_found_page.dart';
 
 class AppRoute {
@@ -79,13 +82,18 @@ class AppRoute {
       case RoutePath.filterCourse:
         List<Category>? params = settings.arguments as List<Category>?;
         return _materialRoute(
-          child:  CourseFilterPage(categories: params ?? [],),
+          child: CourseFilterPage(
+            categories: params ?? [],
+          ),
         );
       case RoutePath.accountRoute:
+        final params = settings.arguments as AccountParams?;
         return _materialRoute(
           providers: [
             BlocProvider<AccountCubit>(
-              create: (context) => getIt<AccountCubit>()..getCurrentUser(),
+              create: (context) => getIt<AccountCubit>()
+                ..getCurrentUser(
+                    isSelf: params?.isSelf ?? true, userId: params?.userId),
             ),
           ],
           child: const AccountPage(),
@@ -137,6 +145,19 @@ class AppRoute {
             ),
           ],
           child: const AddCoursePage(),
+        );
+
+      case RoutePath.courseDetailRoute:
+        final params = settings.arguments as Course;
+        return _materialRoute(
+          providers: [
+            // BlocProvider<CourseCubit>(
+            //   create: (context) => getIt<CourseCubit>()
+            //     ..getCurrentUser()
+            //     ..getCategories(),
+            // ),
+          ],
+          child: CourseDetailPage(course: params),
         );
       default:
         return MaterialPageRoute(

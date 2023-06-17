@@ -8,5 +8,7 @@ class AccountState with _$AccountState {
     final String? error,
     final Users? currentUser,
     final bool? isPresent,
+    @Default(true)
+    final bool isSelf,
   }) = _Initial;
 }

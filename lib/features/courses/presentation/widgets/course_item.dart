@@ -10,11 +10,16 @@ import 'course_field.dart';
 
 class CourseItem extends StatelessWidget {
   final Course course;
-  const CourseItem({super.key, required this.course});
+  final Function()? onPressed;
+  const CourseItem({
+    super.key,
+    required this.course,
+    this.onPressed,
+  });
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onPressed,
       child: Card(
         margin: const EdgeInsets.only(bottom: 10),
         child: Container(
@@ -40,8 +45,8 @@ class CourseItem extends StatelessWidget {
                     //User info
                     Row(
                       children: [
-                         AvatarWidget(
-                          imageUrl: course.users?.profileUrl??"",
+                        AvatarWidget(
+                          imageUrl: course.users?.profileUrl ?? "",
                           width: 20,
                           height: 20,
                         ),
@@ -83,7 +88,8 @@ class CourseItem extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(course.createdDate.shortDate(),
+                    Text(
+                      course.createdDate.shortDate(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Image.asset(

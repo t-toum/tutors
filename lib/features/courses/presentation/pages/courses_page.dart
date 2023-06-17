@@ -47,7 +47,7 @@ class CoursePage extends StatelessWidget {
                       RoutePath.filterCourse,
                       params: state.categories,
                     );
-                    if (filterData != null){
+                    if (filterData != null) {
                       await cubit.filterCourse();
                     }
                   },
@@ -70,7 +70,15 @@ class CoursePage extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: state.listCourse?.map((course) {
-                          return CourseItem(course: course);
+                          return CourseItem(
+                            course: course,
+                            onPressed: () {
+                              AppNavigator.navigateTo(
+                                RoutePath.courseDetailRoute,
+                                params: course
+                              );
+                            },
+                          );
                         }).toList() ??
                         [],
                   ),

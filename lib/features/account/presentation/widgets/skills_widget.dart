@@ -11,7 +11,12 @@ import 'header_bar.dart';
 
 class SkillsWidget extends StatelessWidget {
   final List<String> skills;
-  const SkillsWidget({super.key, this.skills = const []});
+  final bool isSelf;
+  const SkillsWidget({
+    super.key,
+    this.skills = const [],
+    required this.isSelf,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,7 @@ class SkillsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderBar(
+              isSelf: isSelf,
               title: LocaleKeys.kSkills.tr(),
               onEdit: () {
                 AppNavigator.navigateTo(RoutePath.skillsRoute);

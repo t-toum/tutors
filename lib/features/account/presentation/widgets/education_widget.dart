@@ -13,7 +13,12 @@ import 'header_bar.dart';
 
 class EducationWidget extends StatelessWidget {
   final List<Education> educations;
-  const EducationWidget({super.key, this.educations = const []});
+  final bool isSelf;
+  const EducationWidget({
+    super.key,
+    this.educations = const [],
+    required this.isSelf,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class EducationWidget extends StatelessWidget {
         child: Column(
           children: [
             HeaderBar(
+              isSelf: isSelf,
               title: LocaleKeys.kEducation.tr(),
               onEdit: () {
                 AppNavigator.navigateTo(RoutePath.educationRoute);

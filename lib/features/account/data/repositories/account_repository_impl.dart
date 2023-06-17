@@ -156,4 +156,15 @@ class AccountRepositoryImpl implements AccountRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Users>> getProfile({required String id}) async {
+    try {
+      return Right(await _accountRemoteDatasource.getProfile(id: id));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

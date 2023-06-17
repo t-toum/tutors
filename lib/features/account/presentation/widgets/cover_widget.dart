@@ -7,9 +7,15 @@ import '../../../../core/constants/app_images.dart';
 
 class CoverWidget extends StatelessWidget {
   final String url;
+  final bool isSelf;
   final Function()? onTap;
 
-  const CoverWidget({super.key, required this.url, this.onTap});
+  const CoverWidget({
+    super.key,
+    required this.url,
+    this.onTap,
+    required this.isSelf,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +66,20 @@ class CoverWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     AppNavigator.goBack();
                   },
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: AppColors.greyColor.withOpacity(0.5),
-                    child:const Icon(Icons.arrow_back,color: Colors.black,),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
-              Padding(
+              if (isSelf) Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: onTap,
