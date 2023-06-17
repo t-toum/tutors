@@ -42,9 +42,14 @@ class CoursePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
-                  onTap: () async{
-                    final filterData = await AppNavigator.navigateCallbackData(RoutePath.filterCourse);
-                    print("Filter data $filterData");
+                  onTap: () async {
+                    final filterData = await AppNavigator.navigateCallbackData(
+                      RoutePath.filterCourse,
+                      params: state.categories,
+                    );
+                    if (filterData != null){
+                      await cubit.filterCourse();
+                    }
                   },
                   child: Image.asset(
                     AppImages.filter,

@@ -22,6 +22,7 @@ import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
 import '../../features/courses/presentation/pages/course_filter_page.dart';
 import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
+import '../models/category.dart';
 import '../widgets/not_found_page.dart';
 
 class AppRoute {
@@ -76,15 +77,9 @@ class AppRoute {
           child: const TabsPage(),
         );
       case RoutePath.filterCourse:
+        List<Category>? params = settings.arguments as List<Category>?;
         return _materialRoute(
-          providers: [
-            BlocProvider<CourseCubit>(
-              create: (context) => getIt<CourseCubit>()
-                ..getAllCourse()
-                ..getCategories(),
-            ),
-          ],
-          child: const CourseFilterPage(),
+          child:  CourseFilterPage(categories: params ?? [],),
         );
       case RoutePath.accountRoute:
         return _materialRoute(

@@ -130,6 +130,9 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  Future<void>filterCourse()async{
+    
+  }
   @override
   Future<void> close() {
     searchTextController.removeListener(() {
