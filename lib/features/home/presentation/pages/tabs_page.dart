@@ -6,6 +6,8 @@ import 'package:tutors/core/widgets/not_found_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
+import 'package:tutors/features/my_courses/presentation/cubit/my_course_cubit.dart';
+import 'package:tutors/features/my_courses/presentation/pages/my_course_page.dart';
 import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
 import 'package:tutors/features/settings/presentation/pages/setting_page.dart';
 
@@ -33,6 +35,16 @@ class TabsPage extends StatelessWidget {
                       return BlocProvider<CourseCubit>.value(
                         value: context.read<CourseCubit>(),
                         child: const CoursePage(),
+                      );
+                    case 3:
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider<MyCourseCubit>(
+                            create: (context) =>
+                                getIt<MyCourseCubit>()..getCurrentUser(),
+                          ),
+                        ],
+                        child: const MyCoursePage(),
                       );
                     case 5:
                       return MultiBlocProvider(

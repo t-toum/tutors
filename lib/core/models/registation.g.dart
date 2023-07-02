@@ -14,6 +14,9 @@ _$_Registation _$$_RegistationFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String?,
       createdDate: const TimestampConverter()
           .fromJson(json['createdDate'] as Timestamp?),
+      course: json['course'] == null
+          ? null
+          : Course.fromJson(json['course'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_RegistationToJson(_$_Registation instance) =>
@@ -23,4 +26,5 @@ Map<String, dynamic> _$$_RegistationToJson(_$_Registation instance) =>
       'userId': instance.userId,
       'status': instance.status,
       'createdDate': const TimestampConverter().toJson(instance.createdDate),
+      'course': instance.course,
     };
