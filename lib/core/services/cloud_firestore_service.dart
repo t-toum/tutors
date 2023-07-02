@@ -29,8 +29,8 @@ class CouldFireStoreService {
     try {
       final documentSnapshot =
           await _firebaseFirestore.collection(collection).doc(doc).get();
-          Map<String,dynamic> mapData = documentSnapshot.data()??{};
-          mapData['id']= documentSnapshot.id;
+      Map<String, dynamic> mapData = documentSnapshot.data() ?? {};
+      mapData['id'] = documentSnapshot.id;
       return mapData;
     } on FirebaseException catch (e) {
       throw ServerException(e.message);
@@ -40,13 +40,17 @@ class CouldFireStoreService {
   }
 
   Future<List<Map<String, dynamic>>> getAllData(
-      {required String collection}) async {
+      {required String collection, String? arg, String? field}) async {
     try {
-      final documentSnapshot =
-          await _firebaseFirestore.collection(collection).get();
-      return documentSnapshot.docs.map((e){
-        Map<String,dynamic> map = Map.of(e.data());
-        map["id"]= e.id;
+      final documentSnapshot = (arg != null && field != null)
+          ? await _firebaseFirestore
+              .collection(collection)
+              .where(field, isEqualTo: arg)
+              .get()
+          : await _firebaseFirestore.collection(collection).get();
+      return documentSnapshot.docs.map((e) {
+        Map<String, dynamic> map = Map.of(e.data());
+        map["id"] = e.id;
         return map;
       }).toList();
     } on FirebaseException catch (e) {

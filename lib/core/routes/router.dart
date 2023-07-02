@@ -11,6 +11,7 @@ import 'package:tutors/features/account/presentation/pages/skills/skills_page.da
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/add_course_page.dart';
 import 'package:tutors/features/courses/presentation/pages/course_detail_page.dart';
+import 'package:tutors/features/courses/presentation/pages/register_page.dart';
 import 'package:tutors/features/home/presentation/cubit/home_cubit.dart';
 import 'package:tutors/features/home/presentation/pages/tabs_page.dart';
 import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart';
@@ -158,6 +159,20 @@ class AppRoute {
             // ),
           ],
           child: CourseDetailPage(course: params),
+        );
+      case RoutePath.registerRoute:
+        final param = settings.arguments as Course;
+        return _materialRoute(
+          providers: [
+            BlocProvider<CourseCubit>(
+              create: (context) => getIt<CourseCubit>()
+                ..getCurrentUser()
+                ..getRegisteredCourse(courseId: param.id ??''),
+            ),
+          ],
+          child: RegisterPage(
+            param: param,
+          ),
         );
       default:
         return MaterialPageRoute(

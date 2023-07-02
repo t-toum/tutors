@@ -4,19 +4,23 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/constants/enumerics.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/extensions/string_extension.dart';
 import 'package:tutors/core/models/course.dart';
+import 'package:tutors/core/models/registation.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 
 import '../../../../core/models/category.dart';
 import '../../../../core/usecases/no_params.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
+import '../../../my_courses/domain/usecases/get_registered_course_usecase.dart';
 import '../../domain/usecases/add_course_usecase.dart';
 import '../../domain/usecases/get_all_course_usecase.dart';
 import '../../domain/usecases/get_categories_usecase.dart';
+import '../../domain/usecases/register_usecase.dart';
 
 part 'course_cubit.freezed.dart';
 part 'course_state.dart';
@@ -27,6 +31,8 @@ class CourseCubit extends Cubit<CourseState> {
   final AddCourseUsecase _addCourseUsecase;
   final GetAllCourseUsecase _getAllCourseUsecase;
   final GetCategoriesUsecase _getCategoriesUsecase;
+  final RegisterUsecase _registerUsecase;
+  final GetRegisteredCourseUsecase _getRegisteredCourseUsecase;
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
@@ -35,6 +41,8 @@ class CourseCubit extends Cubit<CourseState> {
     this._addCourseUsecase,
     this._getAllCourseUsecase,
     this._getCategoriesUsecase,
+    this._registerUsecase,
+    this._getRegisteredCourseUsecase,
   ) : super(const CourseState()) {
     searchTextController = TextEditingController();
     generalKey = GlobalKey<FormBuilderState>();
@@ -64,7 +72,7 @@ class CourseCubit extends Cubit<CourseState> {
           status: DataStatus.failure, error: categories.getLeft()?.msg));
     } else {
       final sortData = categories.getRight();
-      sortData?.sort((a,b)=>b.name.compareToWithNull(a.name));
+      sortData?.sort((a, b) => b.name.compareToWithNull(a.name));
       emit(state.copyWith(categories: sortData));
     }
   }
@@ -130,9 +138,40 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
-  Future<void>filterCourse()async{
-    
+  Future<void> filterCourse() async {}
+
+  Future<void> getRegisteredCourse({required String courseId}) async {
+    final result = await _getRegisteredCourseUsecase(state.currentUser?.id);
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: result.getLeft()?.msg));
+    } else {
+      final registeredData = result
+          .getRight()
+          ?.where((element) => element.courseId == courseId)
+          .toList();
+      emit(state.copyWith(
+          isRegistered: registeredData?.isNotEmpty ?? false));
+    }
   }
+
+  Future<void> register({required String couresId}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    Registation data = Registation(
+      userId: state.currentUser?.id,
+      courseId: couresId,
+      status: RegisterStatus.pending.name,
+      createdDate: DateTime.now(),
+    );
+    final result = await _registerUsecase(data);
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: result.getLeft()?.msg));
+    } else {
+      emit(state.copyWith(status: DataStatus.success, registered: true));
+    }
+  }
+
   @override
   Future<void> close() {
     searchTextController.removeListener(() {

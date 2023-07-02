@@ -12,5 +12,9 @@ class CourseState with _$CourseState {
     List<Course>? listCourse,
     List<Course>? allCourse,
     List<Category>? categories,
+    @Default(false)
+    bool isRegistered,
+    @Default(false)
+    bool registered,
   }) = _Initial;
 }

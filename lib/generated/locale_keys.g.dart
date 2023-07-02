@@ -95,5 +95,8 @@ abstract class  LocaleKeys {
   static const kAbout = 'kAbout';
   static const kInStructor = 'kInStructor';
   static const kRegister = 'kRegister';
+  static const kConfirm = 'kConfirm';
+  static const kRegisterSuccess = 'kRegisterSuccess';
+  static const kRegistered = 'kRegistered';
 
 }

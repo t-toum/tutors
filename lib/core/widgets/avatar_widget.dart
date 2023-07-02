@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:tutors/core/constants/app_colors.dart';
 
 class AvatarWidget extends StatelessWidget {
@@ -50,22 +51,19 @@ class AvatarWidget extends StatelessWidget {
         );
       },
       progressIndicatorBuilder: (context, url, progress) {
-        return Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-            border: Border.all(
-              color: Colors.white,
-            ),
+        return Skeleton(
+          isLoading: true,
+          skeleton: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+                shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+                color: AppColors.greyColor,
+                border: Border.all(
+                  color: Colors.white,
+                )),
           ),
-          child:const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 1,
-              color: AppColors.primaryColor,
-            ),
-          ),
+          child: const SizedBox(),
         );
       },
     );

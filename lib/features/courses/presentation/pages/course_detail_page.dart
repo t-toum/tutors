@@ -106,34 +106,43 @@ class CourseDetailPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Text(LocaleKeys.kInStructor.tr(),
+                  Text(
+                    LocaleKeys.kInStructor.tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 10),
-                  InstructorWidget(user: course.users,
-                  onTap: (){
-                    AppNavigator.navigateTo(RoutePath.accountRoute,params: AccountParams(
-                      isSelf: false,
-                      userId: course.userId ??''
-                    ));
-                  },
+                  InstructorWidget(
+                    user: course.users,
+                    onTap: () {
+                      AppNavigator.navigateTo(RoutePath.accountRoute,
+                          params: AccountParams(
+                              isSelf: false, userId: course.userId ?? ''));
+                    },
                   ),
                   const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            color: AppColors.primaryColor,
-            height: 50,
-            child: Center(
-              child: Text(
-                LocaleKeys.kRegister.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Colors.white),
+          InkWell(
+            onTap: () {
+              AppNavigator.navigateTo(
+                RoutePath.registerRoute,
+                params: course,
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              color: AppColors.primaryColor,
+              height: 50,
+              child: Center(
+                child: Text(
+                  LocaleKeys.kRegister.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(color: Colors.white),
+                ),
               ),
             ),
           )

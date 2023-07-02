@@ -91,5 +91,8 @@
     "kDone":"Done",
     "kAbout":"About",
     "kInStructor":"Instructor",
-    "kRegister":"Register"
+    "kRegister":"Register",
+    "kConfirm": "Confirm",
+    "kRegisterSuccess":"Register success",
+    "kRegistered":"Registered"
 }

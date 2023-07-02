@@ -23,6 +23,8 @@ mixin _$CourseState {
   List<Course>? get listCourse => throw _privateConstructorUsedError;
   List<Course>? get allCourse => throw _privateConstructorUsedError;
   List<Category>? get categories => throw _privateConstructorUsedError;
+  bool get isRegistered => throw _privateConstructorUsedError;
+  bool get registered => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseStateCopyWith<CourseState> get copyWith =>
@@ -42,7 +44,9 @@ abstract class $CourseStateCopyWith<$Res> {
       bool canReset,
       List<Course>? listCourse,
       List<Course>? allCourse,
-      List<Category>? categories});
+      List<Category>? categories,
+      bool isRegistered,
+      bool registered});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -67,6 +71,8 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
     Object? listCourse = freezed,
     Object? allCourse = freezed,
     Object? categories = freezed,
+    Object? isRegistered = null,
+    Object? registered = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -97,6 +103,14 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>?,
+      isRegistered: null == isRegistered
+          ? _value.isRegistered
+          : isRegistered // ignore: cast_nullable_to_non_nullable
+              as bool,
+      registered: null == registered
+          ? _value.registered
+          : registered // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -127,7 +141,9 @@ abstract class _$$_InitialCopyWith<$Res> implements $CourseStateCopyWith<$Res> {
       bool canReset,
       List<Course>? listCourse,
       List<Course>? allCourse,
-      List<Category>? categories});
+      List<Category>? categories,
+      bool isRegistered,
+      bool registered});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -150,6 +166,8 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? listCourse = freezed,
     Object? allCourse = freezed,
     Object? categories = freezed,
+    Object? isRegistered = null,
+    Object? registered = null,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -180,6 +198,14 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>?,
+      isRegistered: null == isRegistered
+          ? _value.isRegistered
+          : isRegistered // ignore: cast_nullable_to_non_nullable
+              as bool,
+      registered: null == registered
+          ? _value.registered
+          : registered // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -194,7 +220,9 @@ class _$_Initial implements _Initial {
       this.canReset = false,
       final List<Course>? listCourse,
       final List<Course>? allCourse,
-      final List<Category>? categories})
+      final List<Category>? categories,
+      this.isRegistered = false,
+      this.registered = false})
       : _listCourse = listCourse,
         _allCourse = allCourse,
         _categories = categories;
@@ -240,8 +268,15 @@ class _$_Initial implements _Initial {
   }
 
   @override
+  @JsonKey()
+  final bool isRegistered;
+  @override
+  @JsonKey()
+  final bool registered;
+
+  @override
   String toString() {
-    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories)';
+    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories, isRegistered: $isRegistered, registered: $registered)';
   }
 
   @override
@@ -260,7 +295,11 @@ class _$_Initial implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._allCourse, _allCourse) &&
             const DeepCollectionEquality()
-                .equals(other._categories, _categories));
+                .equals(other._categories, _categories) &&
+            (identical(other.isRegistered, isRegistered) ||
+                other.isRegistered == isRegistered) &&
+            (identical(other.registered, registered) ||
+                other.registered == registered));
   }
 
   @override
@@ -272,7 +311,9 @@ class _$_Initial implements _Initial {
       canReset,
       const DeepCollectionEquality().hash(_listCourse),
       const DeepCollectionEquality().hash(_allCourse),
-      const DeepCollectionEquality().hash(_categories));
+      const DeepCollectionEquality().hash(_categories),
+      isRegistered,
+      registered);
 
   @JsonKey(ignore: true)
   @override
@@ -289,7 +330,9 @@ abstract class _Initial implements CourseState {
       final bool canReset,
       final List<Course>? listCourse,
       final List<Course>? allCourse,
-      final List<Category>? categories}) = _$_Initial;
+      final List<Category>? categories,
+      final bool isRegistered,
+      final bool registered}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -305,6 +348,10 @@ abstract class _Initial implements CourseState {
   List<Course>? get allCourse;
   @override
   List<Category>? get categories;
+  @override
+  bool get isRegistered;
+  @override
+  bool get registered;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

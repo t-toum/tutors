@@ -30,4 +30,5 @@ class AppImages {
   static const String settingsActive = "$_path/settings_active.png";
   static const String globe = "$_path/globe.png";
   static const String power = "$_path/power.png";
+  static const String bubbleWhite = "$_path/bubble_white.png";
 }
