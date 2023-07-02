@@ -24,24 +24,28 @@ class PersonalInfoWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                 if (isSefl) TextButton(
-                    onPressed: () {
-                      AppNavigator.openModalBottomSheet(
-                        title: LocaleKeys.kEditInfo.tr(),
-                        body: BlocProvider<AccountCubit>.value(
-                          value: context.read<AccountCubit>(),
-                          child:const AccountEditInfoPage(),
-                        ),
-                      );
-                    },
-                    child: Text(LocaleKeys.kEdit.tr()),
-                  )
+                  isSefl
+                      ? TextButton(
+                          onPressed: () {
+                            AppNavigator.openModalBottomSheet(
+                              title: LocaleKeys.kEditInfo.tr(),
+                              body: BlocProvider<AccountCubit>.value(
+                                value: context.read<AccountCubit>(),
+                                child: const AccountEditInfoPage(),
+                              ),
+                            );
+                          },
+                          child: Text(LocaleKeys.kEdit.tr()),
+                        )
+                      : const SizedBox(
+                          height: 40,
+                        )
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text("${users?.firstName} ${users?.lastName}" ,
+              Text("${users?.firstName} ${users?.lastName}",
                   style: Theme.of(context).textTheme.titleMedium),
               users?.jobTitle != null
                   ? Text(users?.jobTitle ?? '-',
@@ -60,6 +64,14 @@ class PersonalInfoWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall),
               Text(users?.phone ?? '',
                   style: Theme.of(context).textTheme.bodySmall),
+              Text(LocaleKeys.kAbout.tr()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Text(
+                    users?.about ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ))
             ],
           ),
         );

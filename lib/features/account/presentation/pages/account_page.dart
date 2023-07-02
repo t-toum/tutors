@@ -10,8 +10,8 @@ import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/account/presentation/cubit/account_cubit.dart';
 import 'package:tutors/features/account/presentation/pages/user_info/user_detail_page.dart';
-import 'package:tutors/generated/locale_keys.g.dart';
 
+import '../../../../generated/locale_keys.g.dart';
 import '../widgets/cover_widget.dart';
 import '../widgets/education_widget.dart';
 import '../widgets/experience_widget.dart';
@@ -98,7 +98,7 @@ class AccountPage extends StatelessWidget {
                                             type: ImageType.profile);
                                       });
                                     },
-                                  ))
+                                  )),
                             ],
                           ),
                         ),
