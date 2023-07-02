@@ -152,11 +152,8 @@ class AppRoute {
         final params = settings.arguments as Course;
         return _materialRoute(
           providers: [
-            // BlocProvider<CourseCubit>(
-            //   create: (context) => getIt<CourseCubit>()
-            //     ..getCurrentUser()
-            //     ..getCategories(),
-            // ),
+            BlocProvider<CourseCubit>(
+                create: (context) => getIt<CourseCubit>()..getCurrentUser()),
           ],
           child: CourseDetailPage(course: params),
         );
@@ -167,7 +164,7 @@ class AppRoute {
             BlocProvider<CourseCubit>(
               create: (context) => getIt<CourseCubit>()
                 ..getCurrentUser()
-                ..getRegisteredCourse(courseId: param.id ??''),
+                ..getRegisteredCourse(courseId: param.id ?? ''),
             ),
           ],
           child: RegisterPage(

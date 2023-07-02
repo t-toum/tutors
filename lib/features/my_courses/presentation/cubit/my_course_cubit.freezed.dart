@@ -20,6 +20,7 @@ mixin _$MyCourseState {
   String? get error => throw _privateConstructorUsedError;
   Users? get currentUser => throw _privateConstructorUsedError;
   List<Registation>? get myCourses => throw _privateConstructorUsedError;
+  List<Course>? get listCourse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyCourseStateCopyWith<MyCourseState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $MyCourseStateCopyWith<$Res> {
       {DataStatus status,
       String? error,
       Users? currentUser,
-      List<Registation>? myCourses});
+      List<Registation>? myCourses,
+      List<Course>? listCourse});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -58,6 +60,7 @@ class _$MyCourseStateCopyWithImpl<$Res, $Val extends MyCourseState>
     Object? error = freezed,
     Object? currentUser = freezed,
     Object? myCourses = freezed,
+    Object? listCourse = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -76,6 +79,10 @@ class _$MyCourseStateCopyWithImpl<$Res, $Val extends MyCourseState>
           ? _value.myCourses
           : myCourses // ignore: cast_nullable_to_non_nullable
               as List<Registation>?,
+      listCourse: freezed == listCourse
+          ? _value.listCourse
+          : listCourse // ignore: cast_nullable_to_non_nullable
+              as List<Course>?,
     ) as $Val);
   }
 
@@ -104,7 +111,8 @@ abstract class _$$_InitialCopyWith<$Res>
       {DataStatus status,
       String? error,
       Users? currentUser,
-      List<Registation>? myCourses});
+      List<Registation>? myCourses,
+      List<Course>? listCourse});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -124,6 +132,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? error = freezed,
     Object? currentUser = freezed,
     Object? myCourses = freezed,
+    Object? listCourse = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -142,6 +151,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._myCourses
           : myCourses // ignore: cast_nullable_to_non_nullable
               as List<Registation>?,
+      listCourse: freezed == listCourse
+          ? _value._listCourse
+          : listCourse // ignore: cast_nullable_to_non_nullable
+              as List<Course>?,
     ));
   }
 }
@@ -153,8 +166,10 @@ class _$_Initial implements _Initial {
       {this.status = DataStatus.initial,
       this.error,
       this.currentUser,
-      final List<Registation>? myCourses})
-      : _myCourses = myCourses;
+      final List<Registation>? myCourses,
+      final List<Course>? listCourse})
+      : _myCourses = myCourses,
+        _listCourse = listCourse;
 
   @override
   @JsonKey()
@@ -173,9 +188,19 @@ class _$_Initial implements _Initial {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Course>? _listCourse;
+  @override
+  List<Course>? get listCourse {
+    final value = _listCourse;
+    if (value == null) return null;
+    if (_listCourse is EqualUnmodifiableListView) return _listCourse;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'MyCourseState(status: $status, error: $error, currentUser: $currentUser, myCourses: $myCourses)';
+    return 'MyCourseState(status: $status, error: $error, currentUser: $currentUser, myCourses: $myCourses, listCourse: $listCourse)';
   }
 
   @override
@@ -188,12 +213,19 @@ class _$_Initial implements _Initial {
             (identical(other.currentUser, currentUser) ||
                 other.currentUser == currentUser) &&
             const DeepCollectionEquality()
-                .equals(other._myCourses, _myCourses));
+                .equals(other._myCourses, _myCourses) &&
+            const DeepCollectionEquality()
+                .equals(other._listCourse, _listCourse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error, currentUser,
-      const DeepCollectionEquality().hash(_myCourses));
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      error,
+      currentUser,
+      const DeepCollectionEquality().hash(_myCourses),
+      const DeepCollectionEquality().hash(_listCourse));
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +239,8 @@ abstract class _Initial implements MyCourseState {
       {final DataStatus status,
       final String? error,
       final Users? currentUser,
-      final List<Registation>? myCourses}) = _$_Initial;
+      final List<Registation>? myCourses,
+      final List<Course>? listCourse}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -217,6 +250,8 @@ abstract class _Initial implements MyCourseState {
   Users? get currentUser;
   @override
   List<Registation>? get myCourses;
+  @override
+  List<Course>? get listCourse;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

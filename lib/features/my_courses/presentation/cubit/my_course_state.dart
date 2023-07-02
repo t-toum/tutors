@@ -8,5 +8,6 @@ class MyCourseState with _$MyCourseState {
     String? error,
     Users? currentUser,
     List<Registation>? myCourses,
+    List<Course>?listCourse,
   })= _Initial;
 }

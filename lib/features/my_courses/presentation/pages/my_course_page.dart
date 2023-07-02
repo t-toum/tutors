@@ -19,29 +19,41 @@ class MyCoursePage extends StatelessWidget {
       body: BlocBuilder<MyCourseCubit, MyCourseState>(
         builder: (context, state) {
           return SingleChildScrollView(
-            padding:const EdgeInsets.all(20),
-            child: Column(
-              children: state.myCourses?.map((item) {
-                    return Card(
-                      child: InkWell(
-                        onTap: (){},
-                        child: Container(
-                          padding:const EdgeInsets.all(10),
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.all(20),
+            child: (state.currentUser?.role == "teacher")
+                ? Column(
+                    children: state.listCourse?.map((item) {
+                          return Column(
                             children: [
-                              Text(item.course?.title ?? ''),
-                              Text("Status: ${item.status}"),
-                              Text("Register data: ${item.createdDate.shortDate()}"),
+                              Text(item.title ?? ''),
                             ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }).toList() ??
-                  [],
-            ),
+                          );
+                        }).toList() ??
+                        [],
+                  )
+                : Column(
+                    children: state.myCourses?.map((item) {
+                          return Card(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(item.course?.title ?? ''),
+                                    Text("Status: ${item.status}"),
+                                    Text(
+                                        "Register data: ${item.createdDate.shortDate()}"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList() ??
+                        [],
+                  ),
           );
         },
       ),
