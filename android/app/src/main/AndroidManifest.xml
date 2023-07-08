@@ -2,7 +2,7 @@
     package="com.example.tutors">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="tutors"
+        android:label="Tutors"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
