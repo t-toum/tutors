@@ -95,6 +95,8 @@
     "kRegister":"Register",
     "kConfirm": "Confirm",
     "kRegisterSuccess":"Register success",
-    "kRegistered":"Registered"
+    "kRegistered":"Registered",
+    "kOpen":"Open",
+    "kClosed":"Closed"
 
 }

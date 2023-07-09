@@ -40,8 +40,9 @@ class TabsPage extends StatelessWidget {
                       return MultiBlocProvider(
                         providers: [
                           BlocProvider<MyCourseCubit>(
-                            create: (context) =>
-                                getIt<MyCourseCubit>()..getCurrentUser(),
+                            create: (context) => getIt<MyCourseCubit>()
+                              ..getCurrentUser()
+                              ..getCreatedCourse(),
                           ),
                         ],
                         child: const MyCoursePage(),

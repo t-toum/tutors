@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tutors/core/constants/app_constants.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/widgets/custom_button.dart';
+import '../widgets/pick_image_widget.dart';
 
 class AddCoursePage extends StatelessWidget {
   const AddCoursePage({super.key});
@@ -123,6 +126,34 @@ class AddCoursePage extends StatelessWidget {
                       ),
                     ]),
                   ),
+                  const SizedBox(height: 20),
+                  PickImageWidget(
+                    file: state.imageFile,
+                    onRemove: () => cubit.removeImage(),
+                    onTap: () {
+                      AppNavigator.openModalImagePicker(onCamera: () {
+                        AppNavigator.goBack();
+                        cubit.getImage(source: ImageSource.camera);
+                      }, onGallery: () {
+                        AppNavigator.goBack();
+                        cubit.getImage(source: ImageSource.gallery);
+                      });
+                    },
+                  ),
+                  // InkWell(
+                  //   onTap: (){
+                  //     cubit.getImage(source: ImageSource.camera);
+                  //   },
+                  //   child: Container(
+                  //     height: 200,
+                  //     width: double.infinity,
+                  //     padding: const EdgeInsets.all(10),
+                  //     color: AppColors.greyColor,
+                  //     child: state.imageFile != null
+                  //         ? Image.file(state.imageFile!)
+                  //         :const Icon(Icons.image),
+                  //   ),
+                  // ),
                   const SizedBox(height: 40),
                   FormBuilderTextField(
                     name: 'description',

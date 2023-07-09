@@ -16,5 +16,6 @@ class CourseState with _$CourseState {
     bool isRegistered,
     @Default(false)
     bool registered,
+    File? imageFile,
   }) = _Initial;
 }

@@ -35,6 +35,7 @@ mixin _$Course {
   @TimestampConverter()
   DateTime? get createdDate => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +59,8 @@ abstract class $CourseCopyWith<$Res> {
       String? description,
       Users? users,
       @TimestampConverter() DateTime? createdDate,
-      String? imageUrl});
+      String? imageUrl,
+      bool status});
 
   $UsersCopyWith<$Res>? get users;
 }
@@ -88,6 +90,7 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
     Object? users = freezed,
     Object? createdDate = freezed,
     Object? imageUrl = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -138,6 +141,10 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -172,7 +179,8 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
       String? description,
       Users? users,
       @TimestampConverter() DateTime? createdDate,
-      String? imageUrl});
+      String? imageUrl,
+      bool status});
 
   @override
   $UsersCopyWith<$Res>? get users;
@@ -200,6 +208,7 @@ class __$$_CourseCopyWithImpl<$Res>
     Object? users = freezed,
     Object? createdDate = freezed,
     Object? imageUrl = freezed,
+    Object? status = null,
   }) {
     return _then(_$_Course(
       id: freezed == id
@@ -250,6 +259,10 @@ class __$$_CourseCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -269,7 +282,8 @@ class _$_Course implements _Course {
       this.description,
       this.users,
       @TimestampConverter() this.createdDate,
-      this.imageUrl});
+      this.imageUrl,
+      this.status = false});
 
   factory _$_Course.fromJson(Map<String, dynamic> json) =>
       _$$_CourseFromJson(json);
@@ -301,10 +315,13 @@ class _$_Course implements _Course {
   final DateTime? createdDate;
   @override
   final String? imageUrl;
+  @override
+  @JsonKey()
+  final bool status;
 
   @override
   String toString() {
-    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description, users: $users, createdDate: $createdDate, imageUrl: $imageUrl)';
+    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description, users: $users, createdDate: $createdDate, imageUrl: $imageUrl, status: $status)';
   }
 
   @override
@@ -329,7 +346,8 @@ class _$_Course implements _Course {
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
@@ -347,7 +365,8 @@ class _$_Course implements _Course {
       description,
       users,
       createdDate,
-      imageUrl);
+      imageUrl,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -376,7 +395,8 @@ abstract class _Course implements Course {
       final String? description,
       final Users? users,
       @TimestampConverter() final DateTime? createdDate,
-      final String? imageUrl}) = _$_Course;
+      final String? imageUrl,
+      final bool status}) = _$_Course;
 
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
@@ -407,6 +427,8 @@ abstract class _Course implements Course {
   DateTime? get createdDate;
   @override
   String? get imageUrl;
+  @override
+  bool get status;
   @override
   @JsonKey(ignore: true)
   _$$_CourseCopyWith<_$_Course> get copyWith =>

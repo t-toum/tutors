@@ -98,5 +98,7 @@ abstract class  LocaleKeys {
   static const kConfirm = 'kConfirm';
   static const kRegisterSuccess = 'kRegisterSuccess';
   static const kRegistered = 'kRegistered';
+  static const kOpen = 'kOpen';
+  static const kClosed = 'kClosed';
 
 }

@@ -49,9 +49,7 @@ class SelectRolePage extends StatelessWidget {
                       icon: AppImages.teacher,
                       title: LocaleKeys.kTeacher.tr(),
                       onTap: () async {
-                        await context
-                            .read<SignUpCubit>()
-                            .updateUserRole(doc: id, role: "teacher");
+                        await context.read<SignUpCubit>().updateUserRole(doc: id, role: UserRole.teacher);
                       },
                     ),
                     const SizedBox(
@@ -63,7 +61,7 @@ class SelectRolePage extends StatelessWidget {
                       onTap: () async {
                         await context
                             .read<SignUpCubit>()
-                            .updateUserRole(doc: id, role: "student");
+                            .updateUserRole(doc: id, role: UserRole.student);
                       },
                     ),
                   ],

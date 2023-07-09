@@ -24,6 +24,7 @@ _$_Course _$$_CourseFromJson(Map<String, dynamic> json) => _$_Course(
       createdDate: const TimestampConverter()
           .fromJson(json['createdDate'] as Timestamp?),
       imageUrl: json['imageUrl'] as String?,
+      status: json['status'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_CourseToJson(_$_Course instance) => <String, dynamic>{
@@ -39,4 +40,5 @@ Map<String, dynamic> _$$_CourseToJson(_$_Course instance) => <String, dynamic>{
       'users': instance.users,
       'createdDate': const TimestampConverter().toJson(instance.createdDate),
       'imageUrl': instance.imageUrl,
+      'status': instance.status,
     };

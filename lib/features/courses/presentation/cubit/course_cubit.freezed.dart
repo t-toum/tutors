@@ -25,6 +25,7 @@ mixin _$CourseState {
   List<Category>? get categories => throw _privateConstructorUsedError;
   bool get isRegistered => throw _privateConstructorUsedError;
   bool get registered => throw _privateConstructorUsedError;
+  File? get imageFile => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseStateCopyWith<CourseState> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $CourseStateCopyWith<$Res> {
       List<Course>? allCourse,
       List<Category>? categories,
       bool isRegistered,
-      bool registered});
+      bool registered,
+      File? imageFile});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -73,6 +75,7 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
     Object? categories = freezed,
     Object? isRegistered = null,
     Object? registered = null,
+    Object? imageFile = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -111,6 +114,10 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
           ? _value.registered
           : registered // ignore: cast_nullable_to_non_nullable
               as bool,
+      imageFile: freezed == imageFile
+          ? _value.imageFile
+          : imageFile // ignore: cast_nullable_to_non_nullable
+              as File?,
     ) as $Val);
   }
 
@@ -143,7 +150,8 @@ abstract class _$$_InitialCopyWith<$Res> implements $CourseStateCopyWith<$Res> {
       List<Course>? allCourse,
       List<Category>? categories,
       bool isRegistered,
-      bool registered});
+      bool registered,
+      File? imageFile});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -168,6 +176,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? categories = freezed,
     Object? isRegistered = null,
     Object? registered = null,
+    Object? imageFile = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -206,6 +215,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.registered
           : registered // ignore: cast_nullable_to_non_nullable
               as bool,
+      imageFile: freezed == imageFile
+          ? _value.imageFile
+          : imageFile // ignore: cast_nullable_to_non_nullable
+              as File?,
     ));
   }
 }
@@ -222,7 +235,8 @@ class _$_Initial implements _Initial {
       final List<Course>? allCourse,
       final List<Category>? categories,
       this.isRegistered = false,
-      this.registered = false})
+      this.registered = false,
+      this.imageFile})
       : _listCourse = listCourse,
         _allCourse = allCourse,
         _categories = categories;
@@ -273,10 +287,12 @@ class _$_Initial implements _Initial {
   @override
   @JsonKey()
   final bool registered;
+  @override
+  final File? imageFile;
 
   @override
   String toString() {
-    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories, isRegistered: $isRegistered, registered: $registered)';
+    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories, isRegistered: $isRegistered, registered: $registered, imageFile: $imageFile)';
   }
 
   @override
@@ -299,7 +315,9 @@ class _$_Initial implements _Initial {
             (identical(other.isRegistered, isRegistered) ||
                 other.isRegistered == isRegistered) &&
             (identical(other.registered, registered) ||
-                other.registered == registered));
+                other.registered == registered) &&
+            (identical(other.imageFile, imageFile) ||
+                other.imageFile == imageFile));
   }
 
   @override
@@ -313,7 +331,8 @@ class _$_Initial implements _Initial {
       const DeepCollectionEquality().hash(_allCourse),
       const DeepCollectionEquality().hash(_categories),
       isRegistered,
-      registered);
+      registered,
+      imageFile);
 
   @JsonKey(ignore: true)
   @override
@@ -332,7 +351,8 @@ abstract class _Initial implements CourseState {
       final List<Course>? allCourse,
       final List<Category>? categories,
       final bool isRegistered,
-      final bool registered}) = _$_Initial;
+      final bool registered,
+      final File? imageFile}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -352,6 +372,8 @@ abstract class _Initial implements CourseState {
   bool get isRegistered;
   @override
   bool get registered;
+  @override
+  File? get imageFile;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
