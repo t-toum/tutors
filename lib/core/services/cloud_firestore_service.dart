@@ -219,4 +219,12 @@ class CouldFireStoreService {
       throw ServerException(e.toString());
     }
   }
+
+  Future<void> deleteDoc({required String collection,required String docID}) async {
+    try {
+      return await _firebaseFirestore.collection(collection).doc(docID).delete();
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
 }

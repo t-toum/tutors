@@ -3,6 +3,7 @@ class FireCollection{
   static const String courses = "courses";
   static const String categories = "categories";
    static const String registation = "registation";
+   static const String favorites = "favorites";
 }
 
 class SubCollection{

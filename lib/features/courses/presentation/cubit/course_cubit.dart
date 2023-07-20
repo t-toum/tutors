@@ -12,6 +12,7 @@ import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/extensions/string_extension.dart';
 import 'package:tutors/core/models/course.dart';
+import 'package:tutors/core/models/favorite.dart';
 import 'package:tutors/core/models/registation.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
@@ -19,6 +20,9 @@ import 'package:tutors/core/navigator/app_navigator.dart';
 import '../../../../core/models/category.dart';
 import '../../../../core/usecases/no_params.dart';
 import '../../../account/domain/usecases/upload_image_usecase.dart';
+import '../../../favorites/domain/usecases/add_favorite_usecase.dart';
+import '../../../favorites/domain/usecases/get_favorite_usecase.dart';
+import '../../../favorites/domain/usecases/remove_favorite_usecase.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
 import '../../../my_courses/domain/usecases/get_registered_course_usecase.dart';
 import '../../domain/usecases/add_course_usecase.dart';
@@ -39,6 +43,9 @@ class CourseCubit extends Cubit<CourseState> {
   final GetRegisteredCourseUsecase _getRegisteredCourseUsecase;
   final ImagePicker _imagePicker;
   final UploadImageUsecase _uploadImageUsecase;
+  final AddFavoriteUsecase _addFavoriteUsecase;
+  final GetFavoriteUsecase _getFavoriteUsecase;
+  final RemoveFavoriteUsecase _removeFavoriteUsecase;
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
@@ -51,6 +58,9 @@ class CourseCubit extends Cubit<CourseState> {
     this._getRegisteredCourseUsecase,
     this._imagePicker,
     this._uploadImageUsecase,
+    this._addFavoriteUsecase,
+    this._getFavoriteUsecase,
+    this._removeFavoriteUsecase,
   ) : super(const CourseState()) {
     searchTextController = TextEditingController();
     generalKey = GlobalKey<FormBuilderState>();
@@ -98,6 +108,7 @@ class CourseCubit extends Cubit<CourseState> {
     } else {
       emit(state.copyWith(
           status: DataStatus.success, currentUser: user.getRight()));
+      await getFavorite();
     }
   }
 
@@ -206,6 +217,46 @@ class CourseCubit extends Cubit<CourseState> {
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
       emit(state.copyWith(status: DataStatus.success, registered: true));
+    }
+  }
+
+  Future<void> addFavorite({required String courseId}) async {
+    Favorite favorite = Favorite(
+        userId: state.currentUser?.id,
+        courseId: courseId,
+        createdDate: DateTime.now());
+    final result = await _addFavoriteUsecase(favorite);
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      await getFavorite();
+    }
+  }
+
+  Future<void> removeFavorite({required String id}) async {
+    final result = await _removeFavoriteUsecase(id);
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: result.getLeft()?.msg));
+    } else {
+      await getFavorite();
+    }
+  }
+
+  Future<void> getFavorite() async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _getFavoriteUsecase(state.currentUser?.id ?? '');
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: DataStatus.failure, error: result.getLeft()?.msg));
+    } else {
+      emit(state.copyWith(
+          status: DataStatus.success, listFavorite: result.getRight()));
     }
   }
 

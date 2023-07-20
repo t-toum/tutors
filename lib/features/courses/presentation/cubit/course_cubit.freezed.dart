@@ -26,6 +26,7 @@ mixin _$CourseState {
   bool get isRegistered => throw _privateConstructorUsedError;
   bool get registered => throw _privateConstructorUsedError;
   File? get imageFile => throw _privateConstructorUsedError;
+  List<Favorite>? get listFavorite => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseStateCopyWith<CourseState> get copyWith =>
@@ -48,7 +49,8 @@ abstract class $CourseStateCopyWith<$Res> {
       List<Category>? categories,
       bool isRegistered,
       bool registered,
-      File? imageFile});
+      File? imageFile,
+      List<Favorite>? listFavorite});
 
   $UsersCopyWith<$Res>? get currentUser;
 }
@@ -76,6 +78,7 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
     Object? isRegistered = null,
     Object? registered = null,
     Object? imageFile = freezed,
+    Object? listFavorite = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -118,6 +121,10 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
+      listFavorite: freezed == listFavorite
+          ? _value.listFavorite
+          : listFavorite // ignore: cast_nullable_to_non_nullable
+              as List<Favorite>?,
     ) as $Val);
   }
 
@@ -151,7 +158,8 @@ abstract class _$$_InitialCopyWith<$Res> implements $CourseStateCopyWith<$Res> {
       List<Category>? categories,
       bool isRegistered,
       bool registered,
-      File? imageFile});
+      File? imageFile,
+      List<Favorite>? listFavorite});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -177,6 +185,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? isRegistered = null,
     Object? registered = null,
     Object? imageFile = freezed,
+    Object? listFavorite = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -219,6 +228,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
+      listFavorite: freezed == listFavorite
+          ? _value._listFavorite
+          : listFavorite // ignore: cast_nullable_to_non_nullable
+              as List<Favorite>?,
     ));
   }
 }
@@ -236,10 +249,12 @@ class _$_Initial implements _Initial {
       final List<Category>? categories,
       this.isRegistered = false,
       this.registered = false,
-      this.imageFile})
+      this.imageFile,
+      final List<Favorite>? listFavorite})
       : _listCourse = listCourse,
         _allCourse = allCourse,
-        _categories = categories;
+        _categories = categories,
+        _listFavorite = listFavorite;
 
   @override
   @JsonKey()
@@ -289,10 +304,19 @@ class _$_Initial implements _Initial {
   final bool registered;
   @override
   final File? imageFile;
+  final List<Favorite>? _listFavorite;
+  @override
+  List<Favorite>? get listFavorite {
+    final value = _listFavorite;
+    if (value == null) return null;
+    if (_listFavorite is EqualUnmodifiableListView) return _listFavorite;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories, isRegistered: $isRegistered, registered: $registered, imageFile: $imageFile)';
+    return 'CourseState(status: $status, error: $error, currentUser: $currentUser, canReset: $canReset, listCourse: $listCourse, allCourse: $allCourse, categories: $categories, isRegistered: $isRegistered, registered: $registered, imageFile: $imageFile, listFavorite: $listFavorite)';
   }
 
   @override
@@ -317,7 +341,9 @@ class _$_Initial implements _Initial {
             (identical(other.registered, registered) ||
                 other.registered == registered) &&
             (identical(other.imageFile, imageFile) ||
-                other.imageFile == imageFile));
+                other.imageFile == imageFile) &&
+            const DeepCollectionEquality()
+                .equals(other._listFavorite, _listFavorite));
   }
 
   @override
@@ -332,7 +358,8 @@ class _$_Initial implements _Initial {
       const DeepCollectionEquality().hash(_categories),
       isRegistered,
       registered,
-      imageFile);
+      imageFile,
+      const DeepCollectionEquality().hash(_listFavorite));
 
   @JsonKey(ignore: true)
   @override
@@ -352,7 +379,8 @@ abstract class _Initial implements CourseState {
       final List<Category>? categories,
       final bool isRegistered,
       final bool registered,
-      final File? imageFile}) = _$_Initial;
+      final File? imageFile,
+      final List<Favorite>? listFavorite}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -374,6 +402,8 @@ abstract class _Initial implements CourseState {
   bool get registered;
   @override
   File? get imageFile;
+  @override
+  List<Favorite>? get listFavorite;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

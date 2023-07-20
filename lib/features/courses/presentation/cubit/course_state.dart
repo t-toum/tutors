@@ -17,5 +17,6 @@ class CourseState with _$CourseState {
     @Default(false)
     bool registered,
     File? imageFile,
+    List<Favorite>? listFavorite,
   }) = _Initial;
 }

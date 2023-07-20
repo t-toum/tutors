@@ -5,7 +5,9 @@ import 'package:tutors/core/constants/app_colors.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/constants/app_images.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
+import 'package:tutors/core/extensions/list_extension.dart';
 import 'package:tutors/core/models/course.dart';
+import 'package:tutors/core/models/favorite.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
@@ -14,6 +16,7 @@ import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import '../../../../core/params/account_param.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../widgets/course_field.dart';
+import '../widgets/favorite_widget.dart';
 import '../widgets/image_widget.dart';
 import '../widgets/instructor_widget.dart';
 
@@ -23,33 +26,43 @@ class CourseDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: AppColors.secondaryColor,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                width: 25,
-                decoration: const BoxDecoration(
-                    image:
-                        DecorationImage(image: AssetImage(AppImages.favorite))),
+    final cubit =context.read<CourseCubit>();
+    return BlocBuilder<CourseCubit, CourseState>(
+      builder: (context, state) {
+        if (state.status == DataStatus.loading) {
+          return const LoadingWidget();
+        }
+        return Scaffold(
+          backgroundColor: AppColors.secondaryColor,
+          appBar: AppBar(
+            foregroundColor: Colors.black,
+            backgroundColor: AppColors.secondaryColor,
+            elevation: 0,
+            actions: [
+              BlocSelector<CourseCubit, CourseState, List<Favorite>?>(
+                selector: (favorteState) => state.listFavorite,
+                builder: (context, favorteState) {
+                  if (favorteState != null && favorteState.where((e) => e.courseId == course.id).isNotEmpty) {
+                    return FavoriteWidget(
+                      image: AppImages.favoriteRed,
+                      onTap: () {
+                        final favorite = favorteState.firstWhereOrNull((e) => e.courseId == course.id);
+                        cubit.removeFavorite(id: favorite?.id??'');
+                      },
+                    );
+                  } else {
+                    return FavoriteWidget(
+                      image: AppImages.favorite,
+                      onTap: () {
+                        cubit.addFavorite(courseId: course.id ?? '');
+                      },
+                    );
+                  }
+                },
               ),
-            ),
-          )
-        ],
-      ),
-      body: BlocBuilder<CourseCubit, CourseState>(
-        builder: (context, state) {
-          if (state.status == DataStatus.loading) {
-            return const LoadingWidget();
-          }
-          return Column(
+            ],
+          ),
+          body: Column(
             children: [
               Expanded(
                 child: SingleChildScrollView(
@@ -159,9 +172,9 @@ class CourseDetailPage extends StatelessWidget {
                 )
               ],
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
