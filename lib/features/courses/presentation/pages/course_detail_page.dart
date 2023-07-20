@@ -120,6 +120,7 @@ class CourseDetailPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
+                      const Divider(),
                       InstructorWidget(
                         user: course.users,
                         onTap: () {

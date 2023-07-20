@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
+import '../../../../core/constants/app_images.dart';
 import '../../../../core/models/users.dart';
 
 class InstructorWidget extends StatelessWidget {
@@ -19,6 +20,7 @@ class InstructorWidget extends StatelessWidget {
           "${user?.firstName} ${user?.lastName}",
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
+        const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -27,6 +29,7 @@ class InstructorWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(LocaleKeys.kTeacher.tr()),
+                  const SizedBox(height: 5,),
                   InkWell(
                     onTap: onTap,
                     child: CachedNetworkImage(
@@ -51,40 +54,15 @@ class InstructorWidget extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  LocaleKeys.kEducation.tr(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: user?.educations?.map((e) {
-                          return Text("${e.school}");
-                        }).toList() ??
-                        [],
-                  ),
-                ),
-                Text(
-                  LocaleKeys.kSkills.tr(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: user?.skills?.map((e) {
-                          return Text(e);
-                        }).toList() ??
-                        [],
-                  ),
-                ),
-              ],
-            ))
+            Container(
+            width: 25,
+            height: 25,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages.bubbleActive),
+              ),
+            ),
+          )
           ],
         ),
         const SizedBox(
