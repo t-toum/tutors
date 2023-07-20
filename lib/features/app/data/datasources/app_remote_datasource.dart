@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/error/exceptions.dart';
+import 'package:tutors/core/extensions/firebase_user_extension.dart';
 import 'package:tutors/core/services/auth_service.dart';
 
 import '../../../../core/constants/firebase_collection.dart';
@@ -42,7 +43,17 @@ class AppRemoteDatasourceImpl implements AppRemoteDatasource {
 
   @override
   Future<UserCredential> signInWithGoogle() async {
-    return await _authService.signInWithGoogle();
+    //Check user from firestore
+    final authUser = await _authService.signInWithGoogle();
+    final result = await _couldFireStoreService.getUser(docID: authUser.user?.uid??"");
+    if (result.id == null) {
+      await _couldFireStoreService.setData(
+        collection: FireCollection.users,
+        doc: authUser.user?.uid,
+        data: authUser.user.toJson(),
+      );
+    }
+    return authUser;
   }
 
   @override
