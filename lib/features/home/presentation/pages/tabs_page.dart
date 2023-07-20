@@ -32,8 +32,10 @@ class TabsPage extends StatelessWidget {
                 builder: (context) {
                   switch (state.currentTab) {
                     case 0:
-                      return BlocProvider<CourseCubit>.value(
-                        value: context.read<CourseCubit>(),
+                      return BlocProvider<CourseCubit>(
+                        create: (context) => getIt<CourseCubit>()
+                          ..getCurrentUser()
+                          ..getAllCourse(),
                         child: const CoursePage(),
                       );
                     case 3:

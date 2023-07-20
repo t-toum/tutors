@@ -20,6 +20,8 @@ class CoursePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<CourseCubit>();
     return BlocBuilder<CourseCubit, CourseState>(
+      buildWhen: (previous, current) =>
+          previous.listCourse != current.listCourse,
       builder: (context, state) {
         return Scaffold(
           backgroundColor: AppColors.secondaryColor,
@@ -64,7 +66,7 @@ class CoursePage extends StatelessWidget {
               return Skeleton(
                 isLoading: true,
                 skeleton: SkeletonListView(),
-                child:const SizedBox(),
+                child: const SizedBox(),
               );
             } else {
               if (state.listCourse?.isNotEmpty == true) {
@@ -76,11 +78,13 @@ class CoursePage extends StatelessWidget {
                     children: state.listCourse?.map((course) {
                           return CourseItem(
                             course: course,
-                            onPressed: () {
-                              AppNavigator.navigateTo(
-                                RoutePath.courseDetailRoute,
-                                params: course
-                              );
+                            isFavorite: cubit.isFvorite(course.id ?? ''),
+                            onPressed: () async {
+                              await AppNavigator.navigateCallbackData(
+                                  RoutePath.courseDetailRoute,
+                                  params: course);
+                              await cubit.getFavorite();
+                              await cubit.getAllCourse();
                             },
                           );
                         }).toList() ??

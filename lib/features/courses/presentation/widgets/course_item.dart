@@ -12,10 +12,12 @@ import 'course_field.dart';
 class CourseItem extends StatelessWidget {
   final Course course;
   final Function()? onPressed;
+  final bool isFavorite;
   const CourseItem({
     super.key,
     required this.course,
     this.onPressed,
+    this.isFavorite = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,10 @@ class CourseItem extends StatelessWidget {
                           course.createdDate.shortDate(),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        Image.asset(
+                       (isFavorite)?Image.asset(
+                          AppImages.favoriteRed,
+                          width: 25,
+                        ): Image.asset(
                           AppImages.heart,
                           width: 25,
                         ),

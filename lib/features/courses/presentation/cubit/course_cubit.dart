@@ -260,6 +260,13 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  bool isFvorite(String courseId) {
+    return state.listFavorite
+            ?.where((element) => element.courseId == courseId)
+            .isNotEmpty ==
+        true;
+  }
+
   @override
   Future<void> close() {
     searchTextController.removeListener(() {

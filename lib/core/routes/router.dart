@@ -72,11 +72,6 @@ class AppRoute {
             BlocProvider<HomeCubit>(
               create: (context) => getIt<HomeCubit>()..getCurrentUser(),
             ),
-            BlocProvider<CourseCubit>(
-              create: (context) => getIt<CourseCubit>()
-                ..getAllCourse()
-                ..getCategories(),
-            ),
           ],
           child: const TabsPage(),
         );
