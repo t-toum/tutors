@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/constants/app_constants.dart';
@@ -49,6 +50,7 @@ class CourseCubit extends Cubit<CourseState> {
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
+  late CroppedFile croppedFile;
   CourseCubit(
     this._getCurrentUserDataUsecase,
     this._addCourseUsecase,
@@ -169,7 +171,7 @@ class CourseCubit extends Cubit<CourseState> {
     } else {
       final data = result.getRight();
       data?.sort((a, b) => b.createdDate.compareToWithNull(a.createdDate));
-      if(super.isClosed)return;
+      if (super.isClosed) return;
       emit(
         state.copyWith(
             status: DataStatus.success, listCourse: data, allCourse: data),
@@ -178,12 +180,34 @@ class CourseCubit extends Cubit<CourseState> {
   }
 
   Future<void> filterCourse() async {}
+
   Future<void> getImage({required ImageSource source}) async {
     final pickedFile = await _imagePicker.pickImage(source: source);
     if (pickedFile != null) {
-      File file = File(pickedFile.path);
-      emit(state.copyWith(imageFile: file));
+      final path = await cropImage(pickedFile.path);
+      if (path != null) {
+        File file = File(path);
+        emit(state.copyWith(imageFile: file));
+      }
     }
+  }
+
+  Future<String?> cropImage(String path) async {
+    CroppedFile? croppedFile =
+        await ImageCropper().cropImage(sourcePath: path, aspectRatioPresets: [
+      CropAspectRatioPreset.ratio16x9
+    ], uiSettings: [
+      AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false),
+      IOSUiSettings(
+        title: 'Cropper',
+      ),
+    ]);
+    return croppedFile?.path;
   }
 
   void removeImage() {

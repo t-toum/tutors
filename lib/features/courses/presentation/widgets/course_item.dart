@@ -13,12 +13,13 @@ class CourseItem extends StatelessWidget {
   final Course course;
   final Function()? onPressed;
   final bool isFavorite;
-  const CourseItem({
-    super.key,
-    required this.course,
-    this.onPressed,
-    this.isFavorite = false,
-  });
+  final bool isStudent;
+  const CourseItem(
+      {super.key,
+      required this.course,
+      this.onPressed,
+      this.isFavorite = false,
+      this.isStudent = false});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -35,9 +36,7 @@ class CourseItem extends StatelessWidget {
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover
-                    ),
+                        image: imageProvider, fit: BoxFit.cover),
                   ),
                 );
               },
@@ -85,7 +84,7 @@ class CourseItem extends StatelessWidget {
                         const SizedBox(height: 5),
                         const CourseField(
                           icon: Icons.access_time_sharp,
-                          text: "60 Days",
+                          text: "- Days",
                         ),
                         const SizedBox(height: 5),
                         Row(
@@ -112,13 +111,17 @@ class CourseItem extends StatelessWidget {
                           course.createdDate.shortDate(),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                       (isFavorite)?Image.asset(
-                          AppImages.favoriteRed,
-                          width: 25,
-                        ): Image.asset(
-                          AppImages.heart,
-                          width: 25,
-                        ),
+                        if (isStudent) ...[
+                          (isFavorite)
+                              ? Image.asset(
+                                  AppImages.favoriteRed,
+                                  width: 25,
+                                )
+                              : Image.asset(
+                                  AppImages.heart,
+                                  width: 25,
+                                ),
+                        ]
                       ],
                     ),
                   )

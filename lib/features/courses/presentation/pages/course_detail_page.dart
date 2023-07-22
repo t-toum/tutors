@@ -26,7 +26,7 @@ class CourseDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit =context.read<CourseCubit>();
+    final cubit = context.read<CourseCubit>();
     return BlocBuilder<CourseCubit, CourseState>(
       builder: (context, state) {
         if (state.status == DataStatus.loading) {
@@ -39,27 +39,32 @@ class CourseDetailPage extends StatelessWidget {
             backgroundColor: AppColors.secondaryColor,
             elevation: 0,
             actions: [
-              BlocSelector<CourseCubit, CourseState, List<Favorite>?>(
-                selector: (favorteState) => state.listFavorite,
-                builder: (context, favorteState) {
-                  if (favorteState != null && favorteState.where((e) => e.courseId == course.id).isNotEmpty) {
-                    return FavoriteWidget(
-                      image: AppImages.favoriteRed,
-                      onTap: () {
-                        final favorite = favorteState.firstWhereOrNull((e) => e.courseId == course.id);
-                        cubit.removeFavorite(id: favorite?.id??'');
-                      },
-                    );
-                  } else {
-                    return FavoriteWidget(
-                      image: AppImages.favorite,
-                      onTap: () {
-                        cubit.addFavorite(courseId: course.id ?? '');
-                      },
-                    );
-                  }
-                },
-              ),
+              if (state.currentUser?.role == UserRole.student)
+                BlocSelector<CourseCubit, CourseState, List<Favorite>?>(
+                  selector: (favorteState) => state.listFavorite,
+                  builder: (context, favorteState) {
+                    if (favorteState != null &&
+                        favorteState
+                            .where((e) => e.courseId == course.id)
+                            .isNotEmpty) {
+                      return FavoriteWidget(
+                        image: AppImages.favoriteRed,
+                        onTap: () {
+                          final favorite = favorteState
+                              .firstWhereOrNull((e) => e.courseId == course.id);
+                          cubit.removeFavorite(id: favorite?.id ?? '');
+                        },
+                      );
+                    } else {
+                      return FavoriteWidget(
+                        image: AppImages.favorite,
+                        onTap: () {
+                          cubit.addFavorite(courseId: course.id ?? '');
+                        },
+                      );
+                    }
+                  },
+                ),
             ],
           ),
           body: Column(

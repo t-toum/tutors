@@ -77,6 +77,8 @@ class CoursePage extends StatelessWidget {
                   child: Column(
                     children: state.listCourse?.map((course) {
                           return CourseItem(
+                            isStudent:
+                                state.currentUser?.role == UserRole.student,
                             course: course,
                             isFavorite: cubit.isFvorite(course.id ?? ''),
                             onPressed: () async {
