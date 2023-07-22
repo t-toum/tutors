@@ -19,7 +19,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i7;
 import 'package:logger/logger.dart' as _i8;
 import 'package:shared_preferences/shared_preferences.dart' as _i9;
-import 'package:tutors/core/DI/register_modules.dart' as _i80;
+import 'package:tutors/core/DI/register_modules.dart' as _i81;
 import 'package:tutors/core/services/auth_service.dart' as _i11;
 import 'package:tutors/core/services/cloud_firestore_service.dart' as _i12;
 import 'package:tutors/core/services/shared_preference_service.dart' as _i31;
@@ -95,6 +95,8 @@ import 'package:tutors/features/favorites/domain/usecases/get_favorite_usecase.d
     as _i21;
 import 'package:tutors/features/favorites/domain/usecases/remove_favorite_usecase.dart'
     as _i29;
+import 'package:tutors/features/favorites/presentation/cubit/favorite_cubit.dart'
+    as _i77;
 import 'package:tutors/features/home/data/datasources/home_remote_datasource.dart'
     as _i22;
 import 'package:tutors/features/home/data/repositories/home_ropository_impl.dart'
@@ -126,13 +128,13 @@ import 'package:tutors/features/settings/data/repositories/setting_repository_im
 import 'package:tutors/features/settings/domain/repositories/setting_repository.dart'
     as _i64;
 import 'package:tutors/features/settings/domain/usecases/get_language_usecase.dart'
-    as _i77;
-import 'package:tutors/features/settings/domain/usecases/set_language_usecase.dart'
     as _i78;
+import 'package:tutors/features/settings/domain/usecases/set_language_usecase.dart'
+    as _i79;
 import 'package:tutors/features/settings/domain/usecases/sign_out_usecase.dart'
     as _i68;
 import 'package:tutors/features/settings/presentation/cubit/setting_cubit.dart'
-    as _i79;
+    as _i80;
 import 'package:tutors/features/sign_in/data/datasources/sign_in_remote_datasorece.dart'
     as _i32;
 import 'package:tutors/features/sign_in/data/repositories/sign_in_repository_impl.dart'
@@ -345,17 +347,21 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i21.GetFavoriteUsecase>(),
           gh<_i29.RemoveFavoriteUsecase>(),
         ));
-    gh.lazySingleton<_i77.GetLanguageUsecase>(
-        () => _i77.GetLanguageUsecase(gh<_i64.SettingRepository>()));
-    gh.lazySingleton<_i78.SetLanguageUsecase>(
-        () => _i78.SetLanguageUsecase(gh<_i64.SettingRepository>()));
-    gh.factory<_i79.SettingCubit>(() => _i79.SettingCubit(
+    gh.factory<_i77.FavoriteCubit>(() => _i77.FavoriteCubit(
+          gh<_i21.GetFavoriteUsecase>(),
+          gh<_i55.GetCurrentUserDataUsecase>(),
+        ));
+    gh.lazySingleton<_i78.GetLanguageUsecase>(
+        () => _i78.GetLanguageUsecase(gh<_i64.SettingRepository>()));
+    gh.lazySingleton<_i79.SetLanguageUsecase>(
+        () => _i79.SetLanguageUsecase(gh<_i64.SettingRepository>()));
+    gh.factory<_i80.SettingCubit>(() => _i80.SettingCubit(
           gh<_i68.SignOutUsecase>(),
-          gh<_i77.GetLanguageUsecase>(),
-          gh<_i78.SetLanguageUsecase>(),
+          gh<_i78.GetLanguageUsecase>(),
+          gh<_i79.SetLanguageUsecase>(),
         ));
     return this;
   }
 }
 
-class _$InjectionModule extends _i80.InjectionModule {}
+class _$InjectionModule extends _i81.InjectionModule {}

@@ -97,6 +97,7 @@
     "kRegisterSuccess":"Register success",
     "kRegistered":"Registered",
     "kOpen":"Open",
-    "kClosed":"Closed"
+    "kClosed":"Closed",
+    "kMyFavorite":"My favorites"
 
 }

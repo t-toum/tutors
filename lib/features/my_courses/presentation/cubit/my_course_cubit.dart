@@ -49,6 +49,7 @@ class MyCourseCubit extends Cubit<MyCourseState> {
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
       final registeredCourse = result.getRight();
+      if(super.isClosed)return;
       emit(
         state.copyWith(
           status: DataStatus.success,

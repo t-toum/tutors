@@ -100,5 +100,6 @@ abstract class  LocaleKeys {
   static const kRegistered = 'kRegistered';
   static const kOpen = 'kOpen';
   static const kClosed = 'kClosed';
+  static const kMyFavorite = 'kMyFavorite';
 
 }

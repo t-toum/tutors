@@ -169,6 +169,7 @@ class CourseCubit extends Cubit<CourseState> {
     } else {
       final data = result.getRight();
       data?.sort((a, b) => b.createdDate.compareToWithNull(a.createdDate));
+      if(super.isClosed)return;
       emit(
         state.copyWith(
             status: DataStatus.success, listCourse: data, allCourse: data),
