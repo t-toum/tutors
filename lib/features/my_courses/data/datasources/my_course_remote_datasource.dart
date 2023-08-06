@@ -3,12 +3,15 @@ import 'package:tutors/core/models/course.dart';
 import 'package:tutors/core/models/registation.dart';
 
 import '../../../../core/constants/firebase_collection.dart';
+import '../../../../core/models/users.dart';
 import '../../../../core/services/auth_service.dart';
 import '../../../../core/services/cloud_firestore_service.dart';
 
 abstract class MyCourseRemoteDatasource {
   Future<List<Registation>> getRgisteredCourse({String? arg});
   Future<List<Course>> getCreatedCourse();
+  Future<Course> getCourseDetail({required String id});
+  Future<List<Registation>> getRegisterByCourse({required String courseID});
 }
 
 @LazySingleton(as: MyCourseRemoteDatasource)
@@ -50,6 +53,34 @@ class MyCourseRemoteDatasourceImpl implements MyCourseRemoteDatasource {
         arg: currentUser?.uid);
     List<Course> listData =
         dataSnapshot.map((data) => Course.fromJson(data)).toList();
+    return listData;
+  }
+
+  @override
+  Future<Course> getCourseDetail({required String id}) async {
+    final data = await _couldFireStoreService.getDataByDocs(
+        collection: FireCollection.courses, doc: id);
+    return Course.fromJson(data ?? {});
+  }
+
+  @override
+  Future<List<Registation>> getRegisterByCourse(
+      {required String courseID}) async {
+    List<Registation>listData = [];
+    final List<Map<String, dynamic>> mapData =
+        await _couldFireStoreService.getAllData(
+      collection: FireCollection.registation,
+      field: 'courseId',
+      arg: courseID,
+    );
+    List<Registation> listRegistation = mapData.map((e) => Registation.fromJson(e)).toList();
+
+    //Get user detail
+    for (Registation re in listRegistation ){
+      Users user = await _couldFireStoreService.getUser(docID: re.userId??'');
+      re = re.copyWith(user: user);
+      listData.add(re);
+    }
     return listData;
   }
 }

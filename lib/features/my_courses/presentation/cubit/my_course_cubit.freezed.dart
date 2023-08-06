@@ -21,6 +21,8 @@ mixin _$MyCourseState {
   Users? get currentUser => throw _privateConstructorUsedError;
   List<Registation>? get myCourses => throw _privateConstructorUsedError;
   List<Course>? get listCourse => throw _privateConstructorUsedError;
+  Course? get course => throw _privateConstructorUsedError;
+  List<Registation>? get register => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyCourseStateCopyWith<MyCourseState> get copyWith =>
@@ -38,9 +40,12 @@ abstract class $MyCourseStateCopyWith<$Res> {
       String? error,
       Users? currentUser,
       List<Registation>? myCourses,
-      List<Course>? listCourse});
+      List<Course>? listCourse,
+      Course? course,
+      List<Registation>? register});
 
   $UsersCopyWith<$Res>? get currentUser;
+  $CourseCopyWith<$Res>? get course;
 }
 
 /// @nodoc
@@ -61,6 +66,8 @@ class _$MyCourseStateCopyWithImpl<$Res, $Val extends MyCourseState>
     Object? currentUser = freezed,
     Object? myCourses = freezed,
     Object? listCourse = freezed,
+    Object? course = freezed,
+    Object? register = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -83,6 +90,14 @@ class _$MyCourseStateCopyWithImpl<$Res, $Val extends MyCourseState>
           ? _value.listCourse
           : listCourse // ignore: cast_nullable_to_non_nullable
               as List<Course>?,
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
+              as Course?,
+      register: freezed == register
+          ? _value.register
+          : register // ignore: cast_nullable_to_non_nullable
+              as List<Registation>?,
     ) as $Val);
   }
 
@@ -95,6 +110,18 @@ class _$MyCourseStateCopyWithImpl<$Res, $Val extends MyCourseState>
 
     return $UsersCopyWith<$Res>(_value.currentUser!, (value) {
       return _then(_value.copyWith(currentUser: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CourseCopyWith<$Res>? get course {
+    if (_value.course == null) {
+      return null;
+    }
+
+    return $CourseCopyWith<$Res>(_value.course!, (value) {
+      return _then(_value.copyWith(course: value) as $Val);
     });
   }
 }
@@ -112,10 +139,14 @@ abstract class _$$_InitialCopyWith<$Res>
       String? error,
       Users? currentUser,
       List<Registation>? myCourses,
-      List<Course>? listCourse});
+      List<Course>? listCourse,
+      Course? course,
+      List<Registation>? register});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
+  @override
+  $CourseCopyWith<$Res>? get course;
 }
 
 /// @nodoc
@@ -133,6 +164,8 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? currentUser = freezed,
     Object? myCourses = freezed,
     Object? listCourse = freezed,
+    Object? course = freezed,
+    Object? register = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -155,6 +188,14 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._listCourse
           : listCourse // ignore: cast_nullable_to_non_nullable
               as List<Course>?,
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
+              as Course?,
+      register: freezed == register
+          ? _value._register
+          : register // ignore: cast_nullable_to_non_nullable
+              as List<Registation>?,
     ));
   }
 }
@@ -167,9 +208,12 @@ class _$_Initial implements _Initial {
       this.error,
       this.currentUser,
       final List<Registation>? myCourses,
-      final List<Course>? listCourse})
+      final List<Course>? listCourse,
+      this.course,
+      final List<Registation>? register})
       : _myCourses = myCourses,
-        _listCourse = listCourse;
+        _listCourse = listCourse,
+        _register = register;
 
   @override
   @JsonKey()
@@ -199,8 +243,20 @@ class _$_Initial implements _Initial {
   }
 
   @override
+  final Course? course;
+  final List<Registation>? _register;
+  @override
+  List<Registation>? get register {
+    final value = _register;
+    if (value == null) return null;
+    if (_register is EqualUnmodifiableListView) return _register;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   String toString() {
-    return 'MyCourseState(status: $status, error: $error, currentUser: $currentUser, myCourses: $myCourses, listCourse: $listCourse)';
+    return 'MyCourseState(status: $status, error: $error, currentUser: $currentUser, myCourses: $myCourses, listCourse: $listCourse, course: $course, register: $register)';
   }
 
   @override
@@ -215,7 +271,9 @@ class _$_Initial implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._myCourses, _myCourses) &&
             const DeepCollectionEquality()
-                .equals(other._listCourse, _listCourse));
+                .equals(other._listCourse, _listCourse) &&
+            (identical(other.course, course) || other.course == course) &&
+            const DeepCollectionEquality().equals(other._register, _register));
   }
 
   @override
@@ -225,7 +283,9 @@ class _$_Initial implements _Initial {
       error,
       currentUser,
       const DeepCollectionEquality().hash(_myCourses),
-      const DeepCollectionEquality().hash(_listCourse));
+      const DeepCollectionEquality().hash(_listCourse),
+      course,
+      const DeepCollectionEquality().hash(_register));
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +300,9 @@ abstract class _Initial implements MyCourseState {
       final String? error,
       final Users? currentUser,
       final List<Registation>? myCourses,
-      final List<Course>? listCourse}) = _$_Initial;
+      final List<Course>? listCourse,
+      final Course? course,
+      final List<Registation>? register}) = _$_Initial;
 
   @override
   DataStatus get status;
@@ -252,6 +314,10 @@ abstract class _Initial implements MyCourseState {
   List<Registation>? get myCourses;
   @override
   List<Course>? get listCourse;
+  @override
+  Course? get course;
+  @override
+  List<Registation>? get register;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

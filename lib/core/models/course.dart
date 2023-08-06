@@ -25,6 +25,8 @@ class Course with _$Course {
     final String? imageUrl,
     @Default(false)
     final bool status,
+    @Default(0)
+    final int maximum,
   }) = _Course;
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 }

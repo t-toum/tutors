@@ -9,5 +9,7 @@ class MyCourseState with _$MyCourseState {
     Users? currentUser,
     List<Registation>? myCourses,
     List<Course>?listCourse,
+    Course? course,
+    List<Registation>? register,
   })= _Initial;
 }

@@ -6,4 +6,6 @@ import 'package:tutors/core/models/registation.dart';
 abstract class MyCourseRepository{
   Future<Either<Failure,List<Registation>>>getRgisteredCourse({String? arg});
   Future<Either<Failure,List<Course>>>getCreatedCourse();
+  Future<Either<Failure,Course>>getCourseDetail({required String id});
+  Future<Either<Failure,List<Registation>>>getRegisterByCourse({required String courseID});
 }

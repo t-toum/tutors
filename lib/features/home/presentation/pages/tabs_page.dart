@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
+import 'package:tutors/features/chat/presentation/cubit/chat_cubit.dart';
+import 'package:tutors/features/chat/presentation/pages/chat_list_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/favorites/presentation/cubit/favorite_cubit.dart';
@@ -39,6 +41,11 @@ class TabsPage extends StatelessWidget {
                           ..getCurrentUser()
                           ..getAllCourse(),
                         child: const CoursePage(),
+                      );
+                    case 1:
+                      return BlocProvider<ChatCubit>(
+                        create: (context) => getIt<ChatCubit>(),
+                        child: const ChatListPage(),
                       );
                     case 3:
                       return MultiBlocProvider(

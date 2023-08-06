@@ -35,4 +35,30 @@ class MyCourseRepositoryImpl implements MyCourseRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Course>> getCourseDetail({required String id}) async {
+    try {
+      final result = await _courseRemoteDatasource.getCourseDetail(id: id);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Registation>>> getRegisterByCourse(
+      {required String courseID}) async {
+    try {
+      final result =
+          await _courseRemoteDatasource.getRegisterByCourse(courseID: courseID);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

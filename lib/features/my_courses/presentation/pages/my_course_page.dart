@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutors/core/extensions/bool_extension.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/core/routes/route_path.dart';
 import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/my_courses/presentation/cubit/my_course_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../widgets/my_course_item.dart';
 
 class MyCoursePage extends StatelessWidget {
   const MyCoursePage({super.key});
@@ -22,7 +24,7 @@ class MyCoursePage extends StatelessWidget {
       ),
       body: BlocBuilder<MyCourseCubit, MyCourseState>(
         builder: (context, state) {
-          if(state.status ==DataStatus.loading){
+          if (state.status == DataStatus.loading) {
             return const LoadingWidget();
           }
           return SingleChildScrollView(
@@ -30,42 +32,14 @@ class MyCoursePage extends StatelessWidget {
             child: (state.currentUser?.role == UserRole.teacher)
                 ? Column(
                     children: state.listCourse?.map((item) {
-                          return Card(
-                            child: Container(
-                              padding: const EdgeInsets.all(15),
-                              width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.title ?? '',
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    item.subject ?? '',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        item.status.getStatus,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                                color: item.status
-                                                    ? Colors.green
-                                                    : Colors.red),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
+                          return MyCourseItem(
+                            course: item,
+                            onTap: () {
+                              AppNavigator.navigateTo(
+                                RoutePath.myCourseDetailRoute,
+                                params: item,
+                              );
+                            },
                           );
                         }).toList() ??
                         [

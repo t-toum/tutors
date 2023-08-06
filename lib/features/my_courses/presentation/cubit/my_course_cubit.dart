@@ -5,11 +5,13 @@ import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/models/registation.dart';
 import 'package:tutors/core/usecases/no_params.dart';
+import 'package:tutors/features/my_courses/domain/usecases/get_register_by_course_usecase.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/models/course.dart';
 import '../../../../core/models/users.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
+import '../../domain/usecases/get_course_detail_usecase.dart';
 import '../../domain/usecases/get_created_course_usecase.dart';
 import '../../domain/usecases/get_registered_course_usecase.dart';
 
@@ -21,10 +23,15 @@ class MyCourseCubit extends Cubit<MyCourseState> {
   final GetRegisteredCourseUsecase _getRegisteredCourseUsecase;
   final GetCurrentUserDataUsecase _getCurrentUserDataUsecase;
   final GetCreatedCourse _getCreatedCourse;
+  final GetCourseDetailUsecase _getCourseDetailUsecase;
+  final GetRegisterbyCourseUsecase _getRegisterbyCourseUsecase;
+
   MyCourseCubit(
     this._getRegisteredCourseUsecase,
     this._getCurrentUserDataUsecase,
     this._getCreatedCourse,
+    this._getCourseDetailUsecase,
+    this._getRegisterbyCourseUsecase,
   ) : super(const MyCourseState());
   Future<void> getCurrentUser() async {
     emit(state.copyWith(status: DataStatus.loading));
@@ -49,7 +56,7 @@ class MyCourseCubit extends Cubit<MyCourseState> {
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
       final registeredCourse = result.getRight();
-      if(super.isClosed)return;
+      if (super.isClosed) return;
       emit(
         state.copyWith(
           status: DataStatus.success,
@@ -67,10 +74,50 @@ class MyCourseCubit extends Cubit<MyCourseState> {
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
       List<Course>? courses = result.getRight();
-      courses?.sort((a,b)=>b.createdDate.compareToWithNull(a.createdDate));
+      courses?.sort((a, b) => b.createdDate.compareToWithNull(a.createdDate));
       emit(
         state.copyWith(
             status: DataStatus.success, listCourse: result.getRight()),
+      );
+    }
+  }
+
+  Future<void> getCourseDetail({required String id}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _getCourseDetailUsecase(id);
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: DataStatus.success,
+          course: result.getRight(),
+        ),
+      );
+    }
+  }
+
+  Future<void> getRegisterByCourse({required String courseID}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _getRegisterbyCourseUsecase(courseID);
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: DataStatus.success,
+          register: result.getRight(),
+        ),
       );
     }
   }

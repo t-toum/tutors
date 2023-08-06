@@ -127,6 +127,27 @@ class AddCoursePage extends StatelessWidget {
                     ]),
                   ),
                   const SizedBox(height: 20),
+
+                  FormBuilderTextField(
+                    // initialValue: experience?.company,
+                    name: 'maximum',
+                    decoration: InputDecoration(
+                      labelText: "${LocaleKeys.kMaximum.tr()} *",
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required<String>(
+                        errorText: LocaleKeys.kRequiredField.tr(),
+                      ),
+                    ]),
+                    valueTransformer: (value) =>value!=null? int.parse(value):0,
+                  ),
+                  const SizedBox(height: 8,),
+                  Text(LocaleKeys.kMaximumDesc.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.grey,
+                          )),
+                  const SizedBox(height: 20),
                   PickImageWidget(
                     file: state.imageFile,
                     onRemove: () => cubit.removeImage(),

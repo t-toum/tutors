@@ -27,6 +27,7 @@ mixin _$Registation {
   @TimestampConverter()
   DateTime? get createdDate => throw _privateConstructorUsedError;
   Course? get course => throw _privateConstructorUsedError;
+  Users? get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,9 +47,11 @@ abstract class $RegistationCopyWith<$Res> {
       String? userId,
       String? status,
       @TimestampConverter() DateTime? createdDate,
-      Course? course});
+      Course? course,
+      Users? user});
 
   $CourseCopyWith<$Res>? get course;
+  $UsersCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -70,6 +73,7 @@ class _$RegistationCopyWithImpl<$Res, $Val extends Registation>
     Object? status = freezed,
     Object? createdDate = freezed,
     Object? course = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -96,6 +100,10 @@ class _$RegistationCopyWithImpl<$Res, $Val extends Registation>
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
               as Course?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ) as $Val);
   }
 
@@ -108,6 +116,18 @@ class _$RegistationCopyWithImpl<$Res, $Val extends Registation>
 
     return $CourseCopyWith<$Res>(_value.course!, (value) {
       return _then(_value.copyWith(course: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UsersCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UsersCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
     });
   }
 }
@@ -126,10 +146,13 @@ abstract class _$$_RegistationCopyWith<$Res>
       String? userId,
       String? status,
       @TimestampConverter() DateTime? createdDate,
-      Course? course});
+      Course? course,
+      Users? user});
 
   @override
   $CourseCopyWith<$Res>? get course;
+  @override
+  $UsersCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -149,6 +172,7 @@ class __$$_RegistationCopyWithImpl<$Res>
     Object? status = freezed,
     Object? createdDate = freezed,
     Object? course = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$_Registation(
       id: freezed == id
@@ -175,6 +199,10 @@ class __$$_RegistationCopyWithImpl<$Res>
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
               as Course?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as Users?,
     ));
   }
 }
@@ -188,7 +216,8 @@ class _$_Registation implements _Registation {
       this.userId,
       this.status,
       @TimestampConverter() this.createdDate,
-      this.course});
+      this.course,
+      this.user});
 
   factory _$_Registation.fromJson(Map<String, dynamic> json) =>
       _$$_RegistationFromJson(json);
@@ -206,10 +235,12 @@ class _$_Registation implements _Registation {
   final DateTime? createdDate;
   @override
   final Course? course;
+  @override
+  final Users? user;
 
   @override
   String toString() {
-    return 'Registation(id: $id, courseId: $courseId, userId: $userId, status: $status, createdDate: $createdDate, course: $course)';
+    return 'Registation(id: $id, courseId: $courseId, userId: $userId, status: $status, createdDate: $createdDate, course: $course, user: $user)';
   }
 
   @override
@@ -224,13 +255,14 @@ class _$_Registation implements _Registation {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
-            (identical(other.course, course) || other.course == course));
+            (identical(other.course, course) || other.course == course) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, courseId, userId, status, createdDate, course);
+      runtimeType, id, courseId, userId, status, createdDate, course, user);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +285,8 @@ abstract class _Registation implements Registation {
       final String? userId,
       final String? status,
       @TimestampConverter() final DateTime? createdDate,
-      final Course? course}) = _$_Registation;
+      final Course? course,
+      final Users? user}) = _$_Registation;
 
   factory _Registation.fromJson(Map<String, dynamic> json) =
       _$_Registation.fromJson;
@@ -271,6 +304,8 @@ abstract class _Registation implements Registation {
   DateTime? get createdDate;
   @override
   Course? get course;
+  @override
+  Users? get user;
   @override
   @JsonKey(ignore: true)
   _$$_RegistationCopyWith<_$_Registation> get copyWith =>

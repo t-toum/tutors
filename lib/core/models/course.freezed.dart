@@ -36,6 +36,7 @@ mixin _$Course {
   DateTime? get createdDate => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
+  int get maximum => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +61,8 @@ abstract class $CourseCopyWith<$Res> {
       Users? users,
       @TimestampConverter() DateTime? createdDate,
       String? imageUrl,
-      bool status});
+      bool status,
+      int maximum});
 
   $UsersCopyWith<$Res>? get users;
 }
@@ -91,6 +93,7 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
     Object? createdDate = freezed,
     Object? imageUrl = freezed,
     Object? status = null,
+    Object? maximum = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -145,6 +148,10 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
+      maximum: null == maximum
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -180,7 +187,8 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
       Users? users,
       @TimestampConverter() DateTime? createdDate,
       String? imageUrl,
-      bool status});
+      bool status,
+      int maximum});
 
   @override
   $UsersCopyWith<$Res>? get users;
@@ -209,6 +217,7 @@ class __$$_CourseCopyWithImpl<$Res>
     Object? createdDate = freezed,
     Object? imageUrl = freezed,
     Object? status = null,
+    Object? maximum = null,
   }) {
     return _then(_$_Course(
       id: freezed == id
@@ -263,6 +272,10 @@ class __$$_CourseCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
+      maximum: null == maximum
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -283,7 +296,8 @@ class _$_Course implements _Course {
       this.users,
       @TimestampConverter() this.createdDate,
       this.imageUrl,
-      this.status = false});
+      this.status = false,
+      this.maximum = 0});
 
   factory _$_Course.fromJson(Map<String, dynamic> json) =>
       _$$_CourseFromJson(json);
@@ -318,10 +332,13 @@ class _$_Course implements _Course {
   @override
   @JsonKey()
   final bool status;
+  @override
+  @JsonKey()
+  final int maximum;
 
   @override
   String toString() {
-    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description, users: $users, createdDate: $createdDate, imageUrl: $imageUrl, status: $status)';
+    return 'Course(id: $id, userId: $userId, title: $title, subject: $subject, location: $location, category: $category, startDate: $startDate, endDate: $endDate, description: $description, users: $users, createdDate: $createdDate, imageUrl: $imageUrl, status: $status, maximum: $maximum)';
   }
 
   @override
@@ -347,7 +364,8 @@ class _$_Course implements _Course {
                 other.createdDate == createdDate) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.maximum, maximum) || other.maximum == maximum));
   }
 
   @JsonKey(ignore: true)
@@ -366,7 +384,8 @@ class _$_Course implements _Course {
       users,
       createdDate,
       imageUrl,
-      status);
+      status,
+      maximum);
 
   @JsonKey(ignore: true)
   @override
@@ -396,7 +415,8 @@ abstract class _Course implements Course {
       final Users? users,
       @TimestampConverter() final DateTime? createdDate,
       final String? imageUrl,
-      final bool status}) = _$_Course;
+      final bool status,
+      final int maximum}) = _$_Course;
 
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
@@ -429,6 +449,8 @@ abstract class _Course implements Course {
   String? get imageUrl;
   @override
   bool get status;
+  @override
+  int get maximum;
   @override
   @JsonKey(ignore: true)
   _$$_CourseCopyWith<_$_Course> get copyWith =>

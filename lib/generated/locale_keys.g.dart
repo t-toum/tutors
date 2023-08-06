@@ -101,5 +101,11 @@ abstract class  LocaleKeys {
   static const kOpen = 'kOpen';
   static const kClosed = 'kClosed';
   static const kMyFavorite = 'kMyFavorite';
+  static const kMaximum = 'kMaximum';
+  static const kMaximumDesc = 'kMaximumDesc';
+  static const kMessage = 'kMessage';
+  static const kUpdate = 'kUpdate';
+  static const kClose = 'kClose';
+  static const kDelete = 'kDelete';
 
 }

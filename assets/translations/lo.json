@@ -95,7 +95,13 @@
     "kConfirm": "Confirm",
     "kRegisterSuccess":"Register success",
     "kRegistered":"Registered",
-    "kOpen":"Open",
+    "kOpen":"Opened",
     "kClosed": "Closed",
-    "kMyFavorite":"My favorites"
+    "kMyFavorite":"My favorites",
+    "kMaximum": "Maximum",
+    "kMaximumDesc":"Maximum of the class,",
+    "kMessage":"Message",
+    "kUpdate":"Update",
+    "kClose":"Close",
+    "kDelete":"Delete"
 }
