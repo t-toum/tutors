@@ -40,7 +40,7 @@ class CouldFireStoreService {
   }
 
   Future<List<Map<String, dynamic>>> getAllData(
-      {required String collection, String? arg, String? field}) async {
+      {required String collection, dynamic arg, String? field}) async {
     try {
       final documentSnapshot = (arg != null && field != null)
           ? await _firebaseFirestore

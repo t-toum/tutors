@@ -34,7 +34,7 @@ class CourseRemoteDatasourceImpl implements CourseRemoteDatasource {
   @override
   Future<List<Course>> getAllCourse() async {
     final dataSnapshot = await _couldFireStoreService.getAllData(
-        collection: FireCollection.courses);
+        collection: FireCollection.courses, field: 'status',arg: true);
     List<Course> listData = [];
     List<Course> listCourse = dataSnapshot.map((doc) {
       return Course.fromJson(doc);

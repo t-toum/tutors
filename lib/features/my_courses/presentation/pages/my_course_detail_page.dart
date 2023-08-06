@@ -36,51 +36,54 @@ class MyCourseDetailPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(course?.title ?? ''),
             actions: [
-              PopupMenuButton<int>(
-                onSelected: (value) async {
-                  switch (value) {
-                    case 1:
-                      final data = await AppNavigator.navigateCallbackData(
-                        RoutePath.addCourseRoute,
-                        params: AddCourseParams(
-                            title: LocaleKeys.kUpdateCourse.tr(),
-                            data: course?.toJsonWithoutConvert ?? {},
-                            isUpdate: true),
-                      );
-                      if (data == true) {
-                        await cubit.getCourseDetail(id: state.course?.id ?? '');
-                        await cubit.getRegisterByCourse(
-                            courseID: state.course?.id ?? '');
-                      }
-                      break;
-                    case 2:
-                      await cubit.updateCourseStatus(
-                          status: false, couresID: state.course?.id ?? '');
-                      break;
-                    case 3:
-                      await cubit.deleteCourse(state.course?.id ?? '');
-                      break;
-                  }
-                },
-                offset: const Offset(0, 45),
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem(
-                      value: 1,
-                      child: Text(LocaleKeys.kUpdate.tr()),
-                    ),
-                    PopupMenuItem(
-                      value: 2,
-                      child: Text(LocaleKeys.kClose.tr()),
-                    ),
-                    PopupMenuItem(
-                      value: 3,
-                        child: Text(
-                      LocaleKeys.kDelete.tr(),
-                    )),
-                  ];
-                },
-              ),
+              if (state.currentUser?.role == UserRole.teacher)
+                PopupMenuButton<int>(
+                  onSelected: (value) async {
+                    switch (value) {
+                      case 1:
+                        final data = await AppNavigator.navigateCallbackData(
+                          RoutePath.addCourseRoute,
+                          params: AddCourseParams(
+                              title: LocaleKeys.kUpdateCourse.tr(),
+                              data: course?.toJsonWithoutConvert ?? {},
+                              isUpdate: true),
+                        );
+                        if (data == true) {
+                          await cubit.getCurrentUser();
+                          await cubit.getCourseDetail(
+                              id: state.course?.id ?? '');
+                          await cubit.getRegisterByCourse(
+                              courseID: state.course?.id ?? '');
+                        }
+                        break;
+                      case 2:
+                        await cubit.updateCourseStatus(
+                            status: false, couresID: state.course?.id ?? '');
+                        break;
+                      case 3:
+                        await cubit.deleteCourse(state.course?.id ?? '');
+                        break;
+                    }
+                  },
+                  offset: const Offset(0, 45),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                        value: 1,
+                        child: Text(LocaleKeys.kUpdate.tr()),
+                      ),
+                      PopupMenuItem(
+                        value: 2,
+                        child: Text(LocaleKeys.kClose.tr()),
+                      ),
+                      PopupMenuItem(
+                          value: 3,
+                          child: Text(
+                            LocaleKeys.kDelete.tr(),
+                          )),
+                    ];
+                  },
+                ),
             ],
           ),
           body: SingleChildScrollView(
@@ -139,29 +142,31 @@ class MyCourseDetailPage extends StatelessWidget {
                       ),
 
                       //User Register
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(LocaleKeys.kRegister.tr()),
-                          Text(
-                              "${state.register?.length ?? 0}/${course?.maximum}"),
-                        ],
-                      ),
-                      const Divider(),
-                      BlocSelector<MyCourseCubit, MyCourseState,
-                          List<Registation>>(
-                        selector: (register) => register.register ?? [],
-                        builder: (context, myRegister) {
-                          return Column(
-                            children: myRegister
-                                .map(
-                                  (item) => RegisterItem(item: item.user),
-                                )
-                                .toList(),
-                          );
-                        },
-                      ),
+                      if (state.currentUser?.role == UserRole.teacher) ...[
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(LocaleKeys.kRegister.tr()),
+                            Text(
+                                "${state.register?.length ?? 0}/${course?.maximum}"),
+                          ],
+                        ),
+                        const Divider(),
+                        BlocSelector<MyCourseCubit, MyCourseState,
+                            List<Registation>>(
+                          selector: (register) => register.register ?? [],
+                          builder: (context, myRegister) {
+                            return Column(
+                              children: myRegister
+                                  .map(
+                                    (item) => RegisterItem(item: item.user),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                        ),
+                      ],
                     ],
                   ),
                 )

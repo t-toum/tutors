@@ -90,16 +90,17 @@ class TabsPage extends StatelessWidget {
                       child: FloatingActionButton(
                         child: const Icon(Icons.add),
                         onPressed: () async {
-                          final data = await AppNavigator.navigateCallbackData(
+                          // final data = 
+                          await AppNavigator.navigateCallbackData(
                             RoutePath.addCourseRoute,
                             params: AddCourseParams(
                               title: LocaleKeys.kAddCourse.tr(),
                               data: {}
                             ) ,
                           );
-                          if (data != null && context.mounted) {
-                            await context.read<CourseCubit>().getAllCourse();
-                          }
+                          // if (data != null && context.mounted) {
+                          //   await context.read<CourseCubit>().getAllCourse();
+                          // }
                         },
                       ),
                     )

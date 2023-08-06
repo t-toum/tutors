@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tutors/core/constants/app_colors.dart';
-import 'package:tutors/core/constants/app_images.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/models/course.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
+
+import 'image_course_wiget.dart';
 
 class MyCourseItem extends StatelessWidget {
   final Function()? onTap;
@@ -24,19 +23,7 @@ class MyCourseItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CachedNetworkImage(
-                imageUrl: course?.imageUrl ?? AppImages.defaultImage,
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    width: 150,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        color: AppColors.greyColor,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover)),
-                  );
-                },
-              ),
+              ImageCourseWidget(url: course?.imageUrl),
               const SizedBox(width: 10),
               Expanded(
                   child: Column(
