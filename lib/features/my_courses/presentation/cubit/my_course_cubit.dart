@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
 import 'package:tutors/core/extensions/either_extension.dart';
 import 'package:tutors/core/models/registation.dart';
+import 'package:tutors/core/navigator/app_navigator.dart';
 import 'package:tutors/core/usecases/no_params.dart';
 import 'package:tutors/features/my_courses/domain/usecases/get_register_by_course_usecase.dart';
 
@@ -11,9 +12,11 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/models/course.dart';
 import '../../../../core/models/users.dart';
 import '../../../home/domain/usecases/get_current_user_usecase.dart';
+import '../../domain/usecases/delete_course_usecase.dart';
 import '../../domain/usecases/get_course_detail_usecase.dart';
 import '../../domain/usecases/get_created_course_usecase.dart';
 import '../../domain/usecases/get_registered_course_usecase.dart';
+import '../../domain/usecases/update_course_status_usecase.dart';
 
 part 'my_course_cubit.freezed.dart';
 part 'my_course_state.dart';
@@ -25,13 +28,16 @@ class MyCourseCubit extends Cubit<MyCourseState> {
   final GetCreatedCourse _getCreatedCourse;
   final GetCourseDetailUsecase _getCourseDetailUsecase;
   final GetRegisterbyCourseUsecase _getRegisterbyCourseUsecase;
-
+  final UpdateCourseStatusUsecase _updateCourseStatusUsecase;
+  final DeleteCourseUsecase _deleteCourseUsecase;
   MyCourseCubit(
     this._getRegisteredCourseUsecase,
     this._getCurrentUserDataUsecase,
     this._getCreatedCourse,
     this._getCourseDetailUsecase,
     this._getRegisterbyCourseUsecase,
+    this._updateCourseStatusUsecase,
+    this._deleteCourseUsecase,
   ) : super(const MyCourseState());
   Future<void> getCurrentUser() async {
     emit(state.copyWith(status: DataStatus.loading));
@@ -119,6 +125,49 @@ class MyCourseCubit extends Cubit<MyCourseState> {
           register: result.getRight(),
         ),
       );
+    }
+  }
+
+  Future<void> updateCourseStatus(
+      {required bool status, required String couresID}) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _updateCourseStatusUsecase(
+        UpdateCourseStatusParms(couresID: couresID, status: status));
+
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: DataStatus.success,
+        ),
+      );
+      AppNavigator.goBackWithData(data: true);
+    }
+  }
+
+  Future<void> deleteCourse(String courseID) async {
+    emit(state.copyWith(status: DataStatus.loading));
+    final result = await _deleteCourseUsecase(courseID);
+    if (result.isLeft()) {
+      emit(
+        state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: DataStatus.success,
+        ),
+      );
+      AppNavigator.goBackWithData(data: true);
     }
   }
 }

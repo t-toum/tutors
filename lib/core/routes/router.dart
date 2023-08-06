@@ -27,6 +27,7 @@ import 'package:tutors/features/sign_up/presentation/pages/sign_up_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
+import '../../features/courses/domain/params/add_course_params.dart';
 import '../../features/courses/presentation/pages/course_filter_page.dart';
 import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
 import '../models/category.dart';
@@ -136,15 +137,16 @@ class AppRoute {
           child: const LanguagePage(),
         );
       case RoutePath.addCourseRoute:
+        final params = settings.arguments as AddCourseParams;
         return _materialRoute(
           providers: [
             BlocProvider<CourseCubit>(
               create: (context) => getIt<CourseCubit>()
-                ..getCurrentUser()
+                ..getCurrentUser(urlImage: params.data["imageUrl"])
                 ..getCategories(),
             ),
           ],
-          child: const AddCoursePage(),
+          child: AddCoursePage(params: params),
         );
 
       case RoutePath.courseDetailRoute:

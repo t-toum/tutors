@@ -103,5 +103,6 @@
     "kMessage":"Message",
     "kUpdate":"Update",
     "kClose":"Close",
-    "kDelete":"Delete"
+    "kDelete":"Delete",
+    "kUpdateCourse":"Update course"
 }

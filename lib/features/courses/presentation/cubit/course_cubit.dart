@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/constants/enumerics.dart';
 import 'package:tutors/core/extensions/date_time_extension.dart';
@@ -17,6 +20,7 @@ import 'package:tutors/core/models/favorite.dart';
 import 'package:tutors/core/models/registation.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/core/navigator/app_navigator.dart';
+import 'package:tutors/features/courses/domain/params/update_course_params.dart';
 
 import '../../../../core/models/category.dart';
 import '../../../../core/usecases/no_params.dart';
@@ -30,6 +34,7 @@ import '../../domain/usecases/add_course_usecase.dart';
 import '../../domain/usecases/get_all_course_usecase.dart';
 import '../../domain/usecases/get_categories_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
+import '../../domain/usecases/update_course_usecase.dart';
 
 part 'course_cubit.freezed.dart';
 part 'course_state.dart';
@@ -47,6 +52,7 @@ class CourseCubit extends Cubit<CourseState> {
   final AddFavoriteUsecase _addFavoriteUsecase;
   final GetFavoriteUsecase _getFavoriteUsecase;
   final RemoveFavoriteUsecase _removeFavoriteUsecase;
+  final UpdateCourseUsecase _updateCourseUsecase;
 
   late TextEditingController searchTextController;
   late GlobalKey<FormBuilderState> generalKey;
@@ -63,6 +69,7 @@ class CourseCubit extends Cubit<CourseState> {
     this._addFavoriteUsecase,
     this._getFavoriteUsecase,
     this._removeFavoriteUsecase,
+    this._updateCourseUsecase,
   ) : super(const CourseState()) {
     searchTextController = TextEditingController();
     generalKey = GlobalKey<FormBuilderState>();
@@ -101,15 +108,29 @@ class CourseCubit extends Cubit<CourseState> {
     searchTextController.clear();
   }
 
-  Future<void> getCurrentUser() async {
+  Future<void> getCurrentUser({String? urlImage}) async {
     emit(state.copyWith(status: DataStatus.loading));
+    File? file;
     final user = await _getCurrentUserDataUsecase(NoParams());
+    if (urlImage != null) {
+      final http.Response responseData = await http.get(Uri.parse(urlImage));
+      final uint8list = responseData.bodyBytes;
+      ByteBuffer buffer = uint8list.buffer;
+      ByteData byteData = ByteData.view(buffer);
+      Directory tempDir = await getTemporaryDirectory();
+      file = await File('${tempDir.path}/img').writeAsBytes(
+          buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    }
     if (user.isLeft()) {
       emit(state.copyWith(
-          status: DataStatus.failure, error: user.getLeft()?.msg));
+        status: DataStatus.failure,
+        error: user.getLeft()?.msg,
+      ));
     } else {
       emit(state.copyWith(
-          status: DataStatus.success, currentUser: user.getRight()));
+          status: DataStatus.success,
+          currentUser: user.getRight(),
+          imageFile: file));
       await getFavorite();
     }
   }
@@ -145,6 +166,32 @@ class CourseCubit extends Cubit<CourseState> {
       }
     } else {
       print("Add course validated");
+    }
+  }
+
+  Future<void> onUpdateCourse({required String courseID}) async {
+    if (generalKey.currentState!.saveAndValidate()) {
+      emit(state.copyWith(status: DataStatus.loading));
+      String? imageUrl;
+      Map<String, dynamic> formData =
+          Map.from(generalKey.currentState?.value ?? {});
+      if (state.imageFile != null) {
+        imageUrl =
+            await uploadImage(file: state.imageFile!, type: ImageType.course);
+      }
+      formData['imageUrl'] = imageUrl;
+      UpdateCourseParams params =
+          UpdateCourseParams(courseID: courseID, data: formData);
+      final result = await _updateCourseUsecase(params);
+      if (result.isLeft()) {
+        emit(state.copyWith(
+          status: DataStatus.failure,
+          error: result.getLeft()?.msg,
+        ));
+      } else {
+        emit(state.copyWith(status: DataStatus.success));
+        AppNavigator.goBackWithData(data: true);
+      }
     }
   }
 

@@ -8,4 +8,6 @@ abstract class MyCourseRepository{
   Future<Either<Failure,List<Course>>>getCreatedCourse();
   Future<Either<Failure,Course>>getCourseDetail({required String id});
   Future<Either<Failure,List<Registation>>>getRegisterByCourse({required String courseID});
+  Future<Either<Failure,void>>updateCourseStatus({required String courseID,required bool status});
+  Future<Either<Failure,void>>deleteCourse(String courseID);
 }

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutors/core/DI/service_locator.dart';
+import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
 import 'package:tutors/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:tutors/features/chat/presentation/pages/chat_list_page.dart';
@@ -19,6 +20,7 @@ import '../../../../core/constants/app_images.dart';
 import '../../../../core/navigator/app_navigator.dart';
 import '../../../../core/routes/route_path.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../../../courses/domain/params/add_course_params.dart';
 import '../widgets/tab_item.dart';
 
 class TabsPage extends StatelessWidget {
@@ -82,14 +84,19 @@ class TabsPage extends StatelessWidget {
                   }
                 },
               ),
-              floatingActionButton: state.currentUser?.role == "teacher"
+              floatingActionButton: state.currentUser?.role == UserRole.teacher
                   ? Visibility(
                       visible: !keyboardIsOpen,
                       child: FloatingActionButton(
                         child: const Icon(Icons.add),
                         onPressed: () async {
                           final data = await AppNavigator.navigateCallbackData(
-                              RoutePath.addCourseRoute);
+                            RoutePath.addCourseRoute,
+                            params: AddCourseParams(
+                              title: LocaleKeys.kAddCourse.tr(),
+                              data: {}
+                            ) ,
+                          );
                           if (data != null && context.mounted) {
                             await context.read<CourseCubit>().getAllCourse();
                           }
@@ -143,7 +150,7 @@ class TabsPage extends StatelessWidget {
                           ),
                           title: LocaleKeys.kChat.tr(),
                         ),
-                        if (state.currentUser?.role == 'teacher') ...[
+                        if (state.currentUser?.role == UserRole.teacher) ...[
                           const SizedBox(
                             width: 20,
                           ),
@@ -168,7 +175,7 @@ class TabsPage extends StatelessWidget {
                           ),
                           title: LocaleKeys.kMyCourse.tr(),
                         ),
-                        if (state.currentUser?.role == "student") ...[
+                        if (state.currentUser?.role == UserRole.student) ...[
                           TabItem(
                             onPressed: () {
                               context.read<HomeCubit>().onChangedTab(4);

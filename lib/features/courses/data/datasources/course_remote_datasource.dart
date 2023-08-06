@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:tutors/core/models/category.dart';
 import 'package:tutors/core/models/registation.dart';
+import 'package:tutors/features/courses/domain/params/update_course_params.dart';
 
 import '../../../../core/constants/firebase_collection.dart';
 import '../../../../core/models/course.dart';
@@ -10,7 +11,8 @@ abstract class CourseRemoteDatasource {
   Future<void> addCourse({required Course data});
   Future<List<Course>> getAllCourse();
   Future<List<Category>> getCategories();
-  Future<void>register({required Registation data});
+  Future<void> register({required Registation data});
+  Future<void> updateCourse(UpdateCourseParams params);
 }
 
 @LazySingleton(as: CourseRemoteDatasource)
@@ -54,13 +56,22 @@ class CourseRemoteDatasourceImpl implements CourseRemoteDatasource {
         listData.map((e) => Category.fromJson(e)).toList();
     return categories;
   }
-  
+
   @override
-  Future<void> register({required Registation data}) async{
+  Future<void> register({required Registation data}) async {
     Map<String, dynamic> mapData = data.toJson();
     return await _couldFireStoreService.setData(
       collection: FireCollection.registation,
       data: mapData,
+    );
+  }
+
+  @override
+  Future<void> updateCourse(UpdateCourseParams params) async {
+    await _couldFireStoreService.updateData(
+      collection: FireCollection.courses,
+      doc: params.courseID,
+      data: params.data,
     );
   }
 }

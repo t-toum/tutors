@@ -16,6 +16,7 @@ class MyCoursePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MyCourseCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,11 +35,15 @@ class MyCoursePage extends StatelessWidget {
                     children: state.listCourse?.map((item) {
                           return MyCourseItem(
                             course: item,
-                            onTap: () {
-                              AppNavigator.navigateTo(
-                                RoutePath.myCourseDetailRoute,
-                                params: item,
-                              );
+                            onTap: () async {
+                              final data =
+                                  await AppNavigator.navigateCallbackData(
+                                      RoutePath.myCourseDetailRoute,
+                                      params: item);
+                              if (data == true) {
+                                await cubit.getCurrentUser();
+                                await cubit.getCreatedCourse();
+                              }
                             },
                           );
                         }).toList() ??

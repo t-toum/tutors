@@ -12,22 +12,21 @@ import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
 import '../../../../core/widgets/custom_button.dart';
+import '../../domain/params/add_course_params.dart';
 import '../widgets/pick_image_widget.dart';
 
 class AddCoursePage extends StatelessWidget {
-  const AddCoursePage({super.key});
+  final AddCourseParams params;
+  const AddCoursePage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CourseCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.kAddCourse.tr()),
+        title: Text(params.title),
       ),
       body: BlocBuilder<CourseCubit, CourseState>(
-        // buildWhen: (previous, current) =>
-        //     previous.currentUser != current.currentUser &&
-        //     previous.categories != current.categories,
         builder: (context, state) {
           if (state.status == DataStatus.loading) {
             return const LoadingWidget();
@@ -35,6 +34,7 @@ class AddCoursePage extends StatelessWidget {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: FormBuilder(
+              initialValue: params.data,
               key: cubit.generalKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,6 @@ class AddCoursePage extends StatelessWidget {
                     ]),
                   ),
                   FormBuilderTextField(
-                    // initialValue: experience?.company,
                     name: 'subject',
                     decoration: InputDecoration(
                       labelText: "${LocaleKeys.kSubject.tr()} *",
@@ -67,7 +66,6 @@ class AddCoursePage extends StatelessWidget {
                     ]),
                   ),
                   FormBuilderTextField(
-                    // initialValue: experience?.company,
                     name: 'location',
                     decoration: InputDecoration(
                       labelText: "${LocaleKeys.kLocation.tr()} *",
@@ -129,7 +127,6 @@ class AddCoursePage extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   FormBuilderTextField(
-                    // initialValue: experience?.company,
                     name: 'maximum',
                     decoration: InputDecoration(
                       labelText: "${LocaleKeys.kMaximum.tr()} *",
@@ -161,20 +158,6 @@ class AddCoursePage extends StatelessWidget {
                       });
                     },
                   ),
-                  // InkWell(
-                  //   onTap: (){
-                  //     cubit.getImage(source: ImageSource.camera);
-                  //   },
-                  //   child: Container(
-                  //     height: 200,
-                  //     width: double.infinity,
-                  //     padding: const EdgeInsets.all(10),
-                  //     color: AppColors.greyColor,
-                  //     child: state.imageFile != null
-                  //         ? Image.file(state.imageFile!)
-                  //         :const Icon(Icons.image),
-                  //   ),
-                  // ),
                   const SizedBox(height: 40),
                   FormBuilderTextField(
                     name: 'description',
@@ -186,7 +169,12 @@ class AddCoursePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  CustomButton(
+                  params.isUpdate?CustomButton(
+                    onPressed: ()async{
+                      await cubit.onUpdateCourse(courseID: params.data['id']);
+                    },
+                    textButton: LocaleKeys.kUpdate.tr(),
+                  ):CustomButton(
                     onPressed: () async {
                       await cubit.onSaveCourse();
                     },

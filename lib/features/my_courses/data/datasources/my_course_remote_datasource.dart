@@ -12,6 +12,9 @@ abstract class MyCourseRemoteDatasource {
   Future<List<Course>> getCreatedCourse();
   Future<Course> getCourseDetail({required String id});
   Future<List<Registation>> getRegisterByCourse({required String courseID});
+  Future<void> updateCourseStatus(
+      {required String courseID, required bool status});
+  Future<void> deleteCourse(String courseID);
 }
 
 @LazySingleton(as: MyCourseRemoteDatasource)
@@ -66,21 +69,37 @@ class MyCourseRemoteDatasourceImpl implements MyCourseRemoteDatasource {
   @override
   Future<List<Registation>> getRegisterByCourse(
       {required String courseID}) async {
-    List<Registation>listData = [];
+    List<Registation> listData = [];
     final List<Map<String, dynamic>> mapData =
         await _couldFireStoreService.getAllData(
       collection: FireCollection.registation,
       field: 'courseId',
       arg: courseID,
     );
-    List<Registation> listRegistation = mapData.map((e) => Registation.fromJson(e)).toList();
+    List<Registation> listRegistation =
+        mapData.map((e) => Registation.fromJson(e)).toList();
 
     //Get user detail
-    for (Registation re in listRegistation ){
-      Users user = await _couldFireStoreService.getUser(docID: re.userId??'');
+    for (Registation re in listRegistation) {
+      Users user = await _couldFireStoreService.getUser(docID: re.userId ?? '');
       re = re.copyWith(user: user);
       listData.add(re);
     }
     return listData;
+  }
+
+  @override
+  Future<void> updateCourseStatus(
+      {required String courseID, required bool status}) async {
+    await _couldFireStoreService.updateData(
+        collection: FireCollection.courses,
+        doc: courseID,
+        data: {'status': status});
+  }
+
+  @override
+  Future<void> deleteCourse(String courseID) async {
+    await _couldFireStoreService.deleteDoc(
+        collection: FireCollection.courses, docID: courseID);
   }
 }

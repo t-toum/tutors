@@ -61,4 +61,30 @@ class MyCourseRepositoryImpl implements MyCourseRepository {
       return Left(CachedFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateCourseStatus(
+      {required String courseID, required bool status}) async {
+    try {
+      final result = await _courseRemoteDatasource.updateCourseStatus(
+          courseID: courseID, status: status);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteCourse(String courseID) async {
+    try {
+      final result = await _courseRemoteDatasource.deleteCourse(courseID);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
 }

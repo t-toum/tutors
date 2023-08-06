@@ -5,6 +5,7 @@ import 'package:tutors/core/error/failures.dart';
 import 'package:tutors/core/models/category.dart';
 import 'package:tutors/core/models/course.dart';
 import 'package:tutors/core/models/registation.dart';
+import 'package:tutors/features/courses/domain/params/update_course_params.dart';
 
 import '../../domain/repositories/course_repository.dart';
 import '../datasources/course_remote_datasource.dart';
@@ -57,9 +58,23 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<Either<Failure, void>> register({required Registation data})async {
+  Future<Either<Failure, void>> register({required Registation data}) async {
     try {
       return Right(await _courseRemoteDatasource.register(data: data));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    } on CacheException catch (e) {
+      return Left(CachedFailure(e.msg));
+    } catch (e) {
+      return Left(CachedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateCourse(
+      {required UpdateCourseParams params}) async {
+    try {
+      return Right(await _courseRemoteDatasource.updateCourse(params));
     } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));
     } on CacheException catch (e) {
