@@ -20,7 +20,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Message {
-  String? get id => throw _privateConstructorUsedError;
+  String? get roomId => throw _privateConstructorUsedError;
   String? get senderID => throw _privateConstructorUsedError;
   String? get receiverID => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -39,7 +39,7 @@ abstract class $MessageCopyWith<$Res> {
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
   $Res call(
-      {String? id,
+      {String? roomId,
       String? senderID,
       String? receiverID,
       @TimestampConverter() DateTime? createdDate,
@@ -62,7 +62,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? roomId = freezed,
     Object? senderID = freezed,
     Object? receiverID = freezed,
     Object? createdDate = freezed,
@@ -70,9 +70,9 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? receiver = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      roomId: freezed == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
               as String?,
       senderID: freezed == senderID
           ? _value.senderID
@@ -118,7 +118,7 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
+      {String? roomId,
       String? senderID,
       String? receiverID,
       @TimestampConverter() DateTime? createdDate,
@@ -139,7 +139,7 @@ class __$$_MessageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? roomId = freezed,
     Object? senderID = freezed,
     Object? receiverID = freezed,
     Object? createdDate = freezed,
@@ -147,9 +147,9 @@ class __$$_MessageCopyWithImpl<$Res>
     Object? receiver = freezed,
   }) {
     return _then(_$_Message(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      roomId: freezed == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
               as String?,
       senderID: freezed == senderID
           ? _value.senderID
@@ -179,7 +179,7 @@ class __$$_MessageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Message implements _Message {
   const _$_Message(
-      {this.id,
+      {this.roomId,
       this.senderID,
       this.receiverID,
       @TimestampConverter() this.createdDate,
@@ -190,7 +190,7 @@ class _$_Message implements _Message {
       _$$_MessageFromJson(json);
 
   @override
-  final String? id;
+  final String? roomId;
   @override
   final String? senderID;
   @override
@@ -205,7 +205,7 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(id: $id, senderID: $senderID, receiverID: $receiverID, createdDate: $createdDate, message: $message, receiver: $receiver)';
+    return 'Message(roomId: $roomId, senderID: $senderID, receiverID: $receiverID, createdDate: $createdDate, message: $message, receiver: $receiver)';
   }
 
   @override
@@ -213,7 +213,7 @@ class _$_Message implements _Message {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Message &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
             (identical(other.senderID, senderID) ||
                 other.senderID == senderID) &&
             (identical(other.receiverID, receiverID) ||
@@ -227,8 +227,8 @@ class _$_Message implements _Message {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, senderID, receiverID, createdDate, message, receiver);
+  int get hashCode => Object.hash(runtimeType, roomId, senderID, receiverID,
+      createdDate, message, receiver);
 
   @JsonKey(ignore: true)
   @override
@@ -246,7 +246,7 @@ class _$_Message implements _Message {
 
 abstract class _Message implements Message {
   const factory _Message(
-      {final String? id,
+      {final String? roomId,
       final String? senderID,
       final String? receiverID,
       @TimestampConverter() final DateTime? createdDate,
@@ -256,7 +256,7 @@ abstract class _Message implements Message {
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
   @override
-  String? get id;
+  String? get roomId;
   @override
   String? get senderID;
   @override

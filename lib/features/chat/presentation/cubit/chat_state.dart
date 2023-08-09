@@ -6,11 +6,12 @@ class ChatState with _$ChatState {
     @Default(DataStatus.initial)
     DataStatus status,
     String? error,
-    List<Chat>?chatList,
+    List<ChatRoom>?chatList,
     Users? currentUser,
     Users? reveiver,
     List<Message>? lisMessage,
     String? senderID,
     String? receiverID,
+    String? currentRoomId,
   }) = _Initial;
 }

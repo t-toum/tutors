@@ -37,6 +37,7 @@ class ChatPage extends StatelessWidget {
                             senderID: state.currentUser?.id ?? '',
                             receiverID: chat.receiver?.id ?? '',
                             reciever: chat.receiver,
+                            roomId: chat.id
                           ),
                         );
                       },

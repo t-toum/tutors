@@ -8,6 +8,8 @@ import 'package:tutors/core/widgets/loading_widget.dart';
 import 'package:tutors/features/chat/presentation/cubit/chat_cubit.dart';
 import 'package:tutors/generated/locale_keys.g.dart';
 
+import '../widgets/chat_room.dart';
+
 class ChatRoomPage extends StatelessWidget {
   final Users? reciever;
   const ChatRoomPage({super.key, this.reciever});
@@ -31,7 +33,10 @@ class ChatRoomPage extends StatelessWidget {
                             ScrollViewKeyboardDismissBehavior.onDrag,
                         child: Column(
                           children: state.lisMessage?.map((message) {
-                                return Text(message.message ?? '');
+                                return ChatRoom(
+                                  isSelf: message.senderID == state.senderID,
+                                  message: message,
+                                );
                               }).toList() ??
                               [],
                         ),

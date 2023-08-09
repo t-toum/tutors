@@ -200,11 +200,12 @@ class AppRoute {
           providers: [
             BlocProvider<ChatCubit>(
               create: (context) => getIt<ChatCubit>()
-                ..setReciever(params.reciever)
-                ..getMessage(
-                  senderID: params.senderID,
-                  receiverID: params.receiverID,
-                ),
+                ..createChatRoom(
+                  senderId: params.senderID,
+                  receiverId: params.receiverID,
+                  roomId: params.roomId,
+                )
+                ..setReciever(params.reciever),
             ),
           ],
           child: ChatRoomPage(

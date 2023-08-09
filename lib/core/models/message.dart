@@ -8,7 +8,7 @@ part 'message.g.dart';
 @freezed
 class Message with _$Message{
   const factory Message({
-    final String? id,
+    final String? roomId,
     final String? senderID,
     final String? receiverID,
     @TimestampConverter()

@@ -18,12 +18,13 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChatState {
   DataStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
-  List<Chat>? get chatList => throw _privateConstructorUsedError;
+  List<ChatRoom>? get chatList => throw _privateConstructorUsedError;
   Users? get currentUser => throw _privateConstructorUsedError;
   Users? get reveiver => throw _privateConstructorUsedError;
   List<Message>? get lisMessage => throw _privateConstructorUsedError;
   String? get senderID => throw _privateConstructorUsedError;
   String? get receiverID => throw _privateConstructorUsedError;
+  String? get currentRoomId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -38,12 +39,13 @@ abstract class $ChatStateCopyWith<$Res> {
   $Res call(
       {DataStatus status,
       String? error,
-      List<Chat>? chatList,
+      List<ChatRoom>? chatList,
       Users? currentUser,
       Users? reveiver,
       List<Message>? lisMessage,
       String? senderID,
-      String? receiverID});
+      String? receiverID,
+      String? currentRoomId});
 
   $UsersCopyWith<$Res>? get currentUser;
   $UsersCopyWith<$Res>? get reveiver;
@@ -70,6 +72,7 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
     Object? lisMessage = freezed,
     Object? senderID = freezed,
     Object? receiverID = freezed,
+    Object? currentRoomId = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -83,7 +86,7 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
       chatList: freezed == chatList
           ? _value.chatList
           : chatList // ignore: cast_nullable_to_non_nullable
-              as List<Chat>?,
+              as List<ChatRoom>?,
       currentUser: freezed == currentUser
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
@@ -103,6 +106,10 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
       receiverID: freezed == receiverID
           ? _value.receiverID
           : receiverID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentRoomId: freezed == currentRoomId
+          ? _value.currentRoomId
+          : currentRoomId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -142,12 +149,13 @@ abstract class _$$_InitialCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
   $Res call(
       {DataStatus status,
       String? error,
-      List<Chat>? chatList,
+      List<ChatRoom>? chatList,
       Users? currentUser,
       Users? reveiver,
       List<Message>? lisMessage,
       String? senderID,
-      String? receiverID});
+      String? receiverID,
+      String? currentRoomId});
 
   @override
   $UsersCopyWith<$Res>? get currentUser;
@@ -173,6 +181,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? lisMessage = freezed,
     Object? senderID = freezed,
     Object? receiverID = freezed,
+    Object? currentRoomId = freezed,
   }) {
     return _then(_$_Initial(
       status: null == status
@@ -186,7 +195,7 @@ class __$$_InitialCopyWithImpl<$Res>
       chatList: freezed == chatList
           ? _value._chatList
           : chatList // ignore: cast_nullable_to_non_nullable
-              as List<Chat>?,
+              as List<ChatRoom>?,
       currentUser: freezed == currentUser
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
@@ -207,6 +216,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.receiverID
           : receiverID // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentRoomId: freezed == currentRoomId
+          ? _value.currentRoomId
+          : currentRoomId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -217,12 +230,13 @@ class _$_Initial implements _Initial {
   const _$_Initial(
       {this.status = DataStatus.initial,
       this.error,
-      final List<Chat>? chatList,
+      final List<ChatRoom>? chatList,
       this.currentUser,
       this.reveiver,
       final List<Message>? lisMessage,
       this.senderID,
-      this.receiverID})
+      this.receiverID,
+      this.currentRoomId})
       : _chatList = chatList,
         _lisMessage = lisMessage;
 
@@ -231,9 +245,9 @@ class _$_Initial implements _Initial {
   final DataStatus status;
   @override
   final String? error;
-  final List<Chat>? _chatList;
+  final List<ChatRoom>? _chatList;
   @override
-  List<Chat>? get chatList {
+  List<ChatRoom>? get chatList {
     final value = _chatList;
     if (value == null) return null;
     if (_chatList is EqualUnmodifiableListView) return _chatList;
@@ -259,10 +273,12 @@ class _$_Initial implements _Initial {
   final String? senderID;
   @override
   final String? receiverID;
+  @override
+  final String? currentRoomId;
 
   @override
   String toString() {
-    return 'ChatState(status: $status, error: $error, chatList: $chatList, currentUser: $currentUser, reveiver: $reveiver, lisMessage: $lisMessage, senderID: $senderID, receiverID: $receiverID)';
+    return 'ChatState(status: $status, error: $error, chatList: $chatList, currentUser: $currentUser, reveiver: $reveiver, lisMessage: $lisMessage, senderID: $senderID, receiverID: $receiverID, currentRoomId: $currentRoomId)';
   }
 
   @override
@@ -282,7 +298,9 @@ class _$_Initial implements _Initial {
             (identical(other.senderID, senderID) ||
                 other.senderID == senderID) &&
             (identical(other.receiverID, receiverID) ||
-                other.receiverID == receiverID));
+                other.receiverID == receiverID) &&
+            (identical(other.currentRoomId, currentRoomId) ||
+                other.currentRoomId == currentRoomId));
   }
 
   @override
@@ -295,7 +313,8 @@ class _$_Initial implements _Initial {
       reveiver,
       const DeepCollectionEquality().hash(_lisMessage),
       senderID,
-      receiverID);
+      receiverID,
+      currentRoomId);
 
   @JsonKey(ignore: true)
   @override
@@ -308,19 +327,20 @@ abstract class _Initial implements ChatState {
   const factory _Initial(
       {final DataStatus status,
       final String? error,
-      final List<Chat>? chatList,
+      final List<ChatRoom>? chatList,
       final Users? currentUser,
       final Users? reveiver,
       final List<Message>? lisMessage,
       final String? senderID,
-      final String? receiverID}) = _$_Initial;
+      final String? receiverID,
+      final String? currentRoomId}) = _$_Initial;
 
   @override
   DataStatus get status;
   @override
   String? get error;
   @override
-  List<Chat>? get chatList;
+  List<ChatRoom>? get chatList;
   @override
   Users? get currentUser;
   @override
@@ -331,6 +351,8 @@ abstract class _Initial implements ChatState {
   String? get senderID;
   @override
   String? get receiverID;
+  @override
+  String? get currentRoomId;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

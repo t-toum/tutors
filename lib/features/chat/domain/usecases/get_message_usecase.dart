@@ -8,26 +8,15 @@ import '../repositories/chat_repository.dart';
 
 @lazySingleton
 class GetMessageUsecase
-    implements SynchronousUseCase<Stream<List<Message>>, GetMessageParams> {
+    implements SynchronousUseCase<Stream<List<Message>>, String> {
   final ChatRepository _repository;
 
   GetMessageUsecase(this._repository);
 
   @override
-  Stream<List<Message>> call(GetMessageParams params) {
+  Stream<List<Message>> call(String params) {
     return _repository.getMessage(
-      senderID: params.senderID,
-      receiverID: params.receiverID,
+      roomId: params
     );
   }
-}
-
-class GetMessageParams {
-  final String senderID;
-  final String receiverID;
-
-  GetMessageParams({
-    required this.senderID,
-    required this.receiverID,
-  });
 }

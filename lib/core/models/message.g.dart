@@ -7,7 +7,7 @@ part of 'message.dart';
 // **************************************************************************
 
 _$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
-      id: json['id'] as String?,
+      roomId: json['roomId'] as String?,
       senderID: json['senderID'] as String?,
       receiverID: json['receiverID'] as String?,
       createdDate: const TimestampConverter()
@@ -20,7 +20,7 @@ _$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
 
 Map<String, dynamic> _$$_MessageToJson(_$_Message instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'roomId': instance.roomId,
       'senderID': instance.senderID,
       'receiverID': instance.receiverID,
       'createdDate': const TimestampConverter().toJson(instance.createdDate),

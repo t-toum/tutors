@@ -9,7 +9,7 @@ import 'package:tutors/core/models/message.dart';
 import 'package:tutors/core/models/users.dart';
 import 'package:tutors/features/chat/domain/repositories/chat_repository.dart';
 
-import '../../../../core/models/chats.dart';
+import '../../../../core/models/chat_room.dart';
 import '../datasources/chat_remote_datasource.dart';
 
 @LazySingleton(as: ChatRepository)
@@ -19,7 +19,7 @@ class ChatRepositoryImpl implements ChatRepository {
   ChatRepositoryImpl(this._datasource);
 
   @override
-  Stream<List<Chat>> getChatList({required String senderID}) {
+  Stream<List<ChatRoom>> getChatList({required String senderID}) {
     return _datasource.getChatList(senderID);
   }
 
@@ -29,19 +29,31 @@ class ChatRepositoryImpl implements ChatRepository {
       return Right(await _datasource.getUserInfo(userId));
     } on FirebaseException catch (e) {
       return Left(ServerFailure(e.message));
-    } on ServerException catch(e){
+    } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));
     }
   }
-  
+
   @override
-  Stream<List<Message>> getMessage({required String senderID, required String receiverID}) {
-    return _datasource.getMessage(senderID, receiverID);
+  Stream<List<Message>> getMessage(
+      {required String roomId}) {
+    return _datasource.getMessage(roomId);
   }
+
   @override
   Future<Either<Failure, void>> sendMessage({required Message chatData}) async {
     try {
       return Right(await _datasource.sendMessage(chatData: chatData));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.msg));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> createChatRoom(
+      {required ChatRoom chatRoom}) async {
+    try {
+      return Right(await _datasource.createChatRoom(chatRoom: chatRoom));
     } on ServerException catch (e) {
       return Left(ServerFailure(e.msg));
     }
