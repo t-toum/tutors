@@ -9,7 +9,8 @@ import 'package:tutors/features/account/presentation/pages/educations/education_
 import 'package:tutors/features/account/presentation/pages/experiences/edit_experience_page.dart';
 import 'package:tutors/features/account/presentation/pages/skills/skills_page.dart';
 import 'package:tutors/features/chat/presentation/cubit/chat_cubit.dart';
-import 'package:tutors/features/chat/presentation/pages/chat_list_page.dart';
+import 'package:tutors/features/chat/presentation/pages/chat_page.dart';
+import 'package:tutors/features/chat/presentation/pages/chat_room_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/add_course_page.dart';
 import 'package:tutors/features/courses/presentation/pages/course_detail_page.dart';
@@ -27,6 +28,7 @@ import 'package:tutors/features/sign_up/presentation/pages/sign_up_page.dart';
 
 import '../../features/app/presentation/cubit/app_cubit.dart';
 import '../../features/app/presentation/pages/app_page.dart';
+import '../../features/chat/domain/params/chat_room_params.dart';
 import '../../features/courses/domain/params/add_course_params.dart';
 import '../../features/courses/presentation/pages/course_filter_page.dart';
 import '../../features/sign_in/presentation/cubit/sign_in_cubit.dart';
@@ -177,19 +179,37 @@ class AppRoute {
           providers: [
             BlocProvider<ChatCubit>(create: (context) => getIt<ChatCubit>()),
           ],
-          child: const ChatListPage(),
+          child: const ChatPage(),
         );
       case RoutePath.myCourseDetailRoute:
         final params = settings.arguments as Course;
         return _materialRoute(
           providers: [
             BlocProvider<MyCourseCubit>(
-              create: (context) => getIt<MyCourseCubit>()..getCurrentUser()
+              create: (context) => getIt<MyCourseCubit>()
+                ..getCurrentUser()
                 ..getCourseDetail(id: params.id ?? '')
                 ..getRegisterByCourse(courseID: params.id ?? ''),
             ),
           ],
           child: const MyCourseDetailPage(),
+        );
+      case RoutePath.chatRoomRoute:
+        final params = settings.arguments as ChatRoomParams;
+        return _materialRoute(
+          providers: [
+            BlocProvider<ChatCubit>(
+              create: (context) => getIt<ChatCubit>()
+                ..setReciever(params.reciever)
+                ..getMessage(
+                  senderID: params.senderID,
+                  receiverID: params.receiverID,
+                ),
+            ),
+          ],
+          child: ChatRoomPage(
+            reciever: params.reciever,
+          ),
         );
       default:
         return MaterialPageRoute(

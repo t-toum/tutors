@@ -108,5 +108,6 @@ abstract class  LocaleKeys {
   static const kClose = 'kClose';
   static const kDelete = 'kDelete';
   static const kUpdateCourse = 'kUpdateCourse';
+  static const kSend = 'kSend';
 
 }

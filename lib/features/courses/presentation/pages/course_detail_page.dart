@@ -15,6 +15,7 @@ import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 
 import '../../../../core/params/account_param.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../../../chat/domain/params/chat_room_params.dart';
 import '../widgets/course_field.dart';
 import '../widgets/favorite_widget.dart';
 import '../widgets/image_widget.dart';
@@ -145,6 +146,16 @@ class CourseDetailPage extends StatelessWidget {
                           AppNavigator.navigateTo(RoutePath.accountRoute,
                               params: AccountParams(
                                   isSelf: false, userId: course.userId ?? ''));
+                        },
+                        onMessage: (){
+                          AppNavigator.navigateTo(
+                          RoutePath.chatRoomRoute,
+                          params: ChatRoomParams(
+                            senderID: state.currentUser?.id ?? '',
+                            receiverID: course.userId??'',
+                            reciever: course.users,
+                          ),
+                        );
                         },
                       ),
                       const SizedBox(height: 20),

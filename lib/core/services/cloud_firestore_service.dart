@@ -227,4 +227,8 @@ class CouldFireStoreService {
       throw ServerException(e.message);
     }
   }
+
+  Stream<QuerySnapshot<Map<String,dynamic>>>getSteamData({required String collection}){
+    return _firebaseFirestore.collection(collection).get().asStream();
+  }
 }

@@ -327,6 +327,7 @@ class CourseCubit extends Cubit<CourseState> {
       emit(state.copyWith(
           status: DataStatus.failure, error: result.getLeft()?.msg));
     } else {
+      if(isClosed)return;
       emit(state.copyWith(
           status: DataStatus.success, listFavorite: result.getRight()));
     }

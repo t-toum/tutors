@@ -15,5 +15,6 @@ class RoutePath {
   static const String registerRoute = "/register";
   static const String chatListRoute = "/chatList";
   static const String myCourseDetailRoute = "/myCourseDetail";
+  static const String chatRoomRoute = "/chatRouut";
 
 }

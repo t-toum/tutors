@@ -5,7 +5,7 @@ import 'package:tutors/core/DI/service_locator.dart';
 import 'package:tutors/core/constants/app_constants.dart';
 import 'package:tutors/core/widgets/not_found_page.dart';
 import 'package:tutors/features/chat/presentation/cubit/chat_cubit.dart';
-import 'package:tutors/features/chat/presentation/pages/chat_list_page.dart';
+import 'package:tutors/features/chat/presentation/pages/chat_page.dart';
 import 'package:tutors/features/courses/presentation/cubit/course_cubit.dart';
 import 'package:tutors/features/courses/presentation/pages/courses_page.dart';
 import 'package:tutors/features/favorites/presentation/cubit/favorite_cubit.dart';
@@ -46,8 +46,9 @@ class TabsPage extends StatelessWidget {
                       );
                     case 1:
                       return BlocProvider<ChatCubit>(
-                        create: (context) => getIt<ChatCubit>(),
-                        child: const ChatListPage(),
+                        create: (context) => getIt<ChatCubit>()..setCurrentUser(state.currentUser)
+                          ..getChatList(state.currentUser?.id ?? ''),
+                        child: const ChatPage(),
                       );
                     case 3:
                       return MultiBlocProvider(
@@ -90,13 +91,11 @@ class TabsPage extends StatelessWidget {
                       child: FloatingActionButton(
                         child: const Icon(Icons.add),
                         onPressed: () async {
-                          // final data = 
+                          // final data =
                           await AppNavigator.navigateCallbackData(
                             RoutePath.addCourseRoute,
                             params: AddCourseParams(
-                              title: LocaleKeys.kAddCourse.tr(),
-                              data: {}
-                            ) ,
+                                title: LocaleKeys.kAddCourse.tr(), data: {}),
                           );
                           // if (data != null && context.mounted) {
                           //   await context.read<CourseCubit>().getAllCourse();

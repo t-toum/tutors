@@ -9,7 +9,13 @@ import '../../../../core/models/users.dart';
 class InstructorWidget extends StatelessWidget {
   final Users? user;
   final Function()? onTap;
-  const InstructorWidget({super.key, this.user, this.onTap});
+  final Function()? onMessage;
+  const InstructorWidget({
+    super.key,
+    this.user,
+    this.onTap,
+    this.onMessage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +35,13 @@ class InstructorWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(LocaleKeys.kTeacher.tr()),
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   InkWell(
                     onTap: onTap,
                     child: CachedNetworkImage(
-                      imageUrl: user?.profileUrl ?? '',
+                      imageUrl: user?.profileUrl ?? AppImages.defaultImage,
                       imageBuilder: (context, imageProvider) {
                         return Container(
                           width: 45,
@@ -48,21 +56,25 @@ class InstructorWidget extends StatelessWidget {
                       },
                     ),
                   )
+
                 ],
               ),
             ),
             const SizedBox(
               width: 20,
             ),
-            Container(
-            width: 25,
-            height: 25,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(AppImages.bubbleActive),
+            InkWell(
+              onTap: onMessage,
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppImages.bubbleActive),
+                  ),
+                ),
               ),
-            ),
-          )
+            )
           ],
         ),
         const SizedBox(

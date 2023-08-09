@@ -4,6 +4,8 @@ class FireCollection{
   static const String categories = "categories";
    static const String registation = "registation";
    static const String favorites = "favorites";
+   static const String chat = "chats";
+   static const String message = "messages";
 }
 
 class SubCollection{
