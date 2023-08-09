@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -30,6 +31,8 @@ class ChatCubit extends Cubit<ChatState> {
   final CreateChatRoomUsecase _createChatRoomUsecase;
 
   late TextEditingController chatTextController;
+  late ScrollController scrollController;
+  late FocusNode focusNode;
   ChatCubit(
     this._getChatListUsecase,
     this._getUserInfoUsecase,
@@ -38,6 +41,17 @@ class ChatCubit extends Cubit<ChatState> {
     this._createChatRoomUsecase,
   ) : super(const ChatState()) {
     chatTextController = TextEditingController();
+    scrollController = ScrollController();
+    focusNode = FocusNode();
+
+    focusNode.addListener(() async {
+      if (focusNode.hasFocus) {
+        await Future.delayed(const Duration(seconds: 1), () {
+          scrollController.animateTo(scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300), curve: Curves.ease);
+        });
+      }
+    });
   }
 
   void setCurrentUser(Users? users) {
@@ -144,10 +158,22 @@ class ChatCubit extends Cubit<ChatState> {
       }
     }
   }
+  void scrollToEnd() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 
   @override
   Future<void> close() {
     chatTextController.dispose();
+    scrollController.dispose();
     return super.close();
   }
 }

@@ -19,6 +19,7 @@ class ChatRoomPage extends StatelessWidget {
     final cubit = context.read<ChatCubit>();
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
+        cubit.scrollToEnd();
         return Scaffold(
           appBar: AppBar(
             title: Text("${reciever?.firstName} ${reciever?.lastName}"),
@@ -29,6 +30,7 @@ class ChatRoomPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
+                        controller: cubit.scrollController,
                         keyboardDismissBehavior:
                             ScrollViewKeyboardDismissBehavior.onDrag,
                         child: Column(
@@ -50,6 +52,7 @@ class ChatRoomPage extends StatelessWidget {
                         children: [
                           Expanded(
                               child: TextField(
+                                focusNode: cubit.focusNode,
                             controller: cubit.chatTextController,
                             decoration: InputDecoration(
                               hintText: LocaleKeys.kMessage.tr(),

@@ -24,7 +24,7 @@ class ChatPage extends StatelessWidget {
         builder: (context, state) {
           if (state.status == DataStatus.loading) {
             return const LoadingWidget();
-          }
+          } 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
